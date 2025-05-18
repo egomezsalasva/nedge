@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import Home from './page';
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import Home from "./page";
 
-describe('Home Page', () => {
-  it('renders without crashing', () => {
+describe("Home Page", () => {
+  it("renders without crashing", () => {
     render(<Home />);
-    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByRole("main")).toBeInTheDocument();
   });
 });
