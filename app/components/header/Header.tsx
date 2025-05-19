@@ -18,6 +18,9 @@ const Header = () => {
               <Link href="/styles">STYLES</Link>
             </li>
             <li>
+              <Link href="/brands">BRANDS</Link>
+            </li>
+            <li>
               <Link href="/events">EVENTS</Link>
             </li>
             <li className={styles.supportBtn}>
