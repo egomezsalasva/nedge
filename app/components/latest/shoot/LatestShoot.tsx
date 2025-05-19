@@ -19,12 +19,7 @@ const LatestShoot: FC<LatestShootProps> = ({ latestShootData }) => {
       <div className={styles.innerContainer}>
         <div className={styles.imageContainer}>
           <div className={styles.shadeGradient} data-testid="shade-gradient" />
-          <Image
-            src={imgs[activeImgIndex]}
-            alt="Latest Shoot"
-            fill
-            style={{ objectFit: "cover" }}
-          />
+          <Image src={imgs[activeImgIndex]} alt="Latest Shoot" fill />
         </div>
         <Details
           imgs={imgs}

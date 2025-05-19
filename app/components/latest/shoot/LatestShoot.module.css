@@ -19,6 +19,11 @@
   height: 100%;
 }
 
+.imageContainer img {
+  object-fit: cover;
+  object-position: center calc(0% - 300px);
+}
+
 .shadeGradient {
   position: absolute;
   width: 100%;
