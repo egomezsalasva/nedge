@@ -1,11 +1,13 @@
 import { LatestShoot, LatestList } from "./components/latest";
+import { shoots } from "./@data";
 import styles from "./page.module.css";
 
 export default function Home() {
+  const latestShoot = shoots[0];
   return (
-    <div className={styles.page}>
+    <div>
       <main className={styles.main}>
-        <LatestShoot />
+        <LatestShoot latestShootData={latestShoot} />
         <LatestList />
       </main>
     </div>
