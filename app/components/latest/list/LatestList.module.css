@@ -1,0 +1,19 @@
+.container {
+  padding: 0 1.5rem 1.364rem;
+}
+
+.container h2 {
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.cardsContainer {
+  --margin: -0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--margin));
+  margin-right: calc(var(--margin));
+}
