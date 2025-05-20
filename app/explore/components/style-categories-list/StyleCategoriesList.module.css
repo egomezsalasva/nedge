@@ -1,0 +1,89 @@
+.stylesList {
+  padding: 0 2rem;
+  list-style: none;
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.stylesList > li {
+  margin-bottom: 1rem;
+}
+
+.styleTitle {
+  display: flex;
+  align-items: center;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.styleTitle label {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-top-left-radius: 0.125rem;
+  border-bottom-left-radius: 0.125rem;
+  cursor: pointer;
+}
+
+.styleTitle button {
+  --size: 37.8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--size);
+  width: var(--size);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 0;
+  background: transparent;
+  cursor: pointer;
+  border-top-right-radius: 0.125rem;
+  border-bottom-right-radius: 0.125rem;
+}
+
+.subStylesList {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.5rem 0;
+  padding-left: 2.25rem;
+  max-width: 40rem;
+  list-style: none;
+}
+
+.subStylesList::before,
+.subStylesList::after {
+  content: "";
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.subStylesList::before {
+  top: 0;
+  left: 16px;
+  height: 24px;
+  width: 1px;
+}
+
+.subStylesList::after {
+  left: 16px;
+  height: 1px;
+  top: 24px;
+  width: 18px;
+}
+
+.subStyle {
+  display: flex;
+  align-items: center;
+  margin: 0.25rem;
+}
+
+.subStyle label {
+  font-size: 0.875rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.125rem;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.25rem 0.375rem;
+}

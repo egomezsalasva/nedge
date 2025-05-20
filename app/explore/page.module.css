@@ -1,8 +1,10 @@
 .main {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  margin-top: 50px;
+}
+
+.main h1 {
+  padding: 2rem;
+  margin-top: 1.5rem;
 }
 
 /* Enable hover only on non-touch devices */

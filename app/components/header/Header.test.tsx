@@ -19,7 +19,7 @@ describe("Header", () => {
     expect(links[0]).toHaveTextContent("LATEST");
     expect(links[0]).toHaveAttribute("href", "/");
     expect(links[1]).toHaveTextContent("STYLES");
-    expect(links[1]).toHaveAttribute("href", "/styles");
+    expect(links[1]).toHaveAttribute("href", "/explore");
     expect(links[2]).toHaveTextContent("BRANDS");
     expect(links[2]).toHaveAttribute("href", "/brands");
     expect(links[3]).toHaveTextContent("EVENTS");
