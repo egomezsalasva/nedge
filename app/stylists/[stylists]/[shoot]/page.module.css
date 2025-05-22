@@ -1,0 +1,11 @@
+.main {
+  margin-top: 50px;
+}
+
+.infoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8rem;
+  gap: 4rem;
+}

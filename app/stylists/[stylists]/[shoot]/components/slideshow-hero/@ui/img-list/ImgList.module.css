@@ -1,0 +1,80 @@
+.container {
+  width: 380px;
+  height: 100%;
+  border-left: 1px solid #fff;
+  padding: 2rem 1.5rem;
+  overflow-y: scroll;
+}
+
+.imgContainer,
+.imgContainer_active {
+  width: 100%;
+  height: 100%;
+  max-height: 18rem;
+  position: relative;
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+  border-radius: 0.125rem;
+  cursor: pointer;
+}
+
+.imgContainer:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.imgContainer_active {
+  border: 0.375rem solid #000;
+  box-shadow: 0 0 0 2px #fff;
+  opacity: 1;
+}
+
+.imgContainer img,
+.imgContainer_active img {
+  object-fit: cover;
+}
+
+.box {
+  background-color: #fff;
+  color: #000;
+  padding: 1rem;
+  border-radius: 0.125rem;
+  margin-bottom: 1.5rem;
+}
+
+.boxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  padding: 0.5rem;
+}
+
+.boxHeader span {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.boxTitle {
+  padding: 0;
+  font-size: 1.325rem;
+  font-weight: 600;
+  line-height: 1.1;
+  text-transform: uppercase;
+  margin: 1.25rem 0;
+}
+
+.scrollToDetailsBtn {
+  border: 2px solid #000;
+  padding: 0.75rem 1rem;
+  border-radius: 0.125rem;
+  /* width: fit-content; */
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #000;
+  width: 100%;
+}

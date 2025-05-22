@@ -1,4 +1,4 @@
-export type ShhotType = {
+export type ShootType = {
   link?: string;
   imgs: string[];
   details: {
@@ -12,18 +12,19 @@ export type ShhotType = {
   };
   team?: {
     name: string;
-    description: string;
+    role: string;
   }[];
   items?: {
+    id: number;
     type: string;
     name: string;
     brand: string;
-    affiliateLink: string;
-    linkToItem: string;
+    instagramLink?: string;
+    affiliateLink?: string;
   }[];
 };
 
-export const shoots: ShhotType[] = [
+export const shoots: ShootType[] = [
   {
     link: "/gary-gray/militant-religion",
     imgs: [
@@ -37,39 +38,73 @@ export const shoots: ShhotType[] = [
       date: "19/05/25",
       title: "MILITANT RELIGION",
       stylist: "GARY GRAY",
-      stylistDescription: "",
+      stylistDescription:
+        "Gary Gray is a boundary-pushing stylist known for merging contrasting cultural aesthetics into cohesive visual narratives. His work often explores themes of identity, resistance, and subcultural fusion.",
       tags: ["Military", "Urban"],
       description:
-        "Showcasing military-inspired outfits in the city, this shoot reflects the how the pressing issues of the world are affecting city life.",
+        "Blending utilitarian grit with streetwise energy, this shoot captures a defiant silhouette roaming the cityscape like a prophet of style. Oversized camo cargo pants and rugged boots meet mesh layers and bold graphics, fusing military discipline with urban rebellion. The look is both confrontational and spiritual, grounded in the streets but reaching for something higher.",
     },
     team: [
       {
+        role: "Stylist",
         name: "GARY GRAY",
-        description: "Stylist",
       },
       {
-        name: "SUSAN LEE",
-        description: "MUA",
+        role: "Model",
+        name: "Zion Vega",
       },
       {
-        name: "NATHAN HALL",
-        description: "Photographer",
+        role: "MUA",
+        name: "Juno Kai",
+      },
+      {
+        role: "Photographer",
+        name: "Cass Idris",
+      },
+      {
+        role: "Post-Prod Editor",
+        name: "Ty Renshaw",
       },
     ],
     items: [
       {
+        id: 1,
         type: "Hat",
-        name: "Grog Beanie",
-        brand: "Hellstar",
-        affiliateLink: "https://hellstar.com/products/grog-beanie",
-        linkToItem: "/gary-gray/militant-religion#hat",
+        name: "Snug Logo Beanie",
+        brand: "Ovahtres",
+        affiliateLink: "https://ovahtres.de/products/snug-logo-beanie",
       },
       {
-        type: "Shirt",
-        name: "Black T-Shirt",
-        brand: "Hellstar",
-        affiliateLink: "https://hellstar.com/products/black-t-shirt",
-        linkToItem: "/gary-gray/militant-religion#shirt",
+        id: 2,
+        type: "T-shirt",
+        name: "Summa Ain't Ova - White/Red",
+        brand: "YG Studios",
+        instagramLink: "https://www.instagram.com/y.g.studios/",
+        affiliateLink: "https://www.yg4eva.com/password",
+      },
+      {
+        id: 3,
+        type: "Bag",
+        name: "Zaino Nathan - Camouflage",
+        brand: "Campomaggi",
+        affiliateLink:
+          "https://www.campomaggi.com/cm_it/nathan-c037550nd-x2537-f1796.html",
+      },
+      {
+        id: 4,
+        type: "Pants",
+        name: "New Hunter Cargo Pants",
+        brand: "Mason's",
+        affiliateLink:
+          "https://es.masons.it/en/collections/woman-winter-cargo-pants/products/pants-cargo-women-green-new-winter",
+      },
+      {
+        id: 5,
+        type: "Boots",
+        name: "Classic 6-Inch Waterproof Boot",
+        brand: "Timberland",
+        affiliateLink:
+          "https://www.timberland.com/en-us/p/footwear-0100/mens-timberland-classic-6-inch-waterproof-boot-TB118094231",
       },
     ],
   },
@@ -88,13 +123,63 @@ export const shoots: ShhotType[] = [
   {
     imgs: ["/imgs/cathedral-blood-liu-wong/cathedral-blood-liu-wong.jpeg"],
     details: {
-      city: "TOKYO",
+      city: "AVIGNON",
       date: "17/05/25",
-      title: "CATHEDRAL BLOOD",
+      title: "Crimson Vestige",
+      description:
+        "Framed by the solemn grandeur of old stone and a striking red cathedral door, this look threads vulnerability through rebellion. Liu Wong styles a gradient mohair knit in visceral crimson tones paired with oversized washed denim, industrial jewelry, and workwear boots—crafting a silhouette that feels both devotional and defiant. The setting turns the outfit into a statement: reverent, raw, and unapologetically modern. It’s fashion as ritual, poised between worship and resistance.",
       stylist: "LIU WONG",
+      stylistDescription:
+        "Liu Wong is a stylist known for fusing dramatic silhouettes with emotionally charged palettes and historical architectural references. His work often explores the tension between intimacy and spectacle.",
       tags: ["Urban", "Gothic", "Baggy"],
-      description: "",
     },
+    items: [
+      {
+        id: 6,
+        type: "Sweater",
+        name: "Battery Crew Neck",
+        brand: "Levi's",
+        affiliateLink:
+          "https://www.urbanoutfitters.com/shop/hybrid/levis-battery-crew-neck-sweater2?quantity=1",
+      },
+      {
+        id: 7,
+        type: "Pants",
+        name: "Cover Wide Denim - 3color",
+        brand: "HIFIFNK",
+        affiliateLink: "https://arc.net/l/quote/bjfgxbta",
+      },
+      {
+        id: 5,
+        type: "Boots",
+        name: "Classic 6-Inch Waterproof Boot",
+        brand: "Timberland",
+        affiliateLink:
+          "https://www.timberland.com/en-us/p/footwear-0100/mens-timberland-classic-6-inch-waterproof-boot-TB118094231",
+      },
+    ],
+    team: [
+      {
+        role: "Stylist",
+        name: "LIU WONG",
+      },
+      {
+        role: "Model",
+        name: "Ravi Solace",
+      },
+      {
+        role: "MUA",
+        name: "Jade Carrow",
+      },
+      {
+        role: "Photographer",
+        name: "Kaiya Bell",
+      },
+      {
+        role: "Location Scout",
+        name: "Anouk Veldt",
+      },
+    ],
   },
   {
     imgs: ["/imgs/green-ghost-dean-glok/green-ghost-dean-glok.jpeg"],

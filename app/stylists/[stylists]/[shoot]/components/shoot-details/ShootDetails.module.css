@@ -1,0 +1,101 @@
+.container {
+  width: 66%;
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  padding: 1rem;
+}
+
+.container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+}
+
+.headerInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  padding: 0.375rem 0.5rem;
+}
+
+.headerInfo span {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.bookmarkBtn {
+  --size: 1.5rem;
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid #fff;
+  background-color: transparent;
+  cursor: pointer;
+  margin-left: 1.25rem;
+}
+
+.stylistHeader {
+  margin: 1.25rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.stylistHeader button {
+  background-color: transparent;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  margin-left: 1rem;
+}
+
+.shootContainer h2 {
+  margin: 1.5rem 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.shootContainer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.teamContainer {
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.teamContainer li {
+  border-bottom: 1px solid #fff;
+  padding: 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.teamContainer li:first-child {
+  padding-top: 0;
+}
+
+.teamContainer li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.teamMemberRole {
+  font-weight: 600;
+}
+
+.teamMemberName {
+  padding-left: 0.25rem;
+}

@@ -1,10 +1,12 @@
-import { FC } from "react";
+"use client";
+import { FC, useState } from "react";
 import Link from "next/link";
+import { slugify } from "../../../@utils/slugify";
 import { SlideshowIndicators } from "../";
-import { ShhotType } from "@/app/@data";
+import { ShootType } from "@/app/@data";
 import styles from "./Details.module.css";
 
-export type DetailsProps = ShhotType & {
+export type DetailsProps = ShootType & {
   activeImgIndex: number;
   setActiveImgIndex: (index: number) => void;
 };
@@ -16,9 +18,6 @@ const Details: FC<DetailsProps> = ({
   setActiveImgIndex,
 }) => {
   const { date, city, title, stylist, tags, description } = details;
-  const slugify = (str: string) => {
-    return str.toLowerCase().replace(/ /g, "-");
-  };
   return (
     <div className={styles.container} data-testid="details">
       <div className={styles.header}>
@@ -26,7 +25,7 @@ const Details: FC<DetailsProps> = ({
         <span>{city}</span>
       </div>
       <div className={styles.body}>
-        <Link href={`/${slugify(stylist)}/${slugify(title)}`}>
+        <Link href={`/stylists/${slugify(stylist)}/${slugify(title)}`}>
           <button className={styles.viewBtn}>VIEW DETAILS</button>
         </Link>
         <div className={styles.box}>

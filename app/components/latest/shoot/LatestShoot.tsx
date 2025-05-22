@@ -4,10 +4,10 @@ import Image from "next/image";
 import { Details } from "./@ui";
 import { imgConstraints } from "./@utils/imgConstraints";
 import styles from "./LatestShoot.module.css";
-import { ShhotType } from "@/app/@data";
+import { ShootType } from "@/app/@data";
 
 type LatestShootProps = {
-  latestShootData: ShhotType;
+  latestShootData: ShootType;
 };
 
 const LatestShoot: FC<LatestShootProps> = ({ latestShootData }) => {
