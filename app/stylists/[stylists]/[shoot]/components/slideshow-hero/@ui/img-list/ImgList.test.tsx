@@ -25,7 +25,9 @@ describe("ImgList", () => {
     expect(screen.getByTestId("details-box")).toBeInTheDocument();
     expect(screen.getByText(testData[0].details.date)).toBeInTheDocument();
     expect(screen.getByText(testData[0].details.city)).toBeInTheDocument();
-    expect(screen.getByText(testData[0].details.title)).toBeInTheDocument();
+    expect(
+      screen.getByText(`${testData[0].details.title}:`),
+    ).toBeInTheDocument();
     expect(screen.getByText(testData[0].details.stylist)).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Scroll To Details" }),

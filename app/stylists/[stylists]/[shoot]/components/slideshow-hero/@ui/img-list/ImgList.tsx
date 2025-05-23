@@ -28,7 +28,8 @@ const ImgList: FC<{
           <span>{city}</span>
         </div>
         <h1 className={styles.boxTitle}>
-          <div>{title}</div>:<div>{stylist}</div>
+          <div>{title}:</div>
+          <div>{stylist}</div>
         </h1>
         <button className={styles.scrollToDetailsBtn} onClick={scrollToDetails}>
           Scroll To Details
