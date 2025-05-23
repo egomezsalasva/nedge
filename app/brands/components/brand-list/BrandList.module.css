@@ -1,0 +1,65 @@
+.brandList {
+  padding: 0 2rem;
+}
+
+.brandRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #fff;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.brandRow:last-child {
+  border-bottom: 1px solid #fff;
+}
+
+.brandRow:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000;
+}
+
+.brandRow:hover .brandRowInfo > div {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.brandRow:hover .brandRowInfoNumber {
+  color: #000;
+}
+
+.brandRow:hover .brandRowInfo > div:last-child {
+  border-left: 1px solid #000;
+}
+
+.brandRowName {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.125rem;
+  line-height: 1.1;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.brandRowInfo {
+  display: flex;
+  text-align: right;
+}
+
+.brandRowInfo > div {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.brandRowInfo > div:last-child {
+  border-left: 1px solid #fff;
+  padding-right: 0;
+}
+
+.brandRowInfoNumber {
+  color: #fff;
+  margin-right: 0.5rem;
+}

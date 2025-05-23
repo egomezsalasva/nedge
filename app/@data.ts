@@ -1,3 +1,5 @@
+import { brands } from "./brands/@data";
+
 export type ShootType = {
   link?: string;
   imgs: string[];
@@ -71,14 +73,14 @@ export const shoots: ShootType[] = [
         id: 1,
         type: "Hat",
         name: "Snug Logo Beanie",
-        brand: "Ovahtres",
+        brand: brands["Ovahtres"].name,
         affiliateLink: "https://ovahtres.de/products/snug-logo-beanie",
       },
       {
         id: 2,
         type: "T-shirt",
         name: "Summa Ain't Ova - White/Red",
-        brand: "YG Studios",
+        brand: brands["YG Studios"].name,
         instagramLink: "https://www.instagram.com/y.g.studios/",
         affiliateLink: "https://www.yg4eva.com/password",
       },
@@ -86,7 +88,7 @@ export const shoots: ShootType[] = [
         id: 3,
         type: "Bag",
         name: "Zaino Nathan - Camouflage",
-        brand: "Campomaggi",
+        brand: brands["Campomaggi"].name,
         affiliateLink:
           "https://www.campomaggi.com/cm_it/nathan-c037550nd-x2537-f1796.html",
       },
@@ -94,7 +96,7 @@ export const shoots: ShootType[] = [
         id: 4,
         type: "Pants",
         name: "New Hunter Cargo Pants",
-        brand: "Mason's",
+        brand: brands["Mason's"].name,
         affiliateLink:
           "https://es.masons.it/en/collections/woman-winter-cargo-pants/products/pants-cargo-women-green-new-winter",
       },
@@ -102,7 +104,7 @@ export const shoots: ShootType[] = [
         id: 5,
         type: "Boots",
         name: "Classic 6-Inch Waterproof Boot",
-        brand: "Timberland",
+        brand: brands["Timberland"].name,
         affiliateLink:
           "https://www.timberland.com/en-us/p/footwear-0100/mens-timberland-classic-6-inch-waterproof-boot-TB118094231",
       },
@@ -138,7 +140,7 @@ export const shoots: ShootType[] = [
         id: 6,
         type: "Sweater",
         name: "Battery Crew Neck",
-        brand: "Levi's",
+        brand: brands["Levi's"].name,
         affiliateLink:
           "https://www.urbanoutfitters.com/shop/hybrid/levis-battery-crew-neck-sweater2?quantity=1",
       },
@@ -146,14 +148,14 @@ export const shoots: ShootType[] = [
         id: 7,
         type: "Pants",
         name: "Cover Wide Denim - 3color",
-        brand: "HIFIFNK",
+        brand: brands["Hififnk"].name,
         affiliateLink: "https://arc.net/l/quote/bjfgxbta",
       },
       {
         id: 5,
         type: "Boots",
         name: "Classic 6-Inch Waterproof Boot",
-        brand: "Timberland",
+        brand: brands["Timberland"].name,
         affiliateLink:
           "https://www.timberland.com/en-us/p/footwear-0100/mens-timberland-classic-6-inch-waterproof-boot-TB118094231",
       },
@@ -184,13 +186,67 @@ export const shoots: ShootType[] = [
   {
     imgs: ["/imgs/green-ghost-dean-glok/green-ghost-dean-glok.jpeg"],
     details: {
-      city: "DUBAI",
+      city: "Berlin",
       date: "15/05/25",
       title: "GREEN GHOST",
+      description:
+        "In the heart of a stark urban corridor, this monochrome olive look emerges like a phantom of forgotten regiments. Styled by Dean Glok, the ensemble balances utilitarian dominance with spiritual undertones—oversized cargo trousers, a washed military-style hoodie, and gold accents echoing relics of authority and faith. The look becomes a silent protest, camouflaged not to disappear but to demand attention in a world of noise. It’s a haunting march through a concrete jungle.",
       stylist: "DEAN GLOK",
+      stylistDescription:
+        "Dean Glok is a stylist whose work explores themes of anonymity, authority, and afterlife aesthetics within streetwear. His directional vision translates militarized forms into poetic silhouettes.",
       tags: ["Urban", "Military", "Gothic"],
-      description: "",
     },
+    team: [
+      {
+        role: "Stylist",
+        name: "DEAN GLOK",
+      },
+      {
+        role: "Model",
+        name: "Niko Graye",
+      },
+      {
+        role: "Photographer",
+        name: "Sarai Flint",
+      },
+      {
+        role: "Accessories Curator",
+        name: "Vera Mohr",
+      },
+    ],
+    items: [
+      {
+        id: 10,
+        type: "Sunglasses",
+        name: "Venice - Black Shiny S10",
+        brand: brands["Infinit"].name,
+        affiliateLink: "https://infiniteyewear.com/products/venice-bs-s10",
+      },
+      {
+        id: 8,
+        type: "Hoodie",
+        name: "Green Hoodie",
+        brand: brands["Levi's"].name,
+        affiliateLink:
+          "https://www.depop.com/products/chuckssvintage-vintage-levi-strauss-co/",
+      },
+      {
+        id: 9,
+        type: "Pants",
+        name: "Pinstripe Straight-leg Cargo Pants",
+        brand: brands["Rhude"].name,
+        affiliateLink:
+          "https://www.farfetch.com/es/shopping/men/rhude-pinstripe-straight-leg-cargo-pants-item-22728052.aspx",
+      },
+      {
+        id: 5,
+        type: "Boots",
+        name: "Classic 6-Inch Waterproof Boot",
+        brand: brands["Timberland"].name,
+        affiliateLink:
+          "https://www.timberland.com/en-us/p/footwear-0100/mens-timberland-classic-6-inch-waterproof-boot-TB118094231",
+      },
+    ],
   },
   {
     imgs: ["/imgs/urban-dandy-vero-noir/urban-dandy-vero-noir.jpeg"],
