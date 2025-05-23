@@ -59,10 +59,20 @@
 }
 
 .description {
+  --clamp-lines: 6;
+  --font-size: 0.9rem;
+  --line-height: 1.2;
   margin-top: 0.7rem;
-  font-size: 0.9rem;
-  line-height: 1.2;
+  font-size: var(--font-size);
+  line-height: var(--line-height);
   text-transform: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: calc(var(--font-size) * var(--line-height) * var(--clamp-lines));
+  display: -webkit-box;
+  line-clamp: var(--clamp-lines);
+  -webkit-line-clamp: var(--clamp-lines);
+  -webkit-box-orient: vertical;
 }
 
 .viewBtn {
