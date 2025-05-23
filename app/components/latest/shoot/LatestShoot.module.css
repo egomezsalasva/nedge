@@ -22,7 +22,7 @@
 
 .imageContainer img {
   object-fit: cover;
-  object-position: center calc(0% - 300px);
+  /* object-position: center calc(0% - 300px); */
 }
 
 .shadeGradient {
