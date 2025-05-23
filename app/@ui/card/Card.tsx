@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
-import { slugify } from "../../../@utils";
+import { slugify } from "../../@utils";
 import { ShootType } from "@/app/@data";
 import styles from "./Card.module.css";
 

@@ -1,4 +1,4 @@
-import { LatestShoot, LatestList } from "./components/latest";
+import { LatestShoot, LatestList } from "./latest";
 import { shoots } from "./@data";
 import styles from "./page.module.css";
 

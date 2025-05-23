@@ -2,7 +2,7 @@
 import { FC, useRef } from "react";
 import { ShootType } from "@/app/@data";
 import styles from "./GarmsList.module.css";
-import { useFindWidestElement } from "@/app/@utils/useFindWidestElement";
+import { useFindWidestElement } from "../../../../../@utils";
 type GarmsListProps = {
   garmsData: ShootType["items"];
 };

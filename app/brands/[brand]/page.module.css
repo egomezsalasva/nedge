@@ -1,0 +1,22 @@
+.main {
+  margin-top: 50px;
+  padding: 0 1.5rem 1.375rem;
+}
+
+.container h1 {
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 3rem 1rem 1.25rem;
+  border-bottom: 1px solid #fff;
+  margin-bottom: calc(2rem - 0.75rem);
+}
+
+.cardsContainer {
+  --margin: -0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--margin));
+  margin-right: calc(var(--margin));
+}

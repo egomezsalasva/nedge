@@ -1,8 +1,7 @@
-"use client";
-import { useRef } from "react";
+import Link from "next/link";
+import { slugify } from "@/app/@utils";
 import { brands } from "../../@data";
 import { shoots } from "../../../@data";
-import { useFindWidestElement } from "@/app/@utils/useFindWidestElement";
 import styles from "./BrandList.module.css";
 
 const BrandList = () => {
@@ -29,36 +28,34 @@ const BrandList = () => {
     );
   };
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const widestElement = useFindWidestElement(containerRef, "data-measurewidth");
-
   return (
-    <div className={styles.brandList} ref={containerRef}>
+    <div className={styles.brandList}>
       {Object.keys(brands)
         .sort((a, b) => a.localeCompare(b))
         .map((brand) => (
-          <div key={brand} className={styles.brandRow}>
-            <div className={styles.brandRowName}>{brand}</div>
-            <div className={styles.brandRowInfo}>
-              <div>
-                <span className={styles.brandRowInfoNumber}>
-                  {brandCounts[brand]}
-                </span>
-                <span>{brandCounts[brand] === 1 ? "Item" : "Items"}</span>
-              </div>
-              <div
-                data-measurewidth
-                style={{ width: widestElement ? widestElement : "auto" }}
-              >
-                <span className={styles.brandRowInfoNumber}>
-                  {getShootsWithBrand(brand).length}
-                </span>
-                <span>
-                  {getShootsWithBrand(brand).length === 1 ? "Shoot" : "Shoots"}
-                </span>
+          <Link href={`/brands/${slugify(brand)}`} key={brand}>
+            <div key={brand} className={styles.brandRow}>
+              <div className={styles.brandRowName}>{brand}</div>
+              <div className={styles.brandRowInfo}>
+                <div>
+                  <span className={styles.brandRowInfoNumber}>
+                    {brandCounts[brand]}
+                  </span>
+                  <span>{brandCounts[brand] === 1 ? "Item" : "Items"}</span>
+                </div>
+                <div>
+                  <span className={styles.brandRowInfoNumber}>
+                    {getShootsWithBrand(brand).length}
+                  </span>
+                  <span>
+                    {getShootsWithBrand(brand).length === 1
+                      ? "Shoot"
+                      : "Shoots"}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </div>
   );

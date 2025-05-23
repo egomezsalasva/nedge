@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { testData } from "../../../../@testData";
-vi.mock("../../../../@data", () => ({
+vi.mock("@/app/@data", () => ({
   shoots: testData,
 }));
 import ImgList from "./ImgList";

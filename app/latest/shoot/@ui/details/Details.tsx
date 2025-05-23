@@ -1,7 +1,7 @@
 "use client";
-import { FC, useState } from "react";
+import { FC } from "react";
 import Link from "next/link";
-import { slugify } from "../../../@utils/slugify";
+import { slugify } from "../../../../@utils";
 import { SlideshowIndicators } from "../";
 import { ShootType } from "@/app/@data";
 import styles from "./Details.module.css";

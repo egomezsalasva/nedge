@@ -1,6 +1,6 @@
 import styles from "./LatestList.module.css";
-import { shoots } from "../../../@data";
-import Card from "./@ui/card/Card";
+import { shoots } from "../../@data";
+import { Card } from "../../@ui";
 
 const LatestList = () => {
   return (

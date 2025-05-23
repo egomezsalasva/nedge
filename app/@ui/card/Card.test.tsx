@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { testShoots } from "../../@testData";
+import { testShoots } from "../../latest/list/@testData";
 vi.mock("../../../@data", () => ({
   shoots: testShoots,
 }));

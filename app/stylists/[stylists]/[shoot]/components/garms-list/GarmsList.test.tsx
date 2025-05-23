@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { testData } from "../../@testData";
-vi.mock("../../../@data", () => ({
+vi.mock("../../@data", () => ({
   shoots: testData,
 }));
 import GarmsList from "./GarmsList";
