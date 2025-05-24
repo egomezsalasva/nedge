@@ -2,13 +2,13 @@ import { useState } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { SlideshowIndicators } from "../";
-import { testImgs } from "../../@testData";
+import { testShootsData } from "@/app/@testShootsData";
 
 function SlideshowIndicatorsTestHarness() {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   return (
     <SlideshowIndicators
-      imgs={testImgs}
+      imgs={testShootsData[0].imgs}
       activeImgIndex={activeImgIndex}
       setActiveImgIndex={setActiveImgIndex}
     />

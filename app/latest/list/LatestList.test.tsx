@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { testShoots } from "./@testData";
+import { testShootsData } from "@/app//@testShootsData";
 vi.mock("../../@data", () => ({
-  shoots: testShoots,
+  shoots: testShootsData,
 }));
 import LatestList from "./LatestList";
 
@@ -17,11 +17,11 @@ describe("Latest List Component", () => {
   });
   it("renders the correct number of Card components", () => {
     const shoots = screen.getAllByTestId("shoot-card");
-    expect(shoots.length).toBe(testShoots.length - 1);
+    expect(shoots.length).toBe(testShootsData.length - 1);
     expect(shoots.length).toBe(2);
   });
   it("each Card receives the correct shoot props", () => {
-    const expectedShoots = testShoots.slice(1);
+    const expectedShoots = testShootsData.slice(1);
     const cards = screen.getAllByTestId("shoot-card");
     expectedShoots.forEach((shoot, idx) => {
       const card = cards[idx];

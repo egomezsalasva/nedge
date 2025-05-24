@@ -40,6 +40,7 @@
   line-height: 1.1;
   font-weight: 700;
   margin-top: 0.5rem;
+  text-transform: uppercase;
 }
 
 .tags {

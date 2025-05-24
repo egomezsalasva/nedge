@@ -145,6 +145,14 @@ export const shoots: ShootType[] = [
           "https://www.urbanoutfitters.com/shop/hybrid/levis-battery-crew-neck-sweater2?quantity=1",
       },
       {
+        id: 10,
+        type: "Belt",
+        name: "Classic Buckle - Black",
+        brand: brands["Levi's"].name,
+        affiliateLink:
+          "https://www.urbanoutfitters.com/shop/hybrid/levis-battery-crew-neck-sweater2?quantity=1",
+      },
+      {
         id: 7,
         type: "Pants",
         name: "Cover Wide Denim - 3color",

@@ -2,34 +2,15 @@ import Link from "next/link";
 import { slugify } from "@/app/@utils";
 import { brands } from "../../@data";
 import { shoots } from "../../../@data";
+import { createItemsCounter, createShootsCounter } from "../../@utils";
 import styles from "./BrandList.module.css";
 
 const BrandList = () => {
-  const brandCounts = Object.keys(brands).reduce<Record<string, number>>(
-    (counts, brand) => {
-      let count = 0;
-      shoots.forEach((shoot) => {
-        if (shoot.items) {
-          count += shoot.items.filter(
-            (item) => item.brand === brands[brand as keyof typeof brands].name,
-          ).length;
-        }
-      });
-      return { ...counts, [brand]: count };
-    },
-    {},
-  );
-
-  const getShootsWithBrand = (brandName: string) => {
-    return shoots.filter((shoot) =>
-      shoot.items?.some(
-        (item) => item.brand === brands[brandName as keyof typeof brands].name,
-      ),
-    );
-  };
+  const itemCount = createItemsCounter(brands, shoots);
+  const shootCount = createShootsCounter(brands, shoots);
 
   return (
-    <div className={styles.brandList}>
+    <div className={styles.brandList} data-testid="brand-list">
       {Object.keys(brands)
         .sort((a, b) => a.localeCompare(b))
         .map((brand) => (
@@ -39,19 +20,15 @@ const BrandList = () => {
               <div className={styles.brandRowInfo}>
                 <div>
                   <span className={styles.brandRowInfoNumber}>
-                    {brandCounts[brand]}
+                    {itemCount(brand)}
                   </span>
-                  <span>{brandCounts[brand] === 1 ? "Item" : "Items"}</span>
+                  <span>{itemCount(brand) === 1 ? "Item" : "Items"}</span>
                 </div>
                 <div>
                   <span className={styles.brandRowInfoNumber}>
-                    {getShootsWithBrand(brand).length}
+                    {shootCount(brand)}
                   </span>
-                  <span>
-                    {getShootsWithBrand(brand).length === 1
-                      ? "Shoot"
-                      : "Shoots"}
-                  </span>
+                  <span>{shootCount(brand) === 1 ? "Shoot" : "Shoots"}</span>
                 </div>
               </div>
             </div>

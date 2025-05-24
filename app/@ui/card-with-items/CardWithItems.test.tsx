@@ -4,11 +4,17 @@ import { testShootsData } from "@/app/@testShootsData";
 vi.mock("../../../@data", () => ({
   shoots: testShootsData,
 }));
-import Card from "./Card";
+import CardWithItems from "./CardWithItems";
 
-describe("Card Component", () => {
+describe("CardWithItems Component", () => {
   beforeEach(() => {
-    render(<Card shoot={testShootsData[1]} />);
+    render(
+      <CardWithItems
+        shoot={testShootsData[1]}
+        brand="brand"
+        brandItemsType={["item1", "item2"]}
+      />,
+    );
   });
   it("renders the correct image", () => {
     const img = screen.getByRole("img");

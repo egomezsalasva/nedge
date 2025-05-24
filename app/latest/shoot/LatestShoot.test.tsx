@@ -1,16 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, beforeEach } from "vitest";
 import LatestShoot from "./LatestShoot";
-import { testImgs, testDetails } from "./@testData";
-
-const testLatestShootData = {
-  imgs: testImgs,
-  details: testDetails,
-};
+import { testShootsData } from "@/app/@testShootsData";
 
 describe("Latest Shoot Component", () => {
   beforeEach(() => {
-    render(<LatestShoot latestShootData={testLatestShootData} />);
+    render(<LatestShoot latestShootData={testShootsData[0]} />);
   });
   it("should have an image", () => {
     const image = screen.getByRole("img");

@@ -1,7 +1,7 @@
 import { BrandList } from "./components";
 import styles from "./page.module.css";
 
-export default async function Brands() {
+export default function BrandsPage() {
   return (
     <div>
       <main className={styles.main}>
