@@ -1,0 +1,194 @@
+.main {
+  margin-top: 50px;
+}
+
+.main section {
+  padding: 7rem 1.5rem 8rem;
+  border-top: 1px solid #fff;
+}
+
+.main section h2 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.main section p {
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 50px);
+  position: relative;
+  overflow: hidden; /* Prevents the blurred image from spilling outside */
+}
+
+.heroContainer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("/imgs/militant-religion-gary-gray/militant-religion-gary-gray-1.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-blend-mode: darken;
+  filter: blur(8px);
+  z-index: -1; /* Puts the blurred background behind the content */
+  transform: scale(1.1); /* Prevents blur edges from showing */
+}
+
+.heroCard {
+  background-color: #000;
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  max-width: 26.25rem;
+  padding: 2rem 4rem 3rem;
+}
+
+.heroCard h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.heroCardSubtitle {
+  margin: 0 auto;
+  margin-bottom: 32px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.heroCard ul {
+  list-style: none;
+  margin-bottom: 40px;
+  padding-left: 32px;
+  margin-top: 0;
+}
+
+.heroCard ul li {
+  position: relative;
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+.heroCard ul li::before {
+  --size: 1.5rem;
+  content: "✓"; /* Unicode checkmark */
+  height: var(--size);
+  left: calc(var(--size) * -1);
+  position: absolute;
+  top: 1px;
+  width: var(--size);
+  vertical-align: middle;
+}
+
+.heroCardPrice {
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.heroCardPrice span:first-child {
+  text-transform: uppercase;
+  margin-right: 0.5rem;
+}
+
+.heroCardPriceAmount {
+  font-size: 1.75rem;
+  margin-right: 4px;
+}
+
+.heroCardButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroCardButtonContainer button {
+  min-width: 14.75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.profitBreakdownContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  max-width: 1220px;
+  margin: 2.75rem auto 3.75rem;
+}
+
+.profitBreakdownItem {
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 17rem !important;
+  margin: 0 0.675rem;
+  padding: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden; /* Prevents the blurred image from spilling outside */
+}
+
+.profitBreakdownItem::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: var(--before-background-img);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.75);
+  background-blend-mode: darken;
+  filter: blur(4px);
+  z-index: -1; /* Puts the blurred background behind the content */
+  transform: scale(1.1); /* Prevents blur edges from showing */
+}
+
+.profitBreakdownItemTitle {
+  font-size: 1.375rem;
+  line-height: 1.1;
+}
+
+.profitBreakdownItemPercentage {
+  font-size: 2.75rem;
+  line-height: 1;
+}

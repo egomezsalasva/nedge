@@ -20,11 +20,11 @@ const Header = () => {
             <li>
               <Link href="/brands">BRANDS</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/events">EVENTS</Link>
-            </li>
+            </li> */}
             <li className={styles.supportBtn}>
-              <Link href="/support-styleista">SUPPORT</Link>
+              <Link href="/support">SUPPORT</Link>
             </li>
           </ul>
         </nav>

@@ -15,17 +15,17 @@ describe("Header", () => {
   it("should have a list of links", () => {
     const nav = screen.getByTestId("nav");
     const links = within(nav).getAllByRole("link");
-    expect(links).toHaveLength(5);
+    expect(links).toHaveLength(4);
     expect(links[0]).toHaveTextContent("LATEST");
     expect(links[0]).toHaveAttribute("href", "/");
     expect(links[1]).toHaveTextContent("STYLES");
     expect(links[1]).toHaveAttribute("href", "/explore");
     expect(links[2]).toHaveTextContent("BRANDS");
     expect(links[2]).toHaveAttribute("href", "/brands");
-    expect(links[3]).toHaveTextContent("EVENTS");
-    expect(links[3]).toHaveAttribute("href", "/events");
-    expect(links[4]).toHaveTextContent("SUPPORT");
-    expect(links[4]).toHaveAttribute("href", "/support-styleista");
+    // expect(links[3]).toHaveTextContent("EVENTS");
+    // expect(links[3]).toHaveAttribute("href", "/events");
+    expect(links[3]).toHaveTextContent("SUPPORT");
+    expect(links[3]).toHaveAttribute("href", "/support");
   });
   it("should have a link to my account", () => {
     const link = screen.getByText("MY ACCOUNT");
