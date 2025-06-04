@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Logo from "./@svgs/Logo";
+import LogoArca from "./@svgs/LogoArca";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -7,7 +7,7 @@ const Header = () => {
     <header className={styles.container}>
       <div className={styles.headerLeft}>
         <div className={styles.logoContainer} data-testid="logo">
-          <Logo />
+          <LogoArca />
         </div>
         <nav className={styles.navContainer} data-testid="nav">
           <ul>
@@ -30,7 +30,7 @@ const Header = () => {
         </nav>
       </div>
       <div className={styles.headerRight}>
-        <Link href="/my-account">MY ACCOUNT</Link>
+        <Link href="/account">MY ACCOUNT</Link>
       </div>
     </header>
   );

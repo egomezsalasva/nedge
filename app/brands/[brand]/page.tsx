@@ -5,6 +5,7 @@ import CardWithItems from "@/app/@ui/card-with-items/CardWithItems";
 import Link from "next/link";
 import { getBrandBySlug, getBrandShoots, getBrandItemsType } from "./@utils";
 import { createItemsCounter } from "../@utils";
+import { Insta } from "@/app/@svgs";
 import styles from "./page.module.css";
 
 export default async function BrandPage({
@@ -32,7 +33,7 @@ export default async function BrandPage({
                 target="_blank"
                 className={styles.instaIcon}
               >
-                Insta
+                <Insta />
               </Link>
             </div>
             <div className={styles.brandHeaderRight}>

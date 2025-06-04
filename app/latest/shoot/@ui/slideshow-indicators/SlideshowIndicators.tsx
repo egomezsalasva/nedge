@@ -1,5 +1,6 @@
 import { FC } from "react";
 import styles from "./SlideshowIndicators.module.css";
+import { Arrow } from "@/app/@svgs";
 
 type SlideshowIndicatorsProps = {
   imgs: string[];
@@ -47,14 +48,14 @@ const SlideshowIndicators: FC<SlideshowIndicatorsProps> = ({
             className={styles.navBtn}
             data-testid="previous-button"
           >
-            {"<"}
+            <Arrow className={styles.arrowLeft} />
           </div>
           <div
             onClick={nextHandler}
             className={styles.navBtn}
             data-testid="next-button"
           >
-            {">"}
+            <Arrow className={styles.arrowRight} />
           </div>
         </div>
       </div>

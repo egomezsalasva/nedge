@@ -2,6 +2,7 @@
 import { FC, useState } from "react";
 import { StyleCategoryType, stylesData } from "./@data";
 import styles from "./StyleCategoriesList.module.css";
+import { Arrow } from "@/app/@svgs";
 
 const StyleCategoriesList: FC = () => {
   const [expanded, setExpanded] = useState<string[]>([]);
@@ -30,7 +31,11 @@ const StyleCategoriesList: FC = () => {
                 onClick={() => handleToggle(style.name)}
                 data-testid={`style-toggle-${style.name}`}
               >
-                {expanded.includes(style.name) ? "^" : "v"}
+                {expanded.includes(style.name) ? (
+                  <Arrow className={styles.arrowClosed} />
+                ) : (
+                  <Arrow className={styles.arrowOpen} />
+                )}
               </button>
             </div>
             {expanded.includes(style.name) && (

@@ -17,7 +17,7 @@
 }
 
 .brandHeaderLeft {
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .brandHeader {
@@ -36,4 +36,25 @@
   flex-wrap: wrap;
   margin-left: calc(var(--margin));
   margin-right: calc(var(--margin));
+}
+
+.instaIcon {
+  --insta-size: 2rem;
+  width: var(--insta-size);
+  height: var(--insta-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(0.125rem);
+}
+
+.instaIcon svg {
+  --insta-size: 1.175rem;
+  width: var(--insta-size);
+  height: var(--insta-size);
+  opacity: 0.5;
+}
+
+.instaIcon:hover svg {
+  opacity: 1;
 }
