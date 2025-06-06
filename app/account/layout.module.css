@@ -1,0 +1,105 @@
+.main {
+  margin-top: 50px;
+}
+
+.header {
+  max-width: 980px;
+  /* position: relative;
+    z-index: 8001;
+    background-color: #000; */
+  margin: 0 auto;
+  padding-top: 48px;
+  border-bottom: 1px solid #fff;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.heading h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 28px;
+  line-height: 32px;
+  margin: 0;
+}
+
+.accountLink {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+  font-size: 16px;
+  line-height: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.arrowAccount {
+  transform: rotate(180deg) translateY(2.5px);
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease-in-out;
+}
+
+.accountLink:hover .arrowAccount {
+  color: #fff;
+  transition: color 0.2s ease-in-out;
+}
+
+.header nav {
+  display: flex;
+  position: relative;
+  width: 100%;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.navLink,
+.navLink_active {
+  padding: 1rem 1.5rem;
+  max-width: 20%;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.1;
+  cursor: pointer;
+}
+
+.navLink {
+  color: #999;
+}
+
+.navLink:hover {
+  color: #fff;
+}
+
+.navLink_active {
+  position: relative;
+  color: #fff;
+}
+
+.navLink_active::after {
+  bottom: 0;
+  content: "";
+  height: 3px;
+  left: 0;
+  position: absolute;
+  transform: translateY(100%);
+  width: 100%;
+  background-color: #fff;
+}
+
+.contentContainer {
+  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 158px);
+  margin: 0 auto;
+}

@@ -32,13 +32,23 @@
 }
 
 .bookmarkBtn {
-  --size: 1.5rem;
+  --size: 2rem;
   width: var(--size);
   height: var(--size);
-  border: 1px solid #fff;
-  background-color: transparent;
   cursor: pointer;
-  margin-left: 1.25rem;
+  margin-left: 0.75rem;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmarkBtn svg {
+  --icon-size: 1.5rem;
+  height: var(--icon-size);
+  width: var(--icon-size);
 }
 
 .stylistHeader {

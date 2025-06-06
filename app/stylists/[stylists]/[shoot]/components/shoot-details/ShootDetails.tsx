@@ -1,6 +1,10 @@
+"use client";
 import { FC } from "react";
 import { ShootType } from "@/app/@data";
 import styles from "./ShootDetails.module.css";
+import { useUserContext } from "@/app/@contexts/UserContext";
+import { slugify } from "@/app/@utils";
+import { Bookmark } from "@/app/@svgs";
 
 type ShootDetailsProps = {
   shootData: ShootType;
@@ -8,6 +12,14 @@ type ShootDetailsProps = {
 
 const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
   const { details, team } = shootData;
+  const {
+    addBookmark,
+    removeBookmark,
+    bookmarks,
+    addFollowing,
+    removeFollowing,
+    following,
+  } = useUserContext();
   return (
     <div className={styles.container} data-testid="shoot-details">
       <div className={styles.headerContainer}>
@@ -15,12 +27,54 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
           <span>{details.date}</span>
           <span>{details.city}</span>
         </div>
-        <button className={styles.bookmarkBtn} data-testid="bookmark" />
+        <button
+          className={styles.bookmarkBtn}
+          onClick={() => {
+            if (
+              bookmarks.some(
+                (bookmark) => bookmark.details.title === details.title,
+              )
+            ) {
+              removeBookmark(shootData);
+            } else {
+              addBookmark(shootData);
+            }
+          }}
+          data-testid="bookmark"
+        >
+          {bookmarks.some(
+            (bookmark) => bookmark.details.title === details.title,
+          ) ? (
+            <Bookmark fill="currentColor" />
+          ) : (
+            <Bookmark />
+          )}
+        </button>
       </div>
       <div className={styles.stylistContainer}>
         <div className={styles.stylistHeader}>
           <h2>{details.stylist}</h2>
-          <button>Follow</button>
+          <button
+            onClick={() => {
+              if (
+                following.some(
+                  (following) => following.name === details.stylist,
+                )
+              ) {
+                removeFollowing(details.stylist);
+              } else {
+                const stylistLink = `/stylists/${slugify(details.stylist)}/${slugify(details.title)}`;
+                addFollowing({
+                  name: details.stylist,
+                  link: stylistLink,
+                });
+              }
+            }}
+          >
+            {following.some((following) => following.name === details.stylist)
+              ? "Unfollow"
+              : "Follow"}
+          </button>
         </div>
         <div>
           <p>{details.stylistDescription}</p>

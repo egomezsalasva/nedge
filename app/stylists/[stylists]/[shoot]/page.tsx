@@ -1,7 +1,7 @@
-import { GarmsList, ShootDetails, SlideshowHero } from "./components";
-import styles from "./page.module.css";
-import { shoots } from "../../../@data";
 import { notFound } from "next/navigation";
+import { GarmsList, ShootDetails, SlideshowHero } from "./components";
+import { shoots } from "../../../@data";
+import styles from "./page.module.css";
 
 type Props = {
   params: Promise<{ stylists: string; shoot: string }>;

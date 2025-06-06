@@ -1,15 +1,40 @@
 "use client";
-import { FC, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { ShootType } from "@/app/@data";
 import styles from "./GarmsList.module.css";
 import { useFindWidestElement } from "../../../../../@utils";
+import { useUserContext, WardrobeItem } from "@/app/@contexts/UserContext";
+import { Insta } from "@/app/@svgs";
+import { usePathname } from "next/navigation";
+
 type GarmsListProps = {
   garmsData: ShootType["items"];
 };
 
+type GarmsListItem = WardrobeItem & {
+  instagramLink?: string;
+  affiliateLink?: string;
+};
+
 const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
+  const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const widestElement = useFindWidestElement(containerRef, "data-measurewidth");
+  const { wardrobe, addWardrobeItem, removeWardrobeItem } = useUserContext();
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const isSaved = (garm: GarmsListItem) => {
+    if (!isClient) return false;
+    return wardrobe.some(
+      (item) =>
+        `${item.sourceShootLink}#${item.id}` ===
+        `${item.sourceShootLink}#${garm.id}`,
+    );
+  };
+
   return (
     <div
       className={styles.container}
@@ -40,7 +65,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                   rel="noopener noreferrer"
                   className={styles.garmLink}
                 >
-                  Insta
+                  <Insta className={styles.garmLinkIcon} />
                 </a>
               )}
               {garm.affiliateLink && (
@@ -53,7 +78,30 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                   Buy
                 </a>
               )}
-              <button className={styles.garmSaveBtn}>Save</button>
+              {isClient && (
+                <>
+                  {isSaved(garm) ? (
+                    <button
+                      className={styles.garmSaveBtn}
+                      onClick={() => removeWardrobeItem(garm.id)}
+                    >
+                      Saved
+                    </button>
+                  ) : (
+                    <button
+                      className={styles.garmSaveBtn}
+                      onClick={() =>
+                        addWardrobeItem({
+                          ...garm,
+                          sourceShootLink: pathname,
+                        })
+                      }
+                    >
+                      Save
+                    </button>
+                  )}
+                </>
+              )}
             </div>
           </li>
         ))}

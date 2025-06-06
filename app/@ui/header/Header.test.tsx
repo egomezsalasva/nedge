@@ -30,6 +30,6 @@ describe("Header", () => {
   it("should have a link to my account", () => {
     const link = screen.getByText("MY ACCOUNT");
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute("href", "/my-account");
+    expect(link).toHaveAttribute("href", "/account");
   });
 });
