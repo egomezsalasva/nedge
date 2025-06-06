@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { testData } from "./@testData";
 vi.mock("./@data", () => ({
@@ -43,11 +43,12 @@ describe("StyleCategoriesList Component", () => {
     });
   });
 
-  it("renders a button for each style category", () => {
+  it("renders a button for each style category with correct initial arrow state", () => {
     const buttons = screen.getAllByRole("button");
     expect(buttons.length).toBe(testData.length);
     buttons.forEach((button) => {
-      expect(button).toHaveTextContent("v");
+      const arrowClosed = within(button).getByTestId("arrow-closed");
+      expect(arrowClosed).toBeInTheDocument();
     });
   });
 });

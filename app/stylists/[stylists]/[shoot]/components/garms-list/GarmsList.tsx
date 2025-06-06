@@ -64,6 +64,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.garmLink}
+                  data-testid="insta-link"
                 >
                   <Insta className={styles.garmLinkIcon} />
                 </a>

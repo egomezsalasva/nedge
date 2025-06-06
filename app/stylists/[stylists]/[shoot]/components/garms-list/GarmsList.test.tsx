@@ -12,7 +12,7 @@ describe("GarmsList Component", async () => {
   beforeEach(() => {
     render(<GarmsList garmsData={testData[0].items} />);
     buyLinks = screen.getAllByRole("link", { name: "Buy" });
-    instaLinks = screen.getAllByRole("link", { name: "Insta" });
+    instaLinks = screen.getAllByTestId("insta-link");
   });
   it("renders the matching shoot's garms", async () => {
     expect(screen.getByTestId("garms-list")).toBeInTheDocument();

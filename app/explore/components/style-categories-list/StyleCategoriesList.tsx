@@ -32,9 +32,12 @@ const StyleCategoriesList: FC = () => {
                 data-testid={`style-toggle-${style.name}`}
               >
                 {expanded.includes(style.name) ? (
-                  <Arrow className={styles.arrowClosed} />
+                  <Arrow className={styles.arrowOpen} dataTestId="arrow-open" />
                 ) : (
-                  <Arrow className={styles.arrowOpen} />
+                  <Arrow
+                    className={styles.arrowClosed}
+                    dataTestId="arrow-closed"
+                  />
                 )}
               </button>
             </div>

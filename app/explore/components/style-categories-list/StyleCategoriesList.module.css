@@ -94,10 +94,10 @@
   height: 0.75rem;
 }
 
-.arrowClosed {
+.arrowOpen {
   transform: rotate(90deg) translateX(0px);
 }
 
-.arrowOpen {
+.arrowClosed {
   transform: rotate(-90deg) translateX(-1px);
 }
