@@ -44,12 +44,24 @@
   border-right: 1px solid #fff;
 }
 
-.garmSaveBtn {
+.garmSaveBtn,
+.garmSaveBtn_active {
   padding: 0.5rem 1rem;
   background: transparent;
   border: 1px solid #fff;
   border-radius: 0.125rem;
-  color: #fff;
   cursor: pointer;
   margin-left: 1rem;
+  min-width: 73px;
+}
+
+.garmSaveBtn {
+  background: transparent;
+  color: #fff;
+}
+
+.garmSaveBtn_active {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
 }

@@ -83,7 +83,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                 <>
                   {isSaved(garm) ? (
                     <button
-                      className={styles.garmSaveBtn}
+                      className={styles.garmSaveBtn_active}
                       onClick={() => removeWardrobeItem(garm.id)}
                     >
                       Saved

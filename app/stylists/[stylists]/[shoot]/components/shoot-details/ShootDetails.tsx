@@ -20,6 +20,11 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
     removeFollowing,
     following,
   } = useUserContext();
+
+  const isFollowing = following.some(
+    (following) => following.name === details.stylist,
+  );
+
   return (
     <div className={styles.container} data-testid="shoot-details">
       <div className={styles.headerContainer}>
@@ -54,27 +59,29 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
       <div className={styles.stylistContainer}>
         <div className={styles.stylistHeader}>
           <h2>{details.stylist}</h2>
-          <button
-            onClick={() => {
-              if (
-                following.some(
-                  (following) => following.name === details.stylist,
-                )
-              ) {
+          {isFollowing ? (
+            <button
+              className={styles.followBtn_active}
+              onClick={() => {
                 removeFollowing(details.stylist);
-              } else {
+              }}
+            >
+              Unfollow
+            </button>
+          ) : (
+            <button
+              className={styles.followBtn}
+              onClick={() => {
                 const stylistLink = `/stylists/${slugify(details.stylist)}/${slugify(details.title)}`;
                 addFollowing({
                   name: details.stylist,
                   link: stylistLink,
                 });
-              }
-            }}
-          >
-            {following.some((following) => following.name === details.stylist)
-              ? "Unfollow"
-              : "Follow"}
-          </button>
+              }}
+            >
+              Follow
+            </button>
+          )}
         </div>
         <div>
           <p>{details.stylistDescription}</p>

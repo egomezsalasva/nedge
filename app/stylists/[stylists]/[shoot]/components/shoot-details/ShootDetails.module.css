@@ -57,15 +57,26 @@
   align-items: center;
 }
 
-.stylistHeader button {
-  background-color: transparent;
+.followBtn,
+.followBtn_active {
   padding: 0.5rem 0.75rem;
   cursor: pointer;
   font-size: 0.875rem;
-  font-weight: 600;
   border: 1px solid #fff;
   border-radius: 0.125rem;
   margin-left: 1rem;
+  min-width: 87px;
+  font-weight: 600;
+}
+
+.followBtn {
+  background: transparent;
+  color: #fff;
+}
+
+.followBtn_active {
+  background: #fff;
+  color: #000;
 }
 
 .shootContainer h2 {
