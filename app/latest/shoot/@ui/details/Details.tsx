@@ -1,41 +1,51 @@
 "use client";
 import { FC } from "react";
 import Link from "next/link";
-import { slugify } from "../../../../@utils";
 import { SlideshowIndicators } from "../";
-import { ShootType } from "@/app/@data";
+import { ShootType } from "@/app/@types";
+import { formatDate } from "@/app/@utils";
 import styles from "./Details.module.css";
 
-export type DetailsProps = ShootType & {
+export type DetailsProps = {
+  shootData: ShootType;
   activeImgIndex: number;
   setActiveImgIndex: (index: number) => void;
 };
 
 const Details: FC<DetailsProps> = ({
-  imgs,
-  details,
+  shootData,
   activeImgIndex,
   setActiveImgIndex,
 }) => {
-  const { date, city, title, stylist, tags, description } = details;
+  const {
+    publication_date,
+    city,
+    name,
+    slug,
+    stylist,
+    shoot_style_tags,
+    description,
+    shoot_images,
+  } = shootData;
+
   return (
     <div className={styles.container} data-testid="details">
       <div className={styles.header}>
-        <span>{date}</span>
-        <span>{city}</span>
+        <span>{formatDate(publication_date)}</span>
+        <span>{city.name}</span>
       </div>
       <div className={styles.body}>
-        <Link href={`/stylists/${slugify(stylist)}/${slugify(title)}`}>
+        <Link href={`/stylists/${stylist.slug}/${slug}`}>
           <button className={styles.viewBtn}>VIEW DETAILS</button>
         </Link>
         <div className={styles.box}>
           <div className={styles.title}>
-            {title}:
+            {name}:
             <br />
-            {stylist}
+            {stylist.name}
           </div>
           <div className={styles.tags}>
-            {tags.map((tag: string) => (
+            {shoot_style_tags.map((tag: string) => (
               <span key={tag}>{tag}</span>
             ))}
           </div>
@@ -44,7 +54,7 @@ const Details: FC<DetailsProps> = ({
           </div>
         </div>
         <SlideshowIndicators
-          imgs={imgs}
+          imgs={shoot_images.map((img) => img.image_url)}
           activeImgIndex={activeImgIndex}
           setActiveImgIndex={setActiveImgIndex}
         />

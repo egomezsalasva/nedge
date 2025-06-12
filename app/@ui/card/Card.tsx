@@ -1,31 +1,33 @@
 import { FC } from "react";
 import Link from "next/link";
-import { slugify } from "../../@utils";
-import { ShootType } from "@/app/@data";
+import { formatDate } from "@/app/@utils";
 import styles from "./Card.module.css";
+import { ShootType } from "@/app/@types";
 
-const Card: FC<{ shoot: ShootType }> = ({ shoot }) => {
-  const {
-    imgs,
-    details: { title, date, city, tags, stylist },
-  } = shoot;
+export type CardType = ShootType & { first_image: string };
+
+type CardProps = {
+  shoot: CardType;
+};
+
+const Card: FC<CardProps> = ({ shoot }) => {
   return (
     <div data-testid="shoot-card" className={styles.cardContainer}>
       <div className={styles.card}>
-        <Link href={`/stylists/${slugify(stylist)}/${slugify(title)}`}>
-          <img src={imgs[0]} alt={title} />
+        <Link href={`/stylists/${shoot.stylist.slug}/${shoot.slug}`}>
+          <img src={shoot.first_image} alt={shoot.name} />
         </Link>
         <div className={styles.detailsContainer}>
           <div className={styles.detailsTop}>
-            <div>{date}</div>
-            <div>{city}</div>
+            <div>{formatDate(shoot.publication_date)}</div>
+            <div>{shoot.city.name}</div>
           </div>
-          <Link href={`/stylists/${slugify(stylist)}/${slugify(title)}`}>
-            <h3>{`${title}:  ${stylist}`}</h3>
+          <Link href={`/stylists/${shoot.stylist.slug}/${shoot.slug}`}>
+            <h3>{`${shoot.name}:  ${shoot.stylist.name}`}</h3>
           </Link>
         </div>
         <div className={styles.tags}>
-          {tags.map((tag) => (
+          {shoot.shoot_style_tags?.map((tag: string) => (
             <span key={tag}>{tag}</span>
           ))}
         </div>

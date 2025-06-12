@@ -20,6 +20,25 @@
   height: 100%;
 }
 
+.loadingImg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingDetails {
+  width: 380px;
+  height: 100%;
+  border-left: 1px solid #fff;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .imageContainer img {
   object-fit: cover;
   /* object-position: center calc(0% - 300px); */

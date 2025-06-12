@@ -17,3 +17,16 @@
   margin-left: calc(var(--margin));
   margin-right: calc(var(--margin));
 }
+
+.loading {
+  width: 25%;
+  min-width: 25%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 0.125rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
