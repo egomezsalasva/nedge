@@ -43,6 +43,14 @@
   text-transform: uppercase;
 }
 
+.detailsSeparator {
+  margin-right: 0.25rem;
+}
+
+.detailsContainer h3 span {
+  white-space: nowrap;
+}
+
 .tags {
   position: absolute;
   bottom: 0.5rem;

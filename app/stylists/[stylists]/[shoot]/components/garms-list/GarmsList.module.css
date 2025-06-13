@@ -44,6 +44,14 @@
   border-right: 1px solid #fff;
 }
 
+.garmLinkIcon {
+  transform: translateY(2.5px);
+  opacity: 0.5;
+}
+.garmLink:hover .garmLinkIcon {
+  opacity: 1;
+}
+
 .garmSaveBtn,
 .garmSaveBtn_active {
   padding: 0.5rem 1rem;

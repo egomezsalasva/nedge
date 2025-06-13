@@ -1,41 +1,36 @@
 import { render, screen } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-import { testShootsData } from "@/app/@testShootsData";
-// vi.mock("../../../@data", () => ({
-//   shoots: testShootsData,
-// }));
+import { beforeEach, describe, expect, it } from "vitest";
+import { testSbShootsData } from "../../@testSbShootsData";
 import Card from "./Card";
+import { formatDate } from "@/app/@utils";
 
 describe("Card Component", () => {
-  it("renders the correct image", () => {
-    expect(true).toBe(true);
+  const shoot = {
+    ...testSbShootsData[1],
+    first_image: testSbShootsData[1].shoot_images[0].image_url,
+  };
+  beforeEach(() => {
+    render(<Card shoot={shoot} />);
   });
-  // beforeEach(() => {
-  //   render(<Card shoot={testShootsData[1]} />);
-  // });
-  // it("renders the correct image", () => {
-  //   const img = screen.getByRole("img");
-  //   expect(img).toHaveAttribute("src", testShootsData[1].imgs[0]);
-  //   expect(img).toHaveAttribute("alt", testShootsData[1].details.title);
-  // });
-  // it("renders the correct heading (title and stylist)", () => {
-  //   const headingRegex = new RegExp(
-  //     `${testShootsData[1].details.title}\\s*:\\s*${testShootsData[1].details.stylist}`,
-  //     "i",
-  //   );
-  //   expect(screen.getByText(headingRegex)).toBeInTheDocument();
-  // });
-  // it("renders the city and date", () => {
-  //   expect(
-  //     screen.getByText(testShootsData[1].details.city),
-  //   ).toBeInTheDocument();
-  //   expect(
-  //     screen.getByText(testShootsData[1].details.date),
-  //   ).toBeInTheDocument();
-  // });
-  // it("renders all tags", () => {
-  //   testShootsData[1].details.tags.forEach((tag) => {
-  //     expect(screen.getAllByText(tag).length).toBeGreaterThan(0);
-  //   });
-  // });
+  it("renders the correct image", () => {
+    const img = screen.getByRole("img");
+    expect(img).toHaveAttribute("src", shoot.first_image);
+    expect(img).toHaveAttribute("alt", shoot.name);
+  });
+  it("renders the correct heading (title and stylist)", () => {
+    const heading = screen.getByRole("heading", { level: 3 });
+    expect(heading).toHaveTextContent(shoot.name);
+    expect(heading).toHaveTextContent(shoot.stylist.name);
+    expect(heading).toHaveTextContent(":");
+  });
+  it("renders the city and formatted date", () => {
+    const formattedDate = formatDate(shoot.publication_date);
+    expect(screen.getByText("Test City 2")).toBeInTheDocument();
+    expect(screen.getByText(formattedDate)).toBeInTheDocument();
+  });
+  it("renders all tags", () => {
+    shoot.shoot_style_tags.forEach((tag) => {
+      expect(screen.getAllByText(tag).length).toBeGreaterThan(0);
+    });
+  });
 });

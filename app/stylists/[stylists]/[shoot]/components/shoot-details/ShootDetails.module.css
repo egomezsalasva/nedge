@@ -55,6 +55,25 @@
   margin: 1.25rem 0 0.75rem;
   display: flex;
   align-items: center;
+  text-transform: uppercase;
+}
+
+.stylistDescriptionContainer {
+  margin-bottom: 1.5rem;
+}
+
+.instaLink {
+  margin-left: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  transform: translateY(1px);
+  opacity: 0.5;
+}
+.instaLink:hover {
+  opacity: 1;
 }
 
 .followBtn,
@@ -79,8 +98,12 @@
   color: #000;
 }
 
+.shootContainer {
+  margin-bottom: 1rem;
+}
+
 .shootContainer h2 {
-  margin: 1.5rem 0 0.75rem;
+  margin: 0.75rem 0;
   text-transform: uppercase;
 }
 

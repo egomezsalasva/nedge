@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { testData } from "../../@testData";
-vi.mock("../../../@data", () => ({
-  shoots: testData,
+import { testSbShootsData } from "../../../../../@testSbShootsData";
+vi.mock("../../../../../@data", () => ({
+  shoots: testSbShootsData,
 }));
 vi.mock("./@ui", () => ({
   ImgList: () => <div>Image List</div>,
@@ -11,7 +11,7 @@ import SlideshowHero from "./SlideshowHero";
 
 describe("SlideshowHero Component", () => {
   beforeEach(() => {
-    render(<SlideshowHero shootData={testData[0]} />);
+    render(<SlideshowHero shootData={testSbShootsData[0]} />);
   });
   it("renders without crashing", () => {
     expect(screen.getByTestId("slideshow-hero")).toBeInTheDocument();

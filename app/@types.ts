@@ -10,6 +10,8 @@ export type ShootType = {
   stylist: {
     name: string;
     slug: string;
+    description: string;
+    instagram_url: string;
   };
   shoot_style_tags: string[];
   shoot_images: {

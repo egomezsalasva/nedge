@@ -23,7 +23,11 @@ const Card: FC<CardProps> = ({ shoot }) => {
             <div>{shoot.city.name}</div>
           </div>
           <Link href={`/stylists/${shoot.stylist.slug}/${shoot.slug}`}>
-            <h3>{`${shoot.name}:  ${shoot.stylist.name}`}</h3>
+            <h3>
+              {shoot.name}
+              <span className={styles.detailsSeparator}>:</span>{" "}
+              <span>{shoot.stylist.name}</span>
+            </h3>
           </Link>
         </div>
         <div className={styles.tags}>

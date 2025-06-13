@@ -1,17 +1,21 @@
 import { FC } from "react";
 import styles from "./ImgList.module.css";
 import Image from "next/image";
-import { ShootType } from "@/app/@data";
+import { formatDate } from "@/app/@utils";
+import { ShootType } from "@/app/@types";
 
-const ImgList: FC<{
+type ImgListProps = {
   shootData: ShootType;
   currentImg: string;
   setCurrentImg: (img: string) => void;
-}> = ({ shootData, currentImg, setCurrentImg }) => {
-  const {
-    imgs,
-    details: { date, city, stylist, title },
-  } = shootData;
+};
+
+const ImgList: FC<ImgListProps> = ({
+  shootData,
+  currentImg,
+  setCurrentImg,
+}) => {
+  const { shoot_images, publication_date, city, stylist, name } = shootData;
 
   const scrollToDetails = () => {
     const detailsElement = document.getElementById("info");
@@ -24,29 +28,29 @@ const ImgList: FC<{
     <div className={styles.container} data-testid="details">
       <div className={styles.box} data-testid="details-box">
         <div className={styles.boxHeader}>
-          <span>{date}</span>
-          <span>{city}</span>
+          <span>{formatDate(publication_date)}</span>
+          <span>{city.name}</span>
         </div>
         <h1 className={styles.boxTitle}>
-          <div>{title}:</div>
-          <div>{stylist}</div>
+          <div>{name}:</div>
+          <div>{stylist.name}</div>
         </h1>
         <button className={styles.scrollToDetailsBtn} onClick={scrollToDetails}>
           Scroll To Details
         </button>
       </div>
-      {imgs.map((img) => (
+      {shoot_images.map((img: { image_url: string }) => (
         <div
-          key={img}
+          key={img.image_url}
           className={
-            img === currentImg
+            img.image_url === currentImg
               ? styles.imgContainer_active
               : styles.imgContainer
           }
           data-testid="img"
-          onClick={() => setCurrentImg(img)}
+          onClick={() => setCurrentImg(img.image_url)}
         >
-          <Image src={img} alt="img" fill />
+          <Image src={img.image_url} alt="img" fill />
         </div>
       ))}
     </div>

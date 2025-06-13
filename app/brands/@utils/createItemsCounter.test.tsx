@@ -192,7 +192,6 @@ describe("createItemsCounter", () => {
   });
 
   it("should handle items with different structures and properties", () => {
-    // Arrange
     const shootsWithDifferentItemStructures = [
       {
         imgs: ["/test-img-1.png"],

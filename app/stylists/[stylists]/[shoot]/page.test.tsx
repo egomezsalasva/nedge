@@ -1,13 +1,21 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
-import { testData } from "./@testData";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import { testSbShootsData } from "../../../@testSbShootsData";
+vi.mock("next/headers", () => ({
+  headers: vi.fn(() => ({
+    get: vi.fn((key) => {
+      if (key === "host") return "localhost:3000";
+      return undefined;
+    }),
+  })),
+}));
 vi.mock("./components", () => ({
   GarmsList: () => <div>GarmsList</div>,
   ShootDetails: () => <div>ShootDetails</div>,
   SlideshowHero: () => <div>SlideshowHero</div>,
 }));
 vi.mock("../../../@data", () => ({
-  shoots: testData,
+  shoots: testSbShootsData,
 }));
 vi.mock("next/navigation", () => ({
   notFound: vi.fn(),
@@ -15,20 +23,30 @@ vi.mock("next/navigation", () => ({
 import Shoot from "./page";
 import { notFound } from "next/navigation";
 
-describe("Shoot Page Component", async () => {
-  let params: Promise<{ stylists: string; shoot: string }>;
+beforeAll(() => {
+  global.fetch = vi.fn(
+    async () =>
+      ({
+        ok: true,
+        json: async () => testSbShootsData[0],
+      }) as any,
+  );
+});
+
+afterAll(() => {
+  vi.restoreAllMocks();
+});
+
+describe("Shoot Page Component", () => {
   it("renders shoot details for valid params", async () => {
-    params = Promise.resolve({
-      stylists: "stylist-1",
-      shoot: "test-shoot-1",
-    });
+    const params = Promise.resolve({ stylists: "stylist-1", shoot: "shoot-1" });
     render(await Shoot({ params }));
     expect(await screen.findByRole("main")).toBeInTheDocument();
   });
   it("matches shoot regardless of case and dashes", async () => {
     const params = Promise.resolve({
       stylists: "STYLIST-1",
-      shoot: "TEST-SHOOT-1",
+      shoot: "SHOOT-1",
     });
     render(await Shoot({ params }));
     expect(await screen.findByRole("main")).toBeInTheDocument();
@@ -37,6 +55,13 @@ describe("Shoot Page Component", async () => {
     (notFound as any).mockImplementation(() => {
       throw new Error("NEXT_NOT_FOUND");
     });
+    (global.fetch as any).mockImplementationOnce(
+      async () =>
+        ({
+          ok: false,
+          status: 404,
+        }) as any,
+    );
     const params = Promise.resolve({
       stylists: "non-existent-stylist",
       shoot: "non-existent-shoot",

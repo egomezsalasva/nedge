@@ -20,7 +20,6 @@ export default function AccountMyWardrobe() {
       if (!acc[item.type]) {
         acc[item.type] = [];
       }
-      // Only add if not already in the array (check by name and brand)
       const isDuplicate = acc[item.type].some(
         (existingItem) =>
           existingItem.name === item.name && existingItem.brand === item.brand,

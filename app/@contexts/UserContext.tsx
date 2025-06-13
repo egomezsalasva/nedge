@@ -34,7 +34,6 @@ export type UserContextType = {
   removeWardrobeItem: (itemId: number) => void;
 };
 
-// Create the context with default values
 const UserContext = createContext<UserContextType>({
   bookmarks: [],
   following: [],
@@ -47,7 +46,6 @@ const UserContext = createContext<UserContextType>({
   removeWardrobeItem: () => {},
 });
 
-// Custom hook to use the context
 export const useUserContext = () => useContext(UserContext);
 
 type UserProviderProps = {
@@ -55,7 +53,6 @@ type UserProviderProps = {
 };
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-  // Initialize state from localStorage if available, otherwise use empty arrays
   const [bookmarks, setBookmarks] = useState<ShootType[]>(() => {
     if (typeof window !== "undefined") {
       const savedBookmarks = localStorage.getItem("nedge-bookmarks");
@@ -80,7 +77,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     return [];
   });
 
-  // Save to localStorage whenever state changes
   useEffect(() => {
     if (typeof window !== "undefined") {
       localStorage.setItem("nedge-bookmarks", JSON.stringify(bookmarks));
@@ -89,15 +85,12 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   }, [bookmarks, following, wardrobe]);
 
-  // Add a shoot to bookmarks
   const makeShootIdentifier = (shoot: ShootType) => {
     return `${shoot.details.title}-${shoot.details.stylist}`;
   };
 
   const addBookmark = (shoot: ShootType) => {
     const shootIdentifier = makeShootIdentifier(shoot);
-    // Prevent duplicates by checking if the shoot already exists
-    // Using the title and stylist as a unique identifier
     const exists = bookmarks.some(
       (bookmark) =>
         `${bookmark.details.title}-${bookmark.details.stylist}` ===
@@ -109,7 +102,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   };
 
-  // Remove a shoot from bookmarks
   const removeBookmark = (shoot: ShootType) => {
     const shootIdentifier = makeShootIdentifier(shoot);
     setBookmarks((prev) =>
@@ -121,26 +113,22 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     );
   };
 
-  // Add a stylist to following
   const addFollowing = (stylist: StylistFollowing) => {
     const exists = following.some((item) => item.name === stylist.name);
     if (!exists) {
-      // Make sure the stylist object has a link property
       const stylistWithLink = {
         name: stylist.name,
-        link: stylist.link || "", // Use provided link or empty string as fallback
+        link: stylist.link || "",
       };
       setFollowing((prev) => [stylistWithLink, ...prev]);
     }
   };
 
-  // Remove a stylist from following
   const removeFollowing = (stylistName: string) => {
     setFollowing((prev) => prev.filter((item) => item.name !== stylistName));
   };
 
   const pathname = usePathname();
-  // Add an item to wardrobe
   const addWardrobeItem = (item: WardrobeItem) => {
     const exists = wardrobe.some(
       (wardrobeItem) =>
@@ -156,7 +144,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }
   };
 
-  // Remove an item from wardrobe
   const removeWardrobeItem = (itemId: number) => {
     setWardrobe((prev) =>
       prev.filter(

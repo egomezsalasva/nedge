@@ -1,39 +1,45 @@
 "use client";
-import { FC, useEffect, useRef, useState } from "react";
-import { ShootType } from "@/app/@data";
+import { FC, useRef } from "react";
 import styles from "./GarmsList.module.css";
 import { useFindWidestElement } from "../../../../../@utils";
-import { useUserContext, WardrobeItem } from "@/app/@contexts/UserContext";
+import { useUserContext } from "@/app/@contexts/UserContext";
 import { Insta } from "@/app/@svgs";
-import { usePathname } from "next/navigation";
 
-type GarmsListProps = {
-  garmsData: ShootType["items"];
+type GarmsListItem = {
+  id: number;
+  name: string;
+  type: string;
+  brand: {
+    name: string;
+    instagram_url?: string;
+  };
+  affiliate_link?: string;
 };
 
-type GarmsListItem = WardrobeItem & {
-  instagramLink?: string;
-  affiliateLink?: string;
+type GarmsListProps = {
+  garmsData: GarmsListItem[];
 };
 
 const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
-  const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const widestElement = useFindWidestElement(containerRef, "data-measurewidth");
-  const { wardrobe, addWardrobeItem, removeWardrobeItem } = useUserContext();
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  const {
+    wardrobe,
+    // addWardrobeItem, removeWardrobeItem
+  } = useUserContext();
+  // const [isClient, setIsClient] = useState(false);
+  // useEffect(() => {
+  //   setIsClient(true);
+  // }, []);
 
-  const isSaved = (garm: GarmsListItem) => {
-    if (!isClient) return false;
-    return wardrobe.some(
-      (item) =>
-        `${item.sourceShootLink}#${item.id}` ===
-        `${item.sourceShootLink}#${garm.id}`,
-    );
-  };
+  // const isSaved = (garm: any) => {
+  //   if (!isClient) return false;
+  //   return wardrobe.some(
+  //     (item) =>
+  //       `${item.sourceShootLink}#${item.id}` ===
+  //       `${item.sourceShootLink}#${garm.id}`,
+  //   );
+  // };
 
   return (
     <div
@@ -42,7 +48,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
       ref={containerRef}
     >
       <ul>
-        {garmsData?.map((garm) => (
+        {garmsData?.map((garm: GarmsListItem) => (
           <li key={garm.id} className={styles.garmItem} id={garm.id.toString()}>
             <div className={styles.garmInfo}>
               <div
@@ -54,13 +60,13 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
               </div>
               <div className={styles.garmNameBrand}>
                 <div className={styles.garmName}>{garm.name}</div>
-                <div className={styles.garmBrand}>{garm.brand}</div>
+                <div className={styles.garmBrand}>{garm.brand.name}</div>
               </div>
             </div>
             <div>
-              {garm.instagramLink && !garm.affiliateLink && (
+              {garm.brand.instagram_url && !garm.affiliate_link && (
                 <a
-                  href={garm.instagramLink}
+                  href={garm.brand.instagram_url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.garmLink}
@@ -69,9 +75,9 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                   <Insta className={styles.garmLinkIcon} />
                 </a>
               )}
-              {garm.affiliateLink && (
+              {garm.affiliate_link && (
                 <a
-                  href={garm.affiliateLink}
+                  href={garm.affiliate_link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.garmLink}
@@ -79,30 +85,31 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                   Buy
                 </a>
               )}
-              {isClient && (
+              <button className={styles.garmSaveBtn}>Save</button>
+              {/* {isClient && (
                 <>
                   {isSaved(garm) ? (
                     <button
                       className={styles.garmSaveBtn_active}
-                      onClick={() => removeWardrobeItem(garm.id)}
+                      // onClick={() => removeWardrobeItem(garm.id)}
                     >
                       Saved
                     </button>
                   ) : (
                     <button
                       className={styles.garmSaveBtn}
-                      onClick={() =>
-                        addWardrobeItem({
-                          ...garm,
-                          sourceShootLink: pathname,
-                        })
-                      }
+                      // onClick={() =>
+                      //   addWardrobeItem({
+                      //     ...garm,
+                      //     sourceShootLink: pathname,
+                      //   })
+                      // }
                     >
                       Save
                     </button>
                   )}
                 </>
-              )}
+              )} */}
             </div>
           </li>
         ))}

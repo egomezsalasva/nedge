@@ -25,7 +25,7 @@ describe("getBrandItemsType", () => {
     const result = getBrandItemsType(shootWithDuplicates, "Test Brand 1");
     expect(result).toEqual(["T-shirt", "Shoes"]);
     expect(result).toHaveLength(2);
-    expect(new Set(result)).toEqual(new Set(["T-shirt", "Shoes"])); // Verify uniqueness
+    expect(new Set(result)).toEqual(new Set(["T-shirt", "Shoes"]));
   });
 
   it("should return empty array when shoot has no items", () => {
