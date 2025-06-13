@@ -28,9 +28,9 @@ describe("Card Component", () => {
     expect(screen.getByText("Test City 2")).toBeInTheDocument();
     expect(screen.getByText(formattedDate)).toBeInTheDocument();
   });
-  it("renders all tags", () => {
+  it("renders all tags and their slugs", () => {
     shoot.shoot_style_tags.forEach((tag) => {
-      expect(screen.getAllByText(tag).length).toBeGreaterThan(0);
+      expect(screen.getByText(tag.name)).toBeInTheDocument();
     });
   });
 });

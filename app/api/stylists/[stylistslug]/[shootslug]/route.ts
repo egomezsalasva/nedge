@@ -13,7 +13,7 @@ type RawSupabaseShoot = {
     instagram_url: string;
   } | null;
   city: { name: string } | null;
-  shoot_style_tags: { style_tags: { name: string } }[] | null;
+  shoot_style_tags: { style_tags: { name: string; slug: string } }[] | null;
   shoot_images: { image_url: string }[] | null;
   shoot_garments:
     | {
@@ -40,7 +40,7 @@ type TransformedShootType = {
     instagram_url: string;
   };
   city: { name: string };
-  shoot_style_tags: string[];
+  shoot_style_tags: { name: string; slug: string }[];
   shoot_images: { image_url: string }[];
   shoot_garments: {
     id: number;
@@ -69,7 +69,7 @@ export async function GET(
         description,
         stylist:stylists!stylist_id (name, slug, description, instagram_url),
         city:cities!city_id (name),
-        shoot_style_tags (style_tags (name)),
+        shoot_style_tags (style_tags (name, slug)),
         shoot_images (image_url),
         shoot_garments (
           garments!garment_id (
@@ -120,7 +120,10 @@ export async function GET(
         image_url: img.image_url,
       })) || [],
     shoot_style_tags:
-      shoot.shoot_style_tags?.map((tag) => tag.style_tags.name) || [],
+      shoot.shoot_style_tags?.map((tag) => ({
+        name: tag.style_tags.name,
+        slug: tag.style_tags.slug,
+      })) || [],
     shoot_garments:
       shoot.shoot_garments?.map((garment) => ({
         id: garment.garments.id,

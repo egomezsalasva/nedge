@@ -45,8 +45,13 @@ const Details: FC<DetailsProps> = ({
             {stylist.name}
           </div>
           <div className={styles.tags}>
-            {shoot_style_tags.map((tag: string) => (
-              <span key={tag}>{tag}</span>
+            {shoot_style_tags.map((tag: { name: string; slug: string }) => (
+              <Link
+                href={{ pathname: "/explore", query: { substyle: tag.slug } }}
+                key={tag.slug}
+              >
+                <span>{tag.name}</span>
+              </Link>
             ))}
           </div>
           <div className={styles.description}>

@@ -3,8 +3,45 @@
 }
 
 .main h1 {
+  line-height: 1.75rem;
+}
+
+.main h1 span {
+  margin-left: 0.5rem;
+  text-transform: uppercase;
+}
+
+.header {
+  display: flex;
+  align-items: center;
   padding: 2rem;
   margin-top: 1.5rem;
+}
+
+.header button {
+  --size: 2rem;
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 0.125rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  cursor: pointer;
+  margin-right: 1rem;
+  opacity: 0.5;
+  transform: translateY(0.125rem);
+}
+
+.header button:hover {
+  opacity: 1;
+}
+
+.header button svg {
+  --size: 0.75rem;
+  width: var(--size);
+  height: var(--size);
 }
 
 /* Enable hover only on non-touch devices */

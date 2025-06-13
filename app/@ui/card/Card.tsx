@@ -2,9 +2,19 @@ import { FC } from "react";
 import Link from "next/link";
 import { formatDate } from "@/app/@utils";
 import styles from "./Card.module.css";
-import { ShootType } from "@/app/@types";
 
-export type CardType = ShootType & { first_image: string };
+export type CardType = {
+  name: string;
+  slug: string;
+  publication_date: string;
+  city: { name: string };
+  stylist: { name: string; slug: string };
+  shoot_style_tags: {
+    name: string;
+    slug: string;
+  }[];
+  first_image: string;
+};
 
 type CardProps = {
   shoot: CardType;
@@ -31,9 +41,16 @@ const Card: FC<CardProps> = ({ shoot }) => {
           </Link>
         </div>
         <div className={styles.tags}>
-          {shoot.shoot_style_tags?.map((tag: string) => (
-            <span key={tag}>{tag}</span>
-          ))}
+          {shoot.shoot_style_tags?.map(
+            (tag: { name: string; slug: string }) => (
+              <Link
+                href={{ pathname: "/explore", query: { substyle: tag.slug } }}
+                key={tag.slug}
+              >
+                {tag.name}
+              </Link>
+            ),
+          )}
         </div>
       </div>
     </div>

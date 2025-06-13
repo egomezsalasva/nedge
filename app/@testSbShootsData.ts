@@ -8,7 +8,12 @@ export const testSbShootsData = [
       country: "Test Country 1",
     },
     publication_date: "2025-05-19",
-    shoot_style_tags: ["Tag 1", "Tag 2"],
+    shoot_style_tags: [
+      {
+        name: "Tag 1",
+        slug: "tag-1",
+      },
+    ],
     description: "Shoot Description 1",
     stylist: {
       name: "Stylist 1",
@@ -89,7 +94,16 @@ export const testSbShootsData = [
       country: "Test Country 2",
     },
     publication_date: "2025-05-19",
-    shoot_style_tags: ["Tag 3", "Tag 2"],
+    shoot_style_tags: [
+      {
+        name: "Tag 3",
+        slug: "tag-3",
+      },
+      {
+        name: "Tag 2",
+        slug: "tag-2",
+      },
+    ],
     description: "Shoot Description 2",
     stylist: {
       name: "Stylist 2",

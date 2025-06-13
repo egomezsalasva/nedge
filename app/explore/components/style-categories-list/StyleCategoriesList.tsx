@@ -1,11 +1,18 @@
 "use client";
-import { FC, useState } from "react";
-import { StyleCategoryType, stylesData } from "./@data";
+import { FC, useEffect, useState } from "react";
 import styles from "./StyleCategoriesList.module.css";
 import { Arrow } from "@/app/@svgs";
+import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
+
+export type StyleCategoryType = {
+  name: string;
+  subStyles: { name: string; slug: string }[];
+};
 
 const StyleCategoriesList: FC = () => {
   const [expanded, setExpanded] = useState<string[]>([]);
+  const [categories, setCategories] = useState<StyleCategoryType[]>([]);
 
   const handleToggle = (categoryName: string) => {
     setExpanded((expandedCategories) => {
@@ -20,10 +27,25 @@ const StyleCategoriesList: FC = () => {
     });
   };
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch("/api/explore/style-categories");
+        if (!res.ok) throw new Error("Failed to fetch categories");
+        const data = await res.json();
+        setCategories(data);
+      } catch (error) {
+        console.error("Error fetching style tags:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
   return (
     <section>
       <ul className={styles.stylesList}>
-        {stylesData.map((style: StyleCategoryType) => (
+        {categories.map((style: StyleCategoryType) => (
           <li key={style.name}>
             <div className={styles.styleTitle}>
               <label>{style.name}</label>
@@ -43,13 +65,19 @@ const StyleCategoriesList: FC = () => {
             </div>
             {expanded.includes(style.name) && (
               <ul className={styles.subStylesList}>
-                {style.subStyles.map((subStyle: string) => (
-                  <li key={subStyle}>
-                    <div className={styles.subStyle}>
-                      <label>{subStyle}</label>
-                    </div>
-                  </li>
-                ))}
+                {style.subStyles.map(
+                  (subStyle: { name: string; slug: string }) => (
+                    <li key={subStyle.slug}>
+                      <Link
+                        href={`?substyle=${subStyle.slug}`}
+                        className={styles.subStyle}
+                        scroll={false}
+                      >
+                        <label>{subStyle.name}</label>
+                      </Link>
+                    </li>
+                  ),
+                )}
               </ul>
             )}
           </li>

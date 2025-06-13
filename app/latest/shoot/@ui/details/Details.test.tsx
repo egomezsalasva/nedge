@@ -15,8 +15,14 @@ const testShootData: ShootType = {
   stylist: {
     name: "Test Stylist",
     slug: "test-stylist",
+    description: "Test Stylist Description",
+    instagram_url: "",
   },
-  shoot_style_tags: ["Urban", "Modern", "Casual"],
+  shoot_style_tags: [
+    { name: "Urban", slug: "urban" },
+    { name: "Modern", slug: "modern" },
+    { name: "Casual", slug: "casual" },
+  ],
   shoot_images: [
     { image_url: "/test-img-1.png" },
     { image_url: "/test-img-2.png" },

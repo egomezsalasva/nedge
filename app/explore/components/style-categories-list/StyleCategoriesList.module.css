@@ -74,9 +74,14 @@
 }
 
 .subStyle {
+  display: block;
   display: flex;
   align-items: center;
   margin: 0.25rem;
+  opacity: 0.75;
+}
+.subStyle:hover {
+  opacity: 1;
 }
 
 .subStyle label {

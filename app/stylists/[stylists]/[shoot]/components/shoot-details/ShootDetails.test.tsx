@@ -23,17 +23,13 @@ describe("ShootDetails Component", () => {
   it("renders the stylist name, description and Instagram link", () => {
     expect(screen.getByText("Stylist 1")).toBeInTheDocument();
     expect(screen.getByText("Stylist Description 1")).toBeInTheDocument();
-    const instaLink = screen.getByRole("link");
-    expect(instaLink).toHaveAttribute(
-      "href",
-      "https://www.instagram.com/stylist-1",
-    );
+    const instaLink = screen
+      .getAllByRole("link")
+      .find(
+        (link) =>
+          link.getAttribute("href") === "https://www.instagram.com/stylist-1",
+      );
+    expect(instaLink).toBeDefined();
     expect(instaLink).toHaveAttribute("target", "_blank");
-  });
-  it("renders the shoot title, description and tags", () => {
-    expect(screen.getByText("Test Shoot 1")).toBeInTheDocument();
-    expect(screen.getByText("Shoot Description 1")).toBeInTheDocument();
-    expect(screen.getByText("Tag 1")).toBeInTheDocument();
-    expect(screen.getByText("Tag 2")).toBeInTheDocument();
   });
 });

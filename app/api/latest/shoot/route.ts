@@ -8,7 +8,7 @@ type RawSupabaseShoot = {
   description: string;
   stylist: { name: string; slug: string } | null;
   city: { name: string } | null;
-  shoot_style_tags: { style_tags: { name: string } }[] | null;
+  shoot_style_tags: { style_tags: { name: string; slug: string } }[];
   shoot_images: { image_url: string }[] | null;
 };
 
@@ -19,7 +19,7 @@ type TransformedShootType = {
   description: string;
   stylist: { name: string; slug: string } | null;
   city: { name: string | undefined };
-  shoot_style_tags: string[] | undefined;
+  shoot_style_tags: { name: string; slug: string }[];
   shoot_images: { image_url: string }[] | null;
 };
 
@@ -33,7 +33,7 @@ export async function GET() {
       name, slug, publication_date, description,
       stylist:stylists!stylist_id (name, slug),
       city:cities!city_id (name),
-      shoot_style_tags (style_tags (name)),
+      shoot_style_tags (style_tags (name, slug)),
       shoot_images (image_url)
     `,
     )
@@ -45,9 +45,10 @@ export async function GET() {
   const transformedShoot: TransformedShootType = {
     ...latestShoot[0],
     city: { name: latestShoot[0].city?.name },
-    shoot_style_tags: latestShoot[0].shoot_style_tags?.map(
-      (tag) => tag.style_tags.name,
-    ),
+    shoot_style_tags: latestShoot[0].shoot_style_tags?.map((tag) => ({
+      name: tag.style_tags.name,
+      slug: tag.style_tags.slug,
+    })),
   };
 
   return NextResponse.json(transformedShoot);

@@ -1,4 +1,4 @@
-export type StyleCategoryType = {
+type StyleCategoryType = {
   name: string;
   subStyles: string[];
 };

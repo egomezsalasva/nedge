@@ -13,7 +13,10 @@ export type ShootType = {
     description: string;
     instagram_url: string;
   };
-  shoot_style_tags: string[];
+  shoot_style_tags: {
+    name: string;
+    slug: string;
+  }[];
   shoot_images: {
     image_url: string;
   }[];

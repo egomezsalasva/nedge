@@ -63,7 +63,7 @@
   margin-bottom: 0.25rem;
 }
 
-.tags span {
+.tags a {
   border: 1.5px solid #fff;
   padding: 0.25rem 0.5rem;
   border-radius: 0.125rem;

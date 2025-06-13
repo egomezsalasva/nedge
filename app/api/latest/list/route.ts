@@ -1,26 +1,16 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { CardType } from "@/app/@ui";
 
 type RawSupabaseShoot = {
   name: string;
   slug: string;
   publication_date: string;
   description: string;
-  stylist: { name: string; slug: string } | null;
-  city: { name: string } | null;
-  shoot_style_tags: { style_tags: { name: string } }[] | null;
-  shoot_images: { image_url: string }[] | null;
-};
-
-type TransformedShootType = {
-  name: string;
-  slug: string;
-  publication_date: string;
-  description: string;
-  stylist: { name: string; slug: string } | null;
-  city: { name: string | undefined };
-  shoot_style_tags: string[] | undefined;
-  first_image: string | null;
+  stylist: { name: string; slug: string };
+  city: { name: string };
+  shoot_style_tags: { style_tags: { name: string; slug: string } }[];
+  shoot_images: { image_url: string }[];
 };
 
 export async function GET() {
@@ -35,7 +25,7 @@ export async function GET() {
         publication_date,
         stylist:stylists!stylist_id (name, slug),
         city:cities!city_id (name),
-        shoot_style_tags (style_tags (name)),
+        shoot_style_tags (style_tags (name, slug)),
         shoot_images (image_url)
       `,
     )
@@ -45,15 +35,16 @@ export async function GET() {
 
   if (!shootsList) return NextResponse.json(null);
 
-  const transformedShoots: TransformedShootType[] = shootsList.map((shoot) => {
+  const transformedShoots: CardType[] = shootsList.map((shoot) => {
     const { shoot_images, ...shootWithoutImages } = shoot;
     return {
       ...shootWithoutImages,
       city: { name: shoot.city?.name },
-      shoot_style_tags: shoot.shoot_style_tags?.map(
-        (tag) => tag.style_tags.name,
-      ),
-      first_image: shoot_images?.[0]?.image_url || null,
+      shoot_style_tags: shoot.shoot_style_tags?.map((tag) => ({
+        name: tag.style_tags.name,
+        slug: tag.style_tags.slug,
+      })),
+      first_image: shoot_images?.[0]?.image_url || "",
     };
   });
 

@@ -1,0 +1,11 @@
+.container {
+  padding: 0 1.5rem 1.375rem;
+}
+
+.cardsContainer {
+  --margin: -0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(var(--margin));
+  margin-right: calc(var(--margin));
+}

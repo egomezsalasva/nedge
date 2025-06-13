@@ -14,7 +14,16 @@ const mockApiResponse = [
     description: "Test Description 1",
     stylist: { name: "Test Stylist 1", slug: "test-stylist-1" },
     city: { name: "Test City 1" },
-    shoot_style_tags: ["Tag1", "Tag2"],
+    shoot_style_tags: [
+      {
+        name: "Tag1",
+        slug: "tag-1",
+      },
+      {
+        name: "Tag2",
+        slug: "tag-2",
+      },
+    ],
     first_image: "/test-img-1.png",
   },
   {
@@ -24,7 +33,16 @@ const mockApiResponse = [
     description: "Test Description 2",
     stylist: { name: "Test Stylist 2", slug: "test-stylist-2" },
     city: { name: "Test City 2" },
-    shoot_style_tags: ["Tag3", "Tag4"],
+    shoot_style_tags: [
+      {
+        name: "Tag3",
+        slug: "tag-3",
+      },
+      {
+        name: "Tag4",
+        slug: "tag-4",
+      },
+    ],
     first_image: "/test-img-2.png",
   },
   {
@@ -34,7 +52,16 @@ const mockApiResponse = [
     description: "Test Description 3",
     stylist: { name: "Test Stylist 3", slug: "test-stylist-3" },
     city: { name: "Test City 3" },
-    shoot_style_tags: ["Tag5", "Tag6"],
+    shoot_style_tags: [
+      {
+        name: "Tag5",
+        slug: "tag-5",
+      },
+      {
+        name: "Tag6",
+        slug: "tag-6",
+      },
+    ],
     first_image: "/test-img-3.png",
   },
 ];
@@ -92,7 +119,7 @@ describe("Latest List Component", () => {
         const expectedDate = formatDate(shoot.publication_date);
         expect(card).toHaveTextContent(expectedDate);
         shoot.shoot_style_tags.forEach((tag) => {
-          expect(card).toHaveTextContent(tag);
+          expect(card).toHaveTextContent(tag.name);
         });
         const img = card.querySelector("img");
         expect(img).toBeTruthy();

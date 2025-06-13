@@ -108,10 +108,14 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
       <div className={styles.shootContainer}>
         <h2>{name}</h2>
         <ul>
-          {shoot_style_tags.map((tag: string) => (
-            <li key={tag} className={`tag`}>
-              {tag}
-            </li>
+          {shoot_style_tags.map((tag: { name: string; slug: string }) => (
+            <Link
+              href={{ pathname: "/explore", query: { substyle: tag.slug } }}
+              key={tag.slug}
+              className={`tag`}
+            >
+              {tag.name}
+            </Link>
           ))}
         </ul>
         <p>{description}</p>
