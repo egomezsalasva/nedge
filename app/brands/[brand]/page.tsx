@@ -1,10 +1,9 @@
 import { notFound } from "next/navigation";
-import { shoots } from "@/app/@data";
-import { brands } from "../@data";
-import CardWithItems from "@/app/@ui/card-with-items/CardWithItems";
+import { headers } from "next/headers";
+import CardWithItems, {
+  CardWithItemsType,
+} from "@/app/@ui/card-with-items/CardWithItems";
 import Link from "next/link";
-import { getBrandBySlug, getBrandShoots, getBrandItemsType } from "./@utils";
-import { createItemsCounter } from "../@utils";
 import { Insta } from "@/app/@svgs";
 import styles from "./page.module.css";
 
@@ -13,13 +12,18 @@ export default async function BrandPage({
 }: {
   params: { brand: string };
 }) {
-  const { key: brandKey, data: brandData } = getBrandBySlug(params.brand);
-  const brandShoots = getBrandShoots(brandData.name);
-  const itemsCount = createItemsCounter(brands, shoots);
+  const headersList = await headers();
+  const host = headersList.get("host");
+  const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+  const res = await fetch(`${protocol}://${host}/api/brands/${params.brand}`, {
+    cache: "no-store",
+  });
 
-  if (!brandData) {
+  if (!res.ok) {
     notFound();
   }
+
+  const { brand, garments, shoots } = await res.json();
 
   return (
     <div>
@@ -27,34 +31,29 @@ export default async function BrandPage({
         <div className={styles.container}>
           <div className={styles.brandHeader}>
             <div className={styles.brandHeaderLeft}>
-              <h1>{brandData.name}</h1>
-              <Link
-                href={`https://www.instagram.com/${brandData.instagram}`}
-                target="_blank"
-                className={styles.instaIcon}
-              >
-                <Insta />
-              </Link>
+              <h1>{brand.name}</h1>
+              {brand.instagram_url && (
+                <Link
+                  href={brand.instagram_url ?? ""}
+                  target="_blank"
+                  className={styles.instaIcon}
+                >
+                  <Insta />
+                </Link>
+              )}
             </div>
             <div className={styles.brandHeaderRight}>
               <div className={styles.itemShootCount}>
-                {itemsCount(brandKey)}{" "}
-                {itemsCount(brandKey) === 1 ? "item" : "items"}
+                {garments.length} {garments.length === 1 ? "item" : "items"}
               </div>
               <div className={styles.itemShootCount}>
-                {brandShoots.length}{" "}
-                {brandShoots.length === 1 ? "shoot" : "shoots"}
+                {shoots.length} {shoots.length === 1 ? "shoot" : "shoots"}
               </div>
             </div>
           </div>
           <div className={styles.cardsContainer}>
-            {brandShoots.map((shoot) => (
-              <CardWithItems
-                key={shoot.details.title}
-                shoot={shoot}
-                brand={brandData.name}
-                brandItemsType={getBrandItemsType(shoot, brandData.name)}
-              />
+            {shoots.map((shoot: CardWithItemsType) => (
+              <CardWithItems key={shoot.id} shoot={shoot} brand={brand.name} />
             ))}
           </div>
         </div>

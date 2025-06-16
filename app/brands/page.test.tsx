@@ -3,12 +3,14 @@ import { describe, expect, it } from "vitest";
 import BrandsPage from "./page";
 
 describe("Brands Page", () => {
-  it("should render the brands page", () => {
+  it("should render the brands page heading", () => {
     render(<BrandsPage />);
-    expect(screen.getByText("Brands")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /brands/i }),
+    ).toBeInTheDocument();
   });
-  it("renders BrandList component", () => {
+  it("renders BrandList component", async () => {
     render(<BrandsPage />);
-    expect(screen.getByTestId("brand-list")).toBeInTheDocument();
+    expect(await screen.findByTestId("brand-list")).toBeInTheDocument();
   });
 });

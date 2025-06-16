@@ -1,26 +1,65 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { testBrandsData } from "../../@testBrandsData";
-import { testShootsData } from "@/app/@testShootsData";
-vi.mock("../../@data", () => ({
-  brands: testBrandsData,
-}));
-vi.mock("../../../@data", () => ({
-  shoots: testShootsData,
-}));
 import BrandList from "./BrandList";
+import { afterEach } from "node:test";
+
+const mockBrands = [
+  {
+    id: 1,
+    name: "Test Brand 1",
+    slug: "test-brand-1",
+    itemCount: 2,
+    shootCount: 1,
+  },
+  {
+    id: 2,
+    name: "Test Brand 2",
+    slug: "test-brand-2",
+    itemCount: 1,
+    shootCount: 3,
+  },
+];
 
 describe("BrandList Component", () => {
   beforeEach(() => {
-    render(<BrandList />);
+    vi.spyOn(global, "fetch").mockImplementation((url) => {
+      if (url === "/api/brands/brands-with-counts") {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve(mockBrands),
+        } as Response);
+      }
+      return Promise.reject(new Error("Unknown endpoint"));
+    });
   });
 
-  it("should render the brand list", () => {
-    expect(screen.getByTestId("brand-list")).toBeInTheDocument();
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
-  it("should render the correct number of brands", () => {
-    expect(screen.getAllByRole("link").length).toBe(
-      Object.keys(testBrandsData).length,
+
+  it("shows loading state initially", () => {
+    render(<BrandList />);
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+  });
+
+  it("renders the brand list after fetch", async () => {
+    render(<BrandList />);
+    await waitFor(() =>
+      expect(screen.getByTestId("brand-list")).toBeInTheDocument(),
     );
+    expect(screen.getAllByRole("link")).toHaveLength(mockBrands.length);
+    mockBrands.forEach((brand) => {
+      expect(screen.getByText(brand.name)).toBeInTheDocument();
+    });
+  });
+
+  it("shows error state if fetch fails", async () => {
+    (global.fetch as any).mockImplementationOnce(() =>
+      Promise.resolve({
+        ok: false,
+      }),
+    );
+    render(<BrandList />);
+    await waitFor(() => expect(screen.getByText(/error/i)).toBeInTheDocument());
   });
 });

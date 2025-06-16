@@ -1,59 +1,81 @@
 import { FC } from "react";
 import Link from "next/link";
-import { slugify } from "../../@utils";
-import { ShootType } from "@/app/@data";
 import rootCardStyles from "../card/Card.module.css";
 import styles from "./CardWithItems.module.css";
 
-type CardWithItemsProps = {
-  shoot: ShootType;
-  brand: string;
-  brandItemsType: string[];
+export type CardWithItemsType = {
+  id: string;
+  name: string;
+  publication_date: string;
+  city: { name: string };
+  stylist: { name: string; slug: string };
+  shoot_style_tags: { name: string; slug: string }[];
+  first_image: string;
+  slug: string;
+  brandItemTypes: string[];
 };
 
-const CardWithItems: FC<CardWithItemsProps> = ({
-  shoot,
-  brand,
-  brandItemsType,
-}) => {
+type CardWithItemsProps = {
+  shoot: CardWithItemsType;
+  brand: string;
+};
+
+const CardWithItems: FC<CardWithItemsProps> = ({ shoot, brand }) => {
   const {
-    imgs,
-    details: { title, date, city, tags, stylist },
+    name,
+    publication_date,
+    city,
+    stylist,
+    shoot_style_tags,
+    first_image,
+    slug,
+    brandItemTypes,
   } = shoot;
   return (
     <div data-testid="shoot-card" className={rootCardStyles.cardContainer}>
       <div className={rootCardStyles.card}>
-        <Link href={`/stylists/${slugify(stylist)}/${slugify(title)}`}>
-          <img src={imgs[0]} alt={title} />
+        <Link href={`/stylists/${stylist.slug}/${slug}`}>
+          <img src={first_image} alt={name} />
         </Link>
         <div className={rootCardStyles.detailsContainer}>
           <div className={rootCardStyles.detailsTop}>
-            <div>{date}</div>
-            <div>{city}</div>
+            <div>{publication_date}</div>
+            <div>{city.name}</div>
           </div>
-          <Link href={`/stylists/${slugify(stylist)}/${slugify(title)}`}>
-            <h3>{`${title}:  ${stylist}`}</h3>
+          <Link href={`/stylists/${stylist.slug}/${slug}`}>
+            <h3>{`${name}:  ${stylist.name}`}</h3>
           </Link>
         </div>
         <div className={rootCardStyles.tags}>
-          {tags.map((tag) => (
-            <span key={tag}>{tag}</span>
+          {shoot_style_tags?.map((tag: { name: string; slug: string }) => (
+            <Link
+              href={{ pathname: "/explore", query: { substyle: tag.slug } }}
+              key={tag.slug}
+            >
+              {tag.name}
+            </Link>
           ))}
         </div>
-        <div className={styles.brandItemsContainer}>
-          <div className={styles.brandItems}>
-            <div className={styles.brandName}>{brand}:</div>
-            {brandItemsType.map((itemType, index) => (
-              <div key={itemType} className={styles.brandItem}>
-                {itemType}
-                <span className={styles.brandItemSeparator}>
-                  {index < brandItemsType.length - 1 && ","}
-                </span>
+        {brand &&
+          shoot.shoot_style_tags &&
+          shoot.shoot_style_tags.length > 0 && (
+            <div className={styles.brandItemsContainer}>
+              <div className={styles.brandItems}>
+                <div className={styles.brandName}>{brand}:</div>
+                {brandItemTypes.map((itemType, index) => (
+                  <div key={itemType} className={styles.brandItem}>
+                    {itemType}
+                    <span className={styles.brandItemSeparator}>
+                      {index < brandItemTypes.length - 1 && ","}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <div className={styles.brandItemsCount}>{brandItemsType.length}</div>
-        </div>
+              <div className={styles.brandItemsCount}>
+                {brandItemTypes.length}
+              </div>
+            </div>
+          )}
       </div>
     </div>
   );

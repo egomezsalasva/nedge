@@ -1,34 +1,55 @@
+"use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { slugify } from "@/app/@utils";
-import { brands } from "../../@data";
-import { shoots } from "../../../@data";
-import { createItemsCounter, createShootsCounter } from "../../@utils";
 import styles from "./BrandList.module.css";
 
 const BrandList = () => {
-  const itemCount = createItemsCounter(brands, shoots);
-  const shootCount = createShootsCounter(brands, shoots);
+  const [brands, setBrands] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch("/api/brands/brands-with-counts");
+        if (!res.ok) throw new Error("Failed to fetch");
+        const data = await res.json();
+        setBrands(data);
+      } catch (err: any) {
+        setError(err.message || "Error fetching data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <div className={styles.brandList} data-testid="brand-list">
-      {Object.keys(brands)
-        .sort((a, b) => a.localeCompare(b))
+      {brands
+        .sort((a, b) => a.name.localeCompare(b.name))
         .map((brand) => (
-          <Link href={`/brands/${slugify(brand)}`} key={brand}>
-            <div key={brand} className={styles.brandRow}>
-              <div className={styles.brandRowName}>{brand}</div>
+          <Link href={`/brands/${brand.slug}`} key={brand.id}>
+            <div className={styles.brandRow}>
+              <div className={styles.brandRowName}>{brand.name}</div>
               <div className={styles.brandRowInfo}>
                 <div>
                   <span className={styles.brandRowInfoNumber}>
-                    {itemCount(brand)}
+                    {brand.itemCount}
                   </span>
-                  <span>{itemCount(brand) === 1 ? "Item" : "Items"}</span>
+                  <span>{brand.itemCount === 1 ? "Item" : "Items"}</span>
                 </div>
                 <div>
                   <span className={styles.brandRowInfoNumber}>
-                    {shootCount(brand)}
+                    {brand.shootCount}
                   </span>
-                  <span>{shootCount(brand) === 1 ? "Shoot" : "Shoots"}</span>
+                  <span>{brand.shootCount === 1 ? "Shoot" : "Shoots"}</span>
                 </div>
               </div>
             </div>

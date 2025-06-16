@@ -50,8 +50,6 @@ const LatestList = () => {
     );
   }
 
-  console.log(latestShoots);
-
   return (
     <div className={styles.container}>
       <h2>Latest Shoots</h2>

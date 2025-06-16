@@ -42,8 +42,6 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
     ? bookmarks.some((bookmark) => bookmark.details.title === name)
     : false;
 
-  console.log(stylist.instagram_url);
-
   return (
     <div className={styles.container} data-testid="shoot-details">
       <div className={styles.headerContainer}>

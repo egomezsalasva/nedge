@@ -132,7 +132,7 @@ describe("StyleShootsList", () => {
     vi.stubGlobal("fetch", fetchMock);
     const subStyle = "streetwear";
     render(<StyleShootsList subStyle={subStyle} />);
-    await screen.findByTestId("shoot-cards-list"); // Wait for fetch to resolve
+    await screen.findByTestId("shoot-cards-list");
     expect(fetchMock).toHaveBeenCalledWith(
       `/api/explore/shoots-by-style?subStyle=${encodeURIComponent(subStyle)}`,
     );
