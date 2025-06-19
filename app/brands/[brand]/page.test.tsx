@@ -1,6 +1,28 @@
 import { render, screen } from "@testing-library/react";
 import BrandPage from "./page";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi, type Mock } from "vitest";
+
+type Shoot = {
+  id: number;
+  name: string;
+  publication_date: string;
+  city: { name: string };
+  stylist: { name: string; slug: string };
+  shoot_style_tags: { name: string; slug: string }[];
+  first_image: string;
+  slug: string;
+  brandItemTypes: string[];
+};
+
+type BrandPageData = {
+  brand: {
+    id: number;
+    name: string;
+    instagram_url: string | null;
+  };
+  garments: { id: number }[];
+  shoots: Shoot[];
+};
 
 vi.mock("next/navigation", () => ({
   notFound: vi.fn(),
@@ -51,9 +73,9 @@ global.fetch = vi.fn(() =>
             brandItemTypes: ["Test Item Type 3"],
           },
         ],
-      }),
-  }),
-) as any;
+      } as BrandPageData),
+  } as Response),
+) as Mock;
 
 describe("Brand Page", () => {
   it("renders the brand name and counts", async () => {
@@ -86,7 +108,7 @@ describe("Brand Page", () => {
   });
 
   it("renders correctly when there are no shoots or garments", async () => {
-    (global.fetch as any).mockImplementationOnce(() =>
+    (global.fetch as Mock).mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
         json: () =>
@@ -109,7 +131,7 @@ describe("Brand Page", () => {
   });
 
   it("does not render the Instagram link if instagram_url is missing", async () => {
-    (global.fetch as any).mockImplementationOnce(() =>
+    (global.fetch as Mock).mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
         json: () =>

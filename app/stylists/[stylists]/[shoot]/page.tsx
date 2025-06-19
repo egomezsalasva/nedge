@@ -3,11 +3,11 @@ import { GarmsList, ShootDetails, SlideshowHero } from "./components";
 import styles from "./page.module.css";
 import { headers } from "next/headers";
 
-type Props = {
+type ShootPageProps = {
   params: Promise<{ stylists: string; shoot: string }>;
 };
 
-export default async function Shoot({ params }: Props) {
+export default async function Shoot({ params }: ShootPageProps) {
   const { stylists, shoot } = await params;
   const headersList = await headers();
   const host = headersList.get("host");

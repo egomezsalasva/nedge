@@ -3,8 +3,16 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./BrandList.module.css";
 
+type Brand = {
+  id: number;
+  name: string;
+  slug: string;
+  itemCount: number;
+  shootCount: number;
+};
+
 const BrandList = () => {
-  const [brands, setBrands] = useState<any[]>([]);
+  const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,8 +25,8 @@ const BrandList = () => {
         if (!res.ok) throw new Error("Failed to fetch");
         const data = await res.json();
         setBrands(data);
-      } catch (err: any) {
-        setError(err.message || "Error fetching data");
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Error fetching data");
       } finally {
         setLoading(false);
       }

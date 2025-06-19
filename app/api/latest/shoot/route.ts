@@ -12,7 +12,7 @@ type RawSupabaseShoot = {
   shoot_images: { image_url: string }[] | null;
 };
 
-type TransformedShootType = {
+export type TransformedShootType = {
   name: string;
   slug: string;
   publication_date: string;

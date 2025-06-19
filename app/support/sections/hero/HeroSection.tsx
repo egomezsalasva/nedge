@@ -6,12 +6,12 @@ const HeroSection = () => {
       <div className={styles.heroCard}>
         <h1>Support Nedge</h1>
         <p className={styles.heroCardSubtitle}>Help Nedge Stay Alive</p>
-        <ul>
+        {/* <ul>
           <li>Save garments from the shoots to your wardrobe</li>
           <li>Unlimited shoot bookmarks</li>
           <li>Get a discount code on buy links</li>
           <li>Become a Supporter Stylist</li>
-        </ul>
+        </ul> */}
         <p className={styles.heroCardPrice}>
           <span>From</span>
           <span className={styles.heroCardPriceAmount}>€ 2.95</span>

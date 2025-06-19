@@ -19,18 +19,6 @@ describe("Hero Section Component", () => {
     expect(screen.getByText("Help Nedge Stay Alive")).toBeInTheDocument();
   });
 
-  it("displays all benefit list items", () => {
-    const benefits = [
-      "Save garments from the shoots to your wardrobe",
-      "Unlimited shoot bookmarks",
-      "Get a discount code on buy links",
-      "Become a Supporter Stylist",
-    ];
-    benefits.forEach((benefit) => {
-      expect(screen.getByText(benefit)).toBeInTheDocument();
-    });
-  });
-
   it("displays the pricing information", () => {
     expect(screen.getByText("From")).toBeInTheDocument();
     expect(screen.getByText("€ 2.95")).toBeInTheDocument();

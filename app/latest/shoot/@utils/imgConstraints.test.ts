@@ -32,9 +32,12 @@ describe("imgConstraints", () => {
     const consoleWarnSpy = vi
       .spyOn(console, "warn")
       .mockImplementation(() => {});
-    const result1 = imgConstraints(null as any, 10);
-    const result2 = imgConstraints(undefined as any, 10);
-    const result3 = imgConstraints("not an array" as any, 10);
+    // @ts-expect-error Testing invalid input
+    const result1 = imgConstraints(null, 10);
+    // @ts-expect-error Testing invalid input
+    const result2 = imgConstraints(undefined, 10);
+    // @ts-expect-error Testing invalid input
+    const result3 = imgConstraints("not an array", 10);
     expect(consoleWarnSpy).toHaveBeenCalledTimes(3);
     expect(consoleWarnSpy).toHaveBeenCalledWith("Images array is invalid");
     expect(result1).toEqual([]);

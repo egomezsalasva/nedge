@@ -4,9 +4,11 @@ import Image from "next/image";
 import { Details } from "./@ui";
 import styles from "./LatestShoot.module.css";
 import { imgConstraints } from "./@utils/imgConstraints";
+import { TransformedShootType } from "@/app/api/latest/shoot/route";
 
 const LatestShoot: FC = () => {
-  const [latestShootData, setLatestShootData] = useState<any | null>(null);
+  const [latestShootData, setLatestShootData] =
+    useState<TransformedShootType | null>(null);
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +79,7 @@ const LatestShoot: FC = () => {
           ) : (
             <Image
               src={
-                latestShootData?.shoot_images[activeImgIndex].image_url || ""
+                latestShootData?.shoot_images?.[activeImgIndex].image_url || ""
               }
               alt="Latest Shoot"
               fill
@@ -87,11 +89,13 @@ const LatestShoot: FC = () => {
         {isLoading ? (
           <div className={styles.loadingDetails}>Loading...</div>
         ) : (
-          <Details
-            shootData={latestShootData}
-            activeImgIndex={activeImgIndex}
-            setActiveImgIndex={setActiveImgIndex}
-          />
+          latestShootData && (
+            <Details
+              shootData={latestShootData}
+              activeImgIndex={activeImgIndex}
+              setActiveImgIndex={setActiveImgIndex}
+            />
+          )
         )}
       </div>
     </div>

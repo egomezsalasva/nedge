@@ -2,12 +2,12 @@
 import { FC } from "react";
 import Link from "next/link";
 import { SlideshowIndicators } from "../";
-import { ShootType } from "@/app/@types";
 import { formatDate } from "@/app/@utils";
 import styles from "./Details.module.css";
+import { TransformedShootType } from "@/app/api/latest/shoot/route";
 
 export type DetailsProps = {
-  shootData: ShootType;
+  shootData: TransformedShootType;
   activeImgIndex: number;
   setActiveImgIndex: (index: number) => void;
 };
@@ -35,14 +35,14 @@ const Details: FC<DetailsProps> = ({
         <span>{city.name}</span>
       </div>
       <div className={styles.body}>
-        <Link href={`/stylists/${stylist.slug}/${slug}`}>
+        <Link href={`/stylists/${stylist?.slug}/${slug}`}>
           <button className={styles.viewBtn}>VIEW DETAILS</button>
         </Link>
         <div className={styles.box}>
           <div className={styles.title}>
             {name}:
             <br />
-            {stylist.name}
+            {stylist?.name}
           </div>
           <div className={styles.tags}>
             {shoot_style_tags.map((tag: { name: string; slug: string }) => (
@@ -59,7 +59,7 @@ const Details: FC<DetailsProps> = ({
           </div>
         </div>
         <SlideshowIndicators
-          imgs={shoot_images.map((img) => img.image_url)}
+          imgs={shoot_images?.map((img) => img.image_url) || []}
           activeImgIndex={activeImgIndex}
           setActiveImgIndex={setActiveImgIndex}
         />

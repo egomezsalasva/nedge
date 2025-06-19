@@ -2,8 +2,8 @@
 import { FC, useRef } from "react";
 import styles from "./GarmsList.module.css";
 import { useFindWidestElement } from "../../../../../@utils";
-import { useUserContext } from "@/app/@contexts/UserContext";
 import { Insta } from "@/app/@svgs";
+import SaveGarmentButton from "./@ui/SaveGarmentButton";
 
 type GarmsListItem = {
   id: number;
@@ -23,23 +23,6 @@ type GarmsListProps = {
 const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const widestElement = useFindWidestElement(containerRef, "data-measurewidth");
-  const {
-    wardrobe,
-    // addWardrobeItem, removeWardrobeItem
-  } = useUserContext();
-  // const [isClient, setIsClient] = useState(false);
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-
-  // const isSaved = (garm: any) => {
-  //   if (!isClient) return false;
-  //   return wardrobe.some(
-  //     (item) =>
-  //       `${item.sourceShootLink}#${item.id}` ===
-  //       `${item.sourceShootLink}#${garm.id}`,
-  //   );
-  // };
 
   return (
     <div
@@ -85,31 +68,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                   Buy
                 </a>
               )}
-              <button className={styles.garmSaveBtn}>Save</button>
-              {/* {isClient && (
-                <>
-                  {isSaved(garm) ? (
-                    <button
-                      className={styles.garmSaveBtn_active}
-                      // onClick={() => removeWardrobeItem(garm.id)}
-                    >
-                      Saved
-                    </button>
-                  ) : (
-                    <button
-                      className={styles.garmSaveBtn}
-                      // onClick={() =>
-                      //   addWardrobeItem({
-                      //     ...garm,
-                      //     sourceShootLink: pathname,
-                      //   })
-                      // }
-                    >
-                      Save
-                    </button>
-                  )}
-                </>
-              )} */}
+              <SaveGarmentButton garmId={garm.id} />
             </div>
           </li>
         ))}

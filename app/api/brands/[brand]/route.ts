@@ -1,12 +1,12 @@
-import { NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { NextResponse } from "next/server";
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { brand: string } },
+  _req: Request,
+  { params }: { params: Promise<{ brand: string }> },
 ) {
   const supabase = await createClient();
-  const { brand: brandSlug } = params;
+  const { brand: brandSlug } = await params;
 
   const { data: brandData, error: brandError } = await supabase
     .from("brands")
@@ -113,12 +113,12 @@ export async function GET(
     };
   });
 
-  return new Response(
-    JSON.stringify({
+  return NextResponse.json(
+    {
       brand: brandData,
       garments,
       shoots: transformedShoots,
-    }),
-    { status: 200, headers: { "Content-Type": "application/json" } },
+    },
+    { status: 200 },
   );
 }

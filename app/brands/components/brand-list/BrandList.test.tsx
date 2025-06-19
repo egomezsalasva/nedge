@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 import BrandList from "./BrandList";
 import { afterEach } from "node:test";
 
@@ -54,7 +54,7 @@ describe("BrandList Component", () => {
   });
 
   it("shows error state if fetch fails", async () => {
-    (global.fetch as any).mockImplementationOnce(() =>
+    (global.fetch as Mock).mockImplementationOnce(() =>
       Promise.resolve({
         ok: false,
       }),

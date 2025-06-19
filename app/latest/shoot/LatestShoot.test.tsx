@@ -1,11 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import LatestShoot from "./LatestShoot";
+import { ComponentProps } from "react";
 
 vi.mock("next/image", () => ({
-  default: ({ src, alt, ...props }: any) => (
-    <img src={src} alt={alt} {...props} />
-  ),
+  default: ({
+    src,
+    alt,
+    ...props
+  }: {
+    src: string;
+    alt: string;
+  } & ComponentProps<"img">) => <img src={src} alt={alt} {...props} />,
 }));
 
 vi.mock("./@utils/imgConstraints", () => ({
@@ -13,7 +19,7 @@ vi.mock("./@utils/imgConstraints", () => ({
 }));
 
 vi.mock("./@ui", () => ({
-  Details: ({ shootData }: any) => (
+  Details: ({ shootData }: { shootData: { name: string } }) => (
     <div data-testid="details">Details for {shootData.name}</div>
   ),
 }));

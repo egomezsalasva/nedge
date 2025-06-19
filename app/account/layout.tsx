@@ -1,48 +1,22 @@
-"use client";
-import Link from "next/link";
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
 import styles from "./layout.module.css";
-import { usePathname } from "next/navigation";
-import { Arrow } from "../@svgs";
+import Header from "./@ui/Header";
 
-export default function MyAccountLayout({
+export default async function MyAccountLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
-  const isActive = (href: string) =>
-    pathname === href ? styles.navLink_active : styles.navLink;
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/signup");
+  }
   return (
     <div>
       <main className={styles.main}>
-        <div className={styles.header}>
-          <div className={styles.heading}>
-            <h1>My Account</h1>
-            <div className={styles.accountLink}>
-              ACCOUNT <Arrow className={styles.arrowAccount} />
-            </div>
-          </div>
-          <nav>
-            <Link
-              href="/account/bookmarks"
-              className={isActive("/account/bookmarks")}
-            >
-              Bookmarks
-            </Link>
-            <Link
-              href="/account/following"
-              className={isActive("/account/following")}
-            >
-              Following
-            </Link>
-            <Link
-              href="/account/my-wardrobe"
-              className={isActive("/account/my-wardrobe")}
-            >
-              My Wardrobe
-            </Link>
-          </nav>
-        </div>
+        <Header />
         <div className={styles.contentContainer}>{children}</div>
       </main>
     </div>

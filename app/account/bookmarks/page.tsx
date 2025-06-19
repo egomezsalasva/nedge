@@ -1,62 +1,83 @@
-"use client";
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useUserContext } from "@/app/@contexts/UserContext";
-import { ShootType } from "@/app/@data";
-import { slugify } from "@/app/@utils/slugify";
+import { createClient } from "@/utils/supabase/server";
+import RemoveBookmarkButton from "./@ui/RemoveBookmarkButton";
 import styles from "./page.module.css";
-import { Bin } from "@/app/@svgs";
 
-export default function AccountBookmarks() {
-  const { bookmarks, removeBookmark } = useUserContext();
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-  if (!isClient) {
-    return <div>Loading...</div>;
+type BookmarkType = {
+  id: number;
+  shoot: {
+    name: string;
+    slug: string;
+    stylist: {
+      name: string;
+      slug: string;
+    };
+    shoot_images: {
+      image_url: string;
+    }[];
+  };
+};
+
+export default async function AccountBookmarks() {
+  const supabase = await createClient();
+  const { data: bookmarks, error } = await supabase.from("profile_bookmarks")
+    .select<string, BookmarkType>(`
+    id,
+    shoot:shoot_id (
+      *,
+      stylist:stylists!stylist_id (
+        name,
+        slug
+      ),
+      shoot_images (image_url)
+    )
+  `);
+
+  if (error) {
+    console.error(error);
   }
+
   return (
     <div>
       <div>
-        {bookmarks.length === 0 ? (
+        {bookmarks?.length === 0 ? (
           <p>No bookmarks yet</p>
         ) : (
           <div className={styles.bookmarksContainer}>
-            {bookmarks.map((bookmark: ShootType) => (
-              <div
-                key={bookmark.details.title}
-                className={styles.bookmarkContainer}
-              >
-                <div className={styles.bookmarkImageContainer}>
-                  <Link
-                    href={`/stylists/${slugify(bookmark.details.stylist)}/${slugify(bookmark.details.title)}`}
-                  >
-                    <Image
-                      src={bookmark.imgs[0]}
-                      alt={bookmark.details.title}
-                      fill
-                    />
-                  </Link>
-                </div>
-                <div className={styles.bookmarkDetailsContainer}>
-                  <Link
-                    href={`/stylists/${slugify(bookmark.details.stylist)}/${slugify(bookmark.details.title)}`}
-                  >
-                    <h2>
-                      {bookmark.details.title}:
-                      <span>{bookmark.details.stylist}</span>
-                    </h2>
-                  </Link>
-                  <div>
-                    <button onClick={() => removeBookmark(bookmark)}>
-                      <Bin />
-                    </button>
+            {bookmarks?.map((bookmark: BookmarkType) => {
+              return (
+                <div
+                  key={bookmark.shoot.name}
+                  className={styles.bookmarkContainer}
+                >
+                  <div className={styles.bookmarkImageContainer}>
+                    <Link
+                      href={`/stylists/${bookmark.shoot.stylist.slug}/${bookmark.shoot.slug}`}
+                    >
+                      <Image
+                        src={bookmark.shoot.shoot_images[0].image_url}
+                        alt={bookmark.shoot.name}
+                        fill
+                      />
+                    </Link>
+                  </div>
+                  <div className={styles.bookmarkDetailsContainer}>
+                    <Link
+                      href={`/stylists/${bookmark.shoot.stylist.slug}/${bookmark.shoot.slug}`}
+                    >
+                      <h2>
+                        {bookmark.shoot.name}:
+                        <span>{bookmark.shoot.stylist.name}</span>
+                      </h2>
+                    </Link>
+                    <div>
+                      <RemoveBookmarkButton id={bookmark.id} />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

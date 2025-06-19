@@ -39,7 +39,8 @@
   transition: color 0.2s ease-in-out;
 }
 
-.arrowAccount {
+.arrowAccount,
+.arrowAccount_back {
   transform: rotate(180deg) translateY(2.5px);
   display: inline-block;
   width: 0.75rem;
@@ -48,9 +49,14 @@
   transition: color 0.2s ease-in-out;
 }
 
-.accountLink:hover .arrowAccount {
+.accountLink:hover .arrowAccount,
+.accountLink:hover .arrowAccount_back {
   color: #fff;
   transition: color 0.2s ease-in-out;
+}
+
+.arrowAccount_back {
+  transform: rotate(0deg) translateY(-2.5px);
 }
 
 .header nav {

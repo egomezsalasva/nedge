@@ -74,7 +74,7 @@ describe("ImgList", () => {
     expect(inactiveImgs.length).toBe(
       testSbShootsData[0].shoot_images.length - 1,
     );
-    inactiveImgs.forEach((img, idx) => {
+    inactiveImgs.forEach((img) => {
       expect(img.className).not.toContain("imgContainer_active");
       expect(img.className).toContain("imgContainer");
       const imgTag = img.querySelector("img");

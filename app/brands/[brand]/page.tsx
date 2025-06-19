@@ -7,15 +7,16 @@ import Link from "next/link";
 import { Insta } from "@/app/@svgs";
 import styles from "./page.module.css";
 
-export default async function BrandPage({
-  params,
-}: {
-  params: { brand: string };
-}) {
+type BrandPageProps = {
+  params: Promise<{ brand: string }>;
+};
+
+export default async function BrandPage({ params }: BrandPageProps) {
+  const { brand: brandParam } = await params;
   const headersList = await headers();
   const host = headersList.get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
-  const res = await fetch(`${protocol}://${host}/api/brands/${params.brand}`, {
+  const res = await fetch(`${protocol}://${host}/api/brands/${brandParam}`, {
     cache: "no-store",
   });
 

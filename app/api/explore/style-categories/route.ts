@@ -17,17 +17,36 @@ export async function GET() {
   }
 
   const formatted = (data || [])
-    .map((cat: any) => ({
-      name: cat.name,
-      subStyles: (cat.style_tags || [])
-        .filter(
-          (tag: any) => tag.shoot_style_tags && tag.shoot_style_tags.length > 0,
-        )
-        .map((tag: any) => ({ name: tag.name, slug: tag.slug }))
-        .sort((a: any, b: any) => a.name.localeCompare(b.name)),
-    }))
-    .filter((cat: any) => cat.subStyles.length > 0)
-    .sort((a: any, b: any) => a.name.localeCompare(b.name));
+    .map(
+      (cat: {
+        name: string;
+        style_tags: {
+          name: string;
+          slug: string;
+          shoot_style_tags: { shoot_id: string }[];
+        }[];
+      }) => ({
+        name: cat.name,
+        subStyles: (cat.style_tags || [])
+          .filter(
+            (tag: { shoot_style_tags: { shoot_id: string }[] }) =>
+              tag.shoot_style_tags && tag.shoot_style_tags.length > 0,
+          )
+          .map((tag: { name: string; slug: string }) => ({
+            name: tag.name,
+            slug: tag.slug,
+          }))
+          .sort((a: { name: string }, b: { name: string }) =>
+            a.name.localeCompare(b.name),
+          ),
+      }),
+    )
+    .filter(
+      (cat: { subStyles: { name: string }[] }) => cat.subStyles.length > 0,
+    )
+    .sort((a: { name: string }, b: { name: string }) =>
+      a.name.localeCompare(b.name),
+    );
 
   return NextResponse.json(formatted);
 }

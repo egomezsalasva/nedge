@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { PostgrestError } from "@supabase/supabase-js";
 
 type RawSupabaseShoot = {
+  id: number;
   name: string;
   slug: string;
   publication_date: string;
@@ -29,6 +31,7 @@ type RawSupabaseShoot = {
 };
 
 type TransformedShootType = {
+  id: number;
   name: string;
   slug: string;
   publication_date: string;
@@ -63,6 +66,7 @@ export async function GET(
     .from("shoots")
     .select(
       `
+        id,
         name, 
         slug, 
         publication_date, 
@@ -89,7 +93,10 @@ export async function GET(
     )
     .eq("slug", shootslug)
     .eq("stylists.slug", stylistslug)
-    .single()) as { data: RawSupabaseShoot | null; error: any };
+    .single()) as {
+    data: RawSupabaseShoot | null;
+    error: PostgrestError | null;
+  };
 
   if (error) {
     console.error("Error fetching shoot:", error);
@@ -104,6 +111,7 @@ export async function GET(
   }
 
   const transformedShoot: TransformedShootType = {
+    id: shoot.id,
     name: shoot.name,
     slug: shoot.slug,
     publication_date: shoot.publication_date,

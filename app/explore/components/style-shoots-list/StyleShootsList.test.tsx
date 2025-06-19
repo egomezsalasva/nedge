@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("@/app/@ui", () => ({
-  Card: ({ shoot }: any) => <div data-testid="mock-card">{shoot.title}</div>,
+  Card: ({ shoot }: { shoot: { title: string } }) => (
+    <div data-testid="mock-card">{shoot.title}</div>
+  ),
 }));
 import StyleShootsList from "./StyleShootsList";
 
@@ -67,7 +69,7 @@ describe("StyleShootsList", () => {
 
     vi.stubGlobal("fetch", fetchMock);
     const { rerender } = render(<StyleShootsList subStyle="casual" />);
-    let card = await screen.findByText("Shoot 1");
+    const card = await screen.findByText("Shoot 1");
     expect(card).toBeInTheDocument();
     rerender(<StyleShootsList subStyle="formal" />);
     const card2 = await screen.findByText("Shoot 2");
@@ -81,7 +83,9 @@ describe("StyleShootsList", () => {
   });
 
   it("shows and hides loading indicator appropriately", async () => {
-    let resolveFetch: (value: any) => void;
+    let resolveFetch: (value: {
+      json: () => Promise<{ shoots: { slug: string; title: string }[] }>;
+    }) => void;
     const fetchPromise = new Promise((resolve) => {
       resolveFetch = resolve;
     });

@@ -4,7 +4,7 @@ const AboutSupportersSection = () => {
       <h2>About Supporters</h2>
       <p>
         Your support means a lot to Nedge. It helps the platform stay active and
-        it's growth. There is a lot of work that goes into making Nedge a
+        it&apos;s growth. There is a lot of work that goes into making Nedge a
         reality. From keeping the platform itself running smoothly and
         improving, to finding a list of curated stylists to feature on the
         platform, to negotiating with brands to provide us with affiliate link

@@ -1,6 +1,15 @@
 import { render, screen } from "@testing-library/react";
-import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
+import {
+  afterAll,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+  type Mock,
+} from "vitest";
 import { testSbShootsData } from "../../../@testSbShootsData";
+
 vi.mock("next/headers", () => ({
   headers: vi.fn(() => ({
     get: vi.fn((key) => {
@@ -29,7 +38,7 @@ beforeAll(() => {
       ({
         ok: true,
         json: async () => testSbShootsData[0],
-      }) as any,
+      }) as Response,
   );
 });
 
@@ -52,15 +61,15 @@ describe("Shoot Page Component", () => {
     expect(await screen.findByRole("main")).toBeInTheDocument();
   });
   it("calls notFound for invalid params", async () => {
-    (notFound as any).mockImplementation(() => {
+    vi.mocked(notFound).mockImplementation(() => {
       throw new Error("NEXT_NOT_FOUND");
     });
-    (global.fetch as any).mockImplementationOnce(
+    (global.fetch as Mock).mockImplementationOnce(
       async () =>
         ({
           ok: false,
           status: 404,
-        }) as any,
+        }) as Response,
     );
     const params = Promise.resolve({
       stylists: "non-existent-stylist",

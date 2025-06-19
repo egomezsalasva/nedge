@@ -1,19 +1,18 @@
-"use client";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { ShootType } from "@/app/@types";
-import styles from "./ShootDetails.module.css";
-import { useUserContext } from "@/app/@contexts/UserContext";
 import { formatDate } from "@/app/@utils";
-import { Bookmark, Insta } from "@/app/@svgs";
+import { Insta } from "@/app/@svgs";
 import Link from "next/link";
+import BookmarkButton from "./@ui/BookmarkButton";
+import styles from "./ShootDetails.module.css";
 
 type ShootDetailsProps = {
   shootData: ShootType;
 };
 
 const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
-  const [mounted, setMounted] = useState(false);
   const {
+    id,
     name,
     publication_date,
     city,
@@ -21,26 +20,6 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
     shoot_style_tags,
     stylist,
   } = shootData;
-  const {
-    // addBookmark,
-    // removeBookmark,
-    bookmarks,
-    // addFollowing,
-    // removeFollowing,
-    // following,
-  } = useUserContext();
-
-  // const isFollowing = following.some(
-  //   (following) => following.name === stylist.name,
-  // );
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isBookmarked = mounted
-    ? bookmarks.some((bookmark) => bookmark.details.title === name)
-    : false;
 
   return (
     <div className={styles.container} data-testid="shoot-details">
@@ -49,19 +28,7 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
           <span>{formatDate(publication_date)}</span>
           <span>{city.name}</span>
         </div>
-        <button
-          className={styles.bookmarkBtn}
-          // onClick={() => {
-          //   if (bookmarks.some((bookmark) => bookmark.details.title === name)) {
-          //     removeBookmark(shootData as ShootType);
-          //   } else {
-          //     addBookmark(shootData as ShootType);
-          //   }
-          // }}
-          data-testid="bookmark"
-        >
-          <Bookmark fill={isBookmarked ? "currentColor" : "none"} />
-        </button>
+        <BookmarkButton shootId={id} />
       </div>
       <div className={styles.stylistContainer}>
         <div className={styles.stylistHeader}>
@@ -73,29 +40,6 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
           >
             <Insta />
           </Link>
-          {/* {isFollowing ? (
-            <button
-              className={styles.followBtn_active}
-              onClick={() => {
-                removeFollowing(stylist.name);
-              }}
-            >
-              Unfollow
-            </button>
-          ) : (
-            <button
-              className={styles.followBtn}
-              onClick={() => {
-                const stylistLink = `/stylists/${stylist.slug}/${slug}`;
-                addFollowing({
-                  name: stylist.name,
-                  link: stylistLink,
-                });
-              }}
-            >
-              Follow
-            </button>
-          )} */}
         </div>
         {stylist.description && (
           <div className={styles.stylistDescriptionContainer}>

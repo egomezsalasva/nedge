@@ -11,7 +11,7 @@ describe("StyleCategoriesList Component", () => {
     vi.spyOn(global, "fetch").mockResolvedValueOnce({
       ok: true,
       json: async () => testData,
-    } as any);
+    } as Response);
     render(<StyleCategoriesList />);
     for (const style of testData) {
       expect(await screen.findByText(style.name)).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe("StyleCategoriesList Component", () => {
     vi.spyOn(global, "fetch").mockResolvedValueOnce({
       ok: true,
       json: async () => testData,
-    } as any);
+    } as Response);
     render(<StyleCategoriesList />);
     for (const style of testData) {
       await screen.findByText(style.name);
@@ -37,7 +37,7 @@ describe("StyleCategoriesList Component", () => {
     vi.spyOn(global, "fetch").mockResolvedValueOnce({
       ok: true,
       json: async () => testData,
-    } as any);
+    } as Response);
     render(<StyleCategoriesList />);
     for (const style of testData) {
       await screen.findByText(style.name);
@@ -59,7 +59,7 @@ describe("StyleCategoriesList Component", () => {
     vi.spyOn(global, "fetch").mockResolvedValueOnce({
       ok: true,
       json: async () => testData,
-    } as any);
+    } as Response);
     render(<StyleCategoriesList />);
     for (const style of testData) {
       await screen.findByText(style.name);

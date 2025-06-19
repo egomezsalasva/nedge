@@ -2,7 +2,6 @@
 import { FC, useEffect, useState } from "react";
 import styles from "./StyleCategoriesList.module.css";
 import { Arrow } from "@/app/@svgs";
-import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 
 export type StyleCategoryType = {
