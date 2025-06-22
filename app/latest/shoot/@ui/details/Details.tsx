@@ -2,7 +2,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import { SlideshowIndicators } from "../";
-import { formatDate } from "@/app/@utils";
+import { formatDate } from "@/app/utils";
 import styles from "./Details.module.css";
 import { TransformedShootType } from "@/app/api/latest/shoot/route";
 

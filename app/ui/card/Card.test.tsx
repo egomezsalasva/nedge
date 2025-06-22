@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
-import { testSbShootsData } from "../../@testSbShootsData";
+import { testSbShootsData } from "../../testSbShootsData";
 import Card from "./Card";
-import { formatDate } from "@/app/@utils";
+import { formatDate } from "@/app/utils";
 
 describe("Card Component", () => {
   const shoot = {

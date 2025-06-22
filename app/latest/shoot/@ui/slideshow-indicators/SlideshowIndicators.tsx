@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from "./SlideshowIndicators.module.css";
-import { Arrow } from "@/app/@svgs";
+import { Arrow } from "@/app/svgs";
 
 type SlideshowIndicatorsProps = {
   imgs: string[];

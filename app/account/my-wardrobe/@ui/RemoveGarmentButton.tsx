@@ -1,5 +1,5 @@
 "use client";
-import { Bin } from "@/app/@svgs";
+import { Bin } from "@/app/svgs";
 import styles from "../page.module.css";
 import { createClient } from "@/utils/supabase/client";
 

@@ -1,23 +1,13 @@
 "use client";
 import { FC, useRef } from "react";
 import styles from "./GarmsList.module.css";
-import { useFindWidestElement } from "../../../../../@utils";
-import { Insta } from "@/app/@svgs";
+import { useFindWidestElement } from "../../../../../utils";
+import { Insta } from "@/app/svgs";
 import SaveGarmentButton from "./@ui/SaveGarmentButton";
-
-type GarmsListItem = {
-  id: number;
-  name: string;
-  type: string;
-  brand: {
-    name: string;
-    instagram_url?: string;
-  };
-  affiliate_link?: string;
-};
+import { ShootGarmentType } from "@/app/types";
 
 type GarmsListProps = {
-  garmsData: GarmsListItem[];
+  garmsData: ShootGarmentType[];
 };
 
 const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
@@ -31,7 +21,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
       ref={containerRef}
     >
       <ul>
-        {garmsData?.map((garm: GarmsListItem) => (
+        {garmsData?.map((garm: ShootGarmentType) => (
           <li key={garm.id} className={styles.garmItem} id={garm.id.toString()}>
             <div className={styles.garmInfo}>
               <div

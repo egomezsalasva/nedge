@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ImgList } from "./@ui";
 import styles from "./SlideshowHero.module.css";
 import { FC, useState } from "react";
-import { ShootType } from "@/app/@types";
+import { ShootType } from "@/app/types";
 
 type SlideshowHeroProps = {
   shootData: ShootType;

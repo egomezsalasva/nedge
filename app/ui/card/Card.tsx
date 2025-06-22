@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
-import { formatDate } from "@/app/@utils";
+import { formatDate } from "@/app/utils";
 import styles from "./Card.module.css";
 
 export type CardType = {

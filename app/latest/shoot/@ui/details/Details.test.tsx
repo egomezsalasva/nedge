@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import Details from "./Details";
-import { ShootType } from "@/app/@types";
+import { ShootType } from "@/app/types";
 
 const testShootData: ShootType = {
   name: "Test Shoot Title",

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Card, CardType } from "../../@ui";
+import { Card, CardType } from "../../ui";
 import styles from "./LatestList.module.css";
 
 const LatestList = () => {

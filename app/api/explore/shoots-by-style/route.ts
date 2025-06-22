@@ -8,7 +8,7 @@ type Shoot = {
   description: string;
   stylist: { name: string; slug: string }[];
   city: { name: string }[];
-  shoot_style_tags: { style_tags: { name: string; slug: string }[] }[];
+  shoot_style_tags: { style_tags: { name: string; slug: string } }[];
   shoot_images: { image_url: string }[];
 };
 

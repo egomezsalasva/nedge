@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { formatDate } from "@/app/@utils";
+import { formatDate } from "@/app/utils";
 import LatestList from "./LatestList";
 
 const mockFetch = vi.fn();

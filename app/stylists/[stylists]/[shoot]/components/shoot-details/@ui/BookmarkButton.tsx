@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-import { Bookmark } from "@/app/@svgs";
-import LoginModal from "@/app/@ui/modals/LoginModal";
+import { Bookmark } from "@/app/svgs";
+import LoginModal from "@/app/ui/modals/LoginModal";
 import styles from "../ShootDetails.module.css";
 
 const BookmarkButton = ({ shootId }: { shootId: number }) => {

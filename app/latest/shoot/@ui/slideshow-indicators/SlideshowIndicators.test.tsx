@@ -2,7 +2,7 @@ import { useState } from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 import { SlideshowIndicators } from "../";
-import { testShootsData } from "@/app/@testShootsData";
+import { testShootsData } from "@/app/testShootsData";
 
 function SlideshowIndicatorsTestHarness() {
   const [activeImgIndex, setActiveImgIndex] = useState(0);

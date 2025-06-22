@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import styles from "../layout.module.css";
-import { Arrow } from "@/app/@svgs";
+import { Arrow } from "@/app/svgs";
 
 const Header = () => {
   const pathname = usePathname();

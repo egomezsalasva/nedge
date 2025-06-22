@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Card, CardType } from "@/app/@ui";
+import { Card, CardType } from "@/app/ui";
 import styles from "./StyleShootsList.module.css";
 
 const StyleShootsList = ({ subStyle }: { subStyle: string }) => {

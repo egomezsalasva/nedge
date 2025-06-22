@@ -1,3 +1,14 @@
+export type ShootGarmentType = {
+  id: number;
+  name: string;
+  type: string;
+  brand: {
+    name: string;
+    instagram_url: string;
+  };
+  affiliate_link: string;
+};
+
 export type ShootType = {
   id: number;
   name: string;
@@ -21,4 +32,5 @@ export type ShootType = {
   shoot_images: {
     image_url: string;
   }[];
+  shoot_garments: ShootGarmentType[];
 };

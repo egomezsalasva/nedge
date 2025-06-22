@@ -1,7 +1,7 @@
 "use client";
 import { FC, useEffect, useState } from "react";
 import styles from "./StyleCategoriesList.module.css";
-import { Arrow } from "@/app/@svgs";
+import { Arrow } from "@/app/svgs";
 import Link from "next/link";
 
 export type StyleCategoryType = {

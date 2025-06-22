@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { login } from "./actions";
-import EmailPasswordForm from "../@ui/forms/EmailPasswordForm";
+import EmailPasswordForm from "../ui/forms/EmailPasswordForm";
 
 export default function SignupForm() {
   const [message, setMessage] = useState("");

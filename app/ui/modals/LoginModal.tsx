@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import styles from "./LoginModal.module.css";
-import useLockScreen from "@/app/@utils/useLockScreen";
+import useLockScreen from "@/app/utils/useLockScreen";
 
 interface LoginModalProps {
   setIsActive: (active: boolean) => void;

@@ -1,5 +1,5 @@
 "use client";
-import { Bin } from "@/app/@svgs";
+import { Bin } from "@/app/svgs";
 import { useTransition } from "react";
 
 export default function RemoveBookmarkButton({ id }: { id: number }) {

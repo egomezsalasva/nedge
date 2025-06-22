@@ -1,33 +1,23 @@
-"use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import { StyleCategoriesList, StyleShootsList } from "./components";
-import { Arrow } from "../@svgs";
+import { Suspense } from "react";
+import ExploreContent from "./ExploreContent";
 import styles from "./page.module.css";
 
-export default function Explore() {
-  const searchParams = useSearchParams();
-  const selectedSubstyle = searchParams.get("substyle");
-  const router = useRouter();
+function ExploreLoading() {
   return (
     <div>
       <main className={styles.main}>
         <div className={styles.header}>
-          {selectedSubstyle && (
-            <button onClick={() => router.back()} className={styles.backButton}>
-              <Arrow />
-            </button>
-          )}
-          <h1>
-            Explore Styles
-            {selectedSubstyle && <span>[{selectedSubstyle}]</span>}
-          </h1>
+          <h1>Explore Styles</h1>
         </div>
-        {selectedSubstyle ? (
-          <StyleShootsList subStyle={selectedSubstyle} />
-        ) : (
-          <StyleCategoriesList />
-        )}
       </main>
     </div>
+  );
+}
+
+export default function Explore() {
+  return (
+    <Suspense fallback={<ExploreLoading />}>
+      <ExploreContent />
+    </Suspense>
   );
 }

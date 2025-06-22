@@ -1,6 +1,4 @@
-import { ShootType } from "./@data";
-
-export const testShootsData: ShootType[] = [
+export const testShootsData = [
   {
     imgs: ["/test-img-1.png", "/test-img-2.png", "/test-img-3.png"],
     details: {

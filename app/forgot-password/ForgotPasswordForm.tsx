@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import styles from "@/app/@ui/forms/EmailPasswordForm.module.css";
+import styles from "@/app/ui/forms/EmailPasswordForm.module.css";
 import { createClient } from "@/utils/supabase/client";
 
 const ForgotPasswordForm = () => {

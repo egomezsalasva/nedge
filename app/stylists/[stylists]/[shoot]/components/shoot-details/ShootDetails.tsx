@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { ShootType } from "@/app/@types";
-import { formatDate } from "@/app/@utils";
-import { Insta } from "@/app/@svgs";
+import { ShootType } from "@/app/types";
+import { formatDate } from "@/app/utils";
+import { Insta } from "@/app/svgs";
 import Link from "next/link";
 import BookmarkButton from "./@ui/BookmarkButton";
 import styles from "./ShootDetails.module.css";

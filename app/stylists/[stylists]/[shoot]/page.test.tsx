@@ -8,7 +8,7 @@ import {
   vi,
   type Mock,
 } from "vitest";
-import { testSbShootsData } from "../../../@testSbShootsData";
+import { testSbShootsData } from "../../../testSbShootsData";
 
 vi.mock("next/headers", () => ({
   headers: vi.fn(() => ({

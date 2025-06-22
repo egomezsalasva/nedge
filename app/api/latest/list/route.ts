@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { CardType } from "@/app/@ui";
+import { CardType } from "@/app/ui";
 
 type RawSupabaseShoot = {
   name: string;

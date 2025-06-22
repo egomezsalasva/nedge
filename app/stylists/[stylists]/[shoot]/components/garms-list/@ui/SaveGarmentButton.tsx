@@ -2,7 +2,7 @@ import { createClient } from "@/utils/supabase/client";
 import { usePathname } from "next/navigation";
 import styles from "../GarmsList.module.css";
 import { useEffect, useState } from "react";
-import LoginModal from "@/app/@ui/modals/LoginModal";
+import LoginModal from "@/app/ui/modals/LoginModal";
 
 const SaveGarmentButton = ({ garmId }: { garmId: number }) => {
   const pathname = usePathname();

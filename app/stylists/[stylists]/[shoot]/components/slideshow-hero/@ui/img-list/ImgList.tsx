@@ -1,8 +1,8 @@
 import { FC } from "react";
 import styles from "./ImgList.module.css";
 import Image from "next/image";
-import { formatDate } from "@/app/@utils";
-import { ShootType } from "@/app/@types";
+import { formatDate } from "@/app/utils";
+import { ShootType } from "@/app/types";
 
 type ImgListProps = {
   shootData: ShootType;
