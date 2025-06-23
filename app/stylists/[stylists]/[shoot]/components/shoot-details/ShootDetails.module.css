@@ -43,6 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #fff;
 }
 
 .bookmarkBtn svg {
@@ -85,7 +86,7 @@
   border-radius: 0.125rem;
   margin-left: 1rem;
   min-width: 87px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .followBtn {
@@ -137,9 +138,30 @@
 }
 
 .teamMemberRole {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .teamMemberName {
   padding-left: 0.25rem;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    width: 100%;
+  }
+  .stylistHeader {
+    margin: 0.75rem 0 0.25rem;
+  }
+  .shootContainer {
+    margin-bottom: 0;
+  }
+
+  .shootContainer h2 {
+    margin: 0;
+    margin-bottom: 0.75rem;
+  }
+
+  .shootContainer ul {
+    margin-bottom: 0;
+  }
 }

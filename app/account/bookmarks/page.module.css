@@ -1,17 +1,17 @@
 .bookmarksContainer {
-  padding: 24px;
+  padding: 1.5rem;
 }
 
 .bookmarkContainer {
   display: flex;
   /* flex-wrap: wrap; */
-  padding: 12px 8px;
+  padding: 0.75rem 0.5rem;
   border-bottom: 1px solid #666;
 }
 
 .bookmarkImageContainer {
-  width: 166px;
-  min-width: 166px;
+  width: 10.375rem;
+  min-width: 10.375rem;
   position: relative;
 }
 
@@ -23,13 +23,13 @@
 .bookmarkDetailsContainer {
   display: flex;
   justify-content: space-between;
-  min-height: 120px;
+  min-height: 7.5rem;
   width: 100%;
   padding-left: 1rem;
 }
 
 .bookmarkDetailsContainer h2 {
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 700;
   margin: 0;
   text-transform: uppercase;
@@ -37,12 +37,19 @@
 }
 
 .bookmarkDetailsContainer h2 span {
-  margin-left: 0.375rem;
+  /* margin-left: 0.375rem; */
+  display: block;
+}
+
+.removeBookmarkButtonContainer {
+  min-width: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .bookmarkDetailsContainer button {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   border: none;
   border-radius: 0.125rem;
   background-color: transparent;
@@ -55,4 +62,24 @@
 
 .bookmarkDetailsContainer button:hover {
   opacity: 1;
+}
+
+@media screen and (max-width: 640px) {
+  .bookmarksContainer {
+    padding: 0.5rem;
+  }
+  .bookmarkContainer {
+    padding-right: 0;
+  }
+  .bookmarkImageContainer {
+    width: 118px;
+    min-width: 118px;
+    height: 74px;
+  }
+  .bookmarkDetailsContainer {
+    min-height: 0;
+  }
+  .bookmarkDetailsContainer h2 {
+    font-size: 1rem;
+  }
 }

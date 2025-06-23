@@ -57,3 +57,17 @@
   bottom: 0;
   z-index: 1;
 }
+
+@media (max-width: 640px) {
+  .container {
+    height: 100svh;
+  }
+  .innerContainer {
+    flex-direction: column;
+  }
+  .loadingDetails {
+    width: 100%;
+    border-top: 1px solid #fff;
+    border-left: none;
+  }
+}

@@ -4,7 +4,7 @@
   text-transform: uppercase;
   font-size: 1.125rem;
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .stylesList > li {
@@ -40,6 +40,7 @@
   cursor: pointer;
   border-top-right-radius: 0.125rem;
   border-bottom-right-radius: 0.125rem;
+  color: #fff;
 }
 
 .subStylesList {
@@ -105,4 +106,10 @@
 
 .arrowClosed {
   transform: rotate(-90deg) translateX(-1px);
+}
+
+@media screen and (max-width: 640px) {
+  .stylesList {
+    padding: 0 1.5rem;
+  }
 }

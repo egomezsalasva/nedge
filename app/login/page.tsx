@@ -26,7 +26,7 @@ export default async function LoginPage() {
           <Link href="/forgot-password">Forgot password?</Link>
         </div>
         <div className={styles.loginLink}>
-          Don&apost have an account? <Link href="/signup">Sign up</Link>
+          Don&apos;t have an account? <Link href="/signup">Sign up</Link>
         </div>
       </div>
     </div>

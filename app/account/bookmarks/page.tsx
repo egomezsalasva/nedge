@@ -71,7 +71,7 @@ export default async function AccountBookmarks() {
                         <span>{bookmark.shoot.stylist.name}</span>
                       </h2>
                     </Link>
-                    <div>
+                    <div className={styles.removeBookmarkButtonContainer}>
                       <RemoveBookmarkButton id={bookmark.id} />
                     </div>
                   </div>

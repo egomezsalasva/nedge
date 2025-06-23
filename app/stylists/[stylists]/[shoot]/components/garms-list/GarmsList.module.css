@@ -21,7 +21,7 @@
 
 .garmType {
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
   padding-right: 1rem;
 }
 
@@ -71,5 +71,41 @@
 .garmSaveBtn_active {
   background: #fff;
   color: #000;
-  font-weight: 600;
+  font-weight: 700;
+}
+
+@media screen and (max-width: 640px) {
+  .container {
+    margin-top: 1rem;
+  }
+
+  .garmItem {
+    padding: 0.375rem;
+  }
+  .garmType {
+    font-size: 0.675rem;
+    padding-right: 0.5rem;
+  }
+  .garmNameBrand {
+    font-size: 0.75rem;
+    padding: 0 0.75rem;
+  }
+  .garmBrand {
+    font-size: 0.625rem;
+  }
+  .garmLinks {
+    min-width: 114px;
+    text-align: right;
+  }
+  .garmLink {
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .garmSaveBtn,
+  .garmSaveBtn_active {
+    margin-left: 0.75rem;
+    min-width: 0px;
+    padding: 0.375rem 0.75rem;
+  }
 }

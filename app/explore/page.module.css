@@ -57,8 +57,11 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .main {
     align-items: center;
+  }
+  .header {
+    padding: 1.5rem;
   }
 }

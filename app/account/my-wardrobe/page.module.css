@@ -5,7 +5,7 @@
 .typeGroup h2 {
   font-size: 1.125rem;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   border-bottom: 1px solid #fff;
   padding-bottom: 1rem;
@@ -33,7 +33,7 @@
 .garmentName {
   font-size: 0.875rem;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -55,4 +55,16 @@
 
 .removeBtn:hover {
   opacity: 1;
+}
+
+@media screen and (max-width: 640px) {
+  .typeGroup {
+    padding: 2.25rem 1rem 0;
+  }
+  .typeGroup h2 {
+    padding-bottom: 0.75rem;
+  }
+  .typeGroup .garmentRow {
+    padding: 0.75rem 0.5rem;
+  }
 }

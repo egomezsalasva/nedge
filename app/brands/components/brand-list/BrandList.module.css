@@ -1,5 +1,6 @@
 .brandList {
   padding: 0 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .brandRow {
@@ -37,7 +38,7 @@
   display: inline-block;
   font-size: 1.125rem;
   line-height: 1.1;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -49,7 +50,7 @@
 .brandRowInfo > div {
   padding: 0 1rem;
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
 }
@@ -62,4 +63,38 @@
 .brandRowInfoNumber {
   color: #fff;
   margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 640px) {
+  .brandList {
+    padding: 0 1.5rem;
+  }
+  .brandRow {
+    padding: 0.75rem 0.5rem;
+  }
+  .brandRowName {
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+  .brandRowInfo > div {
+    font-size: 0.625rem;
+    padding: 0 0.5rem;
+  }
+  .brandRowInfoNumber {
+    margin-right: 0.25rem;
+  }
+  .brandRow:hover {
+    background: transparent;
+    color: #fff;
+  }
+  .brandRow:hover .brandRowInfo > div {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .brandRow:hover .brandRowInfoNumber {
+    color: #fff;
+  }
+  .brandRow:hover .brandRowInfo > div:last-child {
+    border-left: 1px solid #fff;
+  }
 }

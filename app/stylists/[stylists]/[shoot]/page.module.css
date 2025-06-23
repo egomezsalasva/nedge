@@ -9,3 +9,12 @@
   padding: 8rem;
   gap: 4rem;
 }
+
+@media (max-width: 640px) {
+  .infoContainer {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 2rem;
+    padding-bottom: 3rem;
+  }
+}

@@ -22,8 +22,8 @@
 .heading h1 {
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 28px;
-  line-height: 32px;
+  font-size: 1.75rem;
+  line-height: 1.2;
   margin: 0;
 }
 
@@ -31,8 +31,8 @@
   display: flex;
   align-items: flex-end;
   gap: 0.25rem;
-  font-size: 16px;
-  line-height: 18px;
+  font-size: 1rem;
+  line-height: 1.2;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
@@ -70,6 +70,7 @@
 .navLink,
 .navLink_active {
   padding: 1rem 1.5rem;
+  width: 100%;
   max-width: 20%;
   text-transform: uppercase;
   font-size: 0.875rem;
@@ -108,4 +109,18 @@
   flex-direction: column;
   min-height: calc(100vh - 158px);
   margin: 0 auto;
+}
+
+@media screen and (max-width: 640px) {
+  .header {
+    padding-top: 2rem;
+  }
+  .navLink,
+  .navLink_active {
+    width: 100%;
+    max-width: 50%;
+  }
+  .accountLink {
+    font-size: 0.875rem;
+  }
 }

@@ -79,3 +79,12 @@
 .arrowRight {
   transform: rotate(180deg) translateY(-1px);
 }
+
+@media (max-width: 640px) {
+  .container {
+    margin-top: 0;
+  }
+  .navContainer {
+    margin-bottom: 1rem;
+  }
+}

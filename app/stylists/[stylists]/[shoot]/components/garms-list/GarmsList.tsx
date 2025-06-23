@@ -36,7 +36,7 @@ const GarmsList: FC<GarmsListProps> = ({ garmsData }) => {
                 <div className={styles.garmBrand}>{garm.brand.name}</div>
               </div>
             </div>
-            <div>
+            <div className={styles.garmLinks}>
               {garm.brand.instagram_url && !garm.affiliate_link && (
                 <a
                   href={garm.brand.instagram_url}
