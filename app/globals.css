@@ -1,13 +1,6 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground: #ededed;
+  --background: #0a0a0a;
 }
 
 @font-face {
@@ -51,7 +44,7 @@ html.lock-screen {
 }
 
 body {
-  color: var(--foreground);
+  color: #ededed;
   background: var(--background);
   font-family: "Exat CYR", Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
