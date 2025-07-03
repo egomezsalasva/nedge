@@ -156,6 +156,7 @@
 
 .profitBreakdownItem {
   border: 1px solid #fff;
+  color: #ededed;
   border-radius: 0.125rem;
   display: flex;
   flex-direction: column;
