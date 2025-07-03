@@ -7,6 +7,27 @@ export const metadata: Metadata = {
   title: "NEDGE",
   description:
     "NEDGE is the platform to find inspiration for your next outfit.",
+  openGraph: {
+    title: "NEDGE",
+    description:
+      "NEDGE is the platform to find inspiration for your next outfit.",
+    url: "https://nedgestyle.com",
+    images: [
+      {
+        url: "https://nedgestyle.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "NEDGE",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NEDGE",
+    description:
+      "NEDGE is the platform to find inspiration for your next outfit.",
+    images: ["https://nedgestyle.com/og-image.jpg"],
+  },
 };
 
 const exatCyr = localFont({
