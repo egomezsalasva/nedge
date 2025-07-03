@@ -45,6 +45,7 @@ export default async function Shoot({
     .from("shoots")
     .select(
       `
+        id,
         name, 
         slug, 
         publication_date, 

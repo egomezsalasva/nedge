@@ -38,8 +38,8 @@ const SaveGarmentButton = ({ garmId }: { garmId: number }) => {
     if (!user) return;
     const { data: profile, error: profileError } = await supabase
       .from("profiles")
-      .select("id")
-      .eq("auth_user_id", user.id)
+      .select("*")
+      .eq("email", user.email)
       .single();
     if (profileError || !profile) return;
     return profile.id;

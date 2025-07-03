@@ -32,7 +32,7 @@ export default function AccountMyWardrobe() {
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("id")
-        .eq("auth_user_id", user.id)
+        .eq("email", user.email)
         .single();
       if (profileError || !profile) {
         setLoading(false);

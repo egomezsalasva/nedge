@@ -19,7 +19,7 @@ export async function GET(request: Request) {
   const { data: profile } = await supabase
     .from("profiles")
     .select("id")
-    .eq("auth_user_id", user?.id)
+    .eq("email", user?.email)
     .single();
 
   // Check if bookmark exists
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
   const { data: profile } = await supabase
     .from("profiles")
     .select("id")
-    .eq("auth_user_id", user?.id)
+    .eq("email", user?.email)
     .single();
 
   // Check if bookmark exists

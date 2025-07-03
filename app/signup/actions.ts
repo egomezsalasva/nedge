@@ -7,8 +7,18 @@ export async function signup(formData: FormData) {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
+
   const { error } = await supabase.auth.signUp(data);
   if (error) {
+    console.log(error);
+    return { error: true };
+  }
+
+  const { error: profileError } = await supabase
+    .from("profiles")
+    .insert([{ email: data.email }]);
+  if (profileError) {
+    console.log(profileError);
     return { error: true };
   }
   //revalidatePath("/", "layout");
