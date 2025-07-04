@@ -147,12 +147,18 @@ export default async function BrandPage({
             </div>
             <div className={styles.brandHeaderRight}>
               <div className={styles.itemShootCount}>
-                {garmentsData?.length}{" "}
-                {garmentsData?.length === 1 ? "item" : "items"}
+                <span className={styles.infoNumber}>
+                  {garmentsData?.length}
+                </span>
+                <span>{garmentsData?.length === 1 ? "item" : "items"}</span>
               </div>
               <div className={styles.itemShootCount}>
-                {transformedShoots?.length}{" "}
-                {transformedShoots?.length === 1 ? "shoot" : "shoots"}
+                <span className={styles.infoNumber}>
+                  {transformedShoots?.length}
+                </span>
+                <span>
+                  {transformedShoots?.length === 1 ? "shoot" : "shoots"}
+                </span>
               </div>
             </div>
           </div>

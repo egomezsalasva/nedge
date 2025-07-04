@@ -20,6 +20,27 @@
   gap: 0.5rem;
 }
 
+.brandHeaderRight {
+  text-align: right;
+}
+
+.brandHeaderRight div {
+  text-transform: uppercase;
+  color: #ffffffbf;
+  padding: 0 1rem;
+}
+
+.brandHeaderRight div:last-child {
+  border-left: 1px solid #fff;
+  padding-right: 0;
+}
+
+.infoNumber {
+  color: #fff;
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
 .brandHeader {
   display: flex;
   justify-content: space-between;
@@ -57,4 +78,19 @@
 
 .instaIcon:hover svg {
   opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .brandHeader {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1.75rem;
+  }
+
+  .brandHeaderRight div:first-child {
+    padding-left: 0;
+  }
+  .container h1 {
+    font-size: 1.5rem;
+  }
 }

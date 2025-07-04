@@ -21,6 +21,7 @@
 .header button {
   --size: 2rem;
   width: var(--size);
+  min-width: var(--size);
   height: var(--size);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 0.125rem;
@@ -60,6 +61,14 @@
 @media (max-width: 640px) {
   .main {
     align-items: center;
+  }
+  .main h1 {
+    font-size: 1.75rem;
+  }
+  .main h1 span {
+    display: block;
+    margin-top: 0.125rem;
+    margin-left: 0;
   }
   .header {
     padding: 1.5rem;
