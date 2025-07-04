@@ -63,6 +63,7 @@
   background: none;
   border: none;
   cursor: pointer;
+  color: #fff;
 }
 
 @media screen and (max-width: 640px) {
