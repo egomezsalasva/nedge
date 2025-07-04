@@ -21,7 +21,7 @@ const ResetPasswordPage = async () => {
         </p>
         <ForgotPasswordForm />
         <div className={styles.loginLink}>
-          Need help? <span>nedgestyle@gmail.com</span>
+          Need help? <span>support@nedgestyle.com</span>
         </div>
       </div>
     </div>
