@@ -28,6 +28,7 @@ export default function SignupForm() {
       submitText="Sign up"
       isSubmitting={isSubmitting}
       message={message}
+      passwordAutoComplete="new-password"
     />
   );
 }

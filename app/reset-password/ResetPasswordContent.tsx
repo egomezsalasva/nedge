@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { redirect, useSearchParams } from "next/navigation";
-import { ClosedIcon, EyeClosedIcon } from "../ui/forms/@svgs";
+import { EyeOpenIcon, EyeClosedIcon } from "../ui/forms/@svgs";
 import { createClient } from "@/utils/supabase/client";
 import styles from "./page.module.css";
 import formStyles from "@/app/ui/forms/EmailPasswordForm.module.css";
@@ -61,7 +61,7 @@ export default function ResetPasswordContent() {
               onClick={() => setShowPassword((prev) => !prev)}
               className={formStyles.passwordButton}
             >
-              {showPassword ? <ClosedIcon /> : <EyeClosedIcon />}
+              {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
             </button>
           </div>
           <div className={formStyles.inputContainer}>
@@ -81,7 +81,7 @@ export default function ResetPasswordContent() {
               onClick={() => setShowPassword((prev) => !prev)}
               className={formStyles.passwordButton}
             >
-              {showPassword ? <ClosedIcon /> : <EyeClosedIcon />}
+              {showPassword ? <EyeOpenIcon /> : <EyeClosedIcon />}
             </button>
           </div>
           <button

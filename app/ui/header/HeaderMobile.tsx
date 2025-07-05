@@ -17,12 +17,15 @@ const HeaderMobile = () => {
       <div
         className={styles.hamburgerContainer}
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        role="button"
+        aria-label="Open mobile menu"
       >
         <div className={styles.hamburgerTopLine} />
         <div className={styles.hamburgerMiddleLine} />
         <div className={styles.hamburgerBottomLine} />
       </div>
       <div
+        data-testid="mobile-menu"
         className={
           isMobileMenuOpen ? styles.navContainer : styles.navContainer_closed
         }
@@ -44,9 +47,6 @@ const HeaderMobile = () => {
                 BRANDS
               </Link>
             </li>
-            {/* <li>
-                  <Link href="/events">EVENTS</Link>
-                </li> */}
             <li className={styles.supportBtn}>
               <Link href="/support" onClick={closeMobileMenu}>
                 SUPPORT
