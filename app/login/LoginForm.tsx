@@ -25,6 +25,7 @@ export default function SignupForm() {
       submitText="Log in"
       isSubmitting={isSubmitting}
       message={message}
+      passwordAutoComplete="current-password"
     />
   );
 }

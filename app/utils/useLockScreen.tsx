@@ -1,6 +1,7 @@
+"use client";
 import { useEffect } from "react";
 
-const useLockScreen = () => {
+export const useLockScreen = () => {
   useEffect(() => {
     const className = "lock-screen";
     document.documentElement.classList.add(className);
@@ -9,5 +10,3 @@ const useLockScreen = () => {
     };
   }, []);
 };
-
-export default useLockScreen;

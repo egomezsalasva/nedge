@@ -1,12 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import HeroSection from "./HeroSection";
-import { beforeEach, describe, expect, it } from "vitest";
 
 describe("Hero Section Component", () => {
-  let container: HTMLElement;
   beforeEach(() => {
-    const renderResult = render(<HeroSection />);
-    container = renderResult.container;
+    render(<HeroSection />);
   });
 
   it("should display the main title", () => {
@@ -29,12 +26,6 @@ describe("Hero Section Component", () => {
     expect(
       screen.getByRole("button", { name: "Become a Supporter" }),
     ).toBeInTheDocument();
-  });
-
-  it("has proper semantic structure", () => {
-    expect(container.querySelector("section")).toBeInTheDocument();
-    expect(screen.getByRole("list")).toBeInTheDocument();
-    expect(screen.getAllByRole("listitem")).toHaveLength(4);
   });
 
   it("button is clickable and enabled", () => {

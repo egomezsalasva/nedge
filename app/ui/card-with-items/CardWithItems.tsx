@@ -1,17 +1,11 @@
 import { FC } from "react";
 import Link from "next/link";
 import rootCardStyles from "../card/Card.module.css";
+import { CardType } from "../card/Card";
 import styles from "./CardWithItems.module.css";
 
-export type CardWithItemsType = {
+export type CardWithItemsType = CardType & {
   id: string;
-  name: string;
-  publication_date: string;
-  city: { name: string };
-  stylist: { name: string; slug: string };
-  shoot_style_tags: { name: string; slug: string }[];
-  first_image: string;
-  slug: string;
   brandItemTypes: string[];
 };
 

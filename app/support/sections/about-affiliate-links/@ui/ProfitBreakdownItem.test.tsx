@@ -1,7 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import ProfitBreakdownItem from "./ProfitBreakdownItem";
-import { beforeEach, describe, expect, it } from "vitest";
-import { testData } from "../@testData";
+
+const testData = [
+  {
+    title: "Title 1",
+    percentage: "33%",
+    backgroundImgUrl: "./img-url-placeholder-1.png",
+  },
+  {
+    title: "Title 2",
+    percentage: "33%",
+    backgroundImgUrl: "./img-url-placeholder-2.png",
+  },
+  {
+    title: "Title 3",
+    percentage: "33%",
+    backgroundImgUrl: "./img-url-placeholder-3.png",
+  },
+];
 
 describe("Profit Breakdown Item Component", () => {
   beforeEach(() => {

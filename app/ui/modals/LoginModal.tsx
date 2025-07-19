@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
+import { useLockScreen } from "@/app/utils";
 import styles from "./LoginModal.module.css";
-import useLockScreen from "@/app/utils/useLockScreen";
 
 interface LoginModalProps {
   setIsActive: (active: boolean) => void;
@@ -14,6 +14,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ setIsActive, title }) => {
 
   return (
     <div
+      data-testid="login-modal-container"
       onClick={() => setIsActive(false)}
       className={styles.loginModalContainer}
     >

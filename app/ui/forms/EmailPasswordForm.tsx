@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { EyeClosedIcon, EyeOpenIcon } from "./@svgs";
 import styles from "./EmailPasswordForm.module.css";
-import { ClosedIcon, EyeClosedIcon } from "./@svgs";
 
 type EmailPasswordFormProps = {
   submitHandler: (event: React.FormEvent<HTMLFormElement>) => void;
   submitText: string;
   isSubmitting: boolean;
   message: string;
+  passwordAutoComplete?: "current-password" | "new-password";
 };
 
 const EmailPasswordForm = ({
@@ -14,6 +15,7 @@ const EmailPasswordForm = ({
   submitText,
   isSubmitting,
   message,
+  passwordAutoComplete = "current-password",
 }: EmailPasswordFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -44,7 +46,7 @@ const EmailPasswordForm = ({
           name="password"
           type={showPassword ? "text" : "password"}
           placeholder="Password"
-          autoComplete="new-password"
+          autoComplete={passwordAutoComplete}
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -54,8 +56,13 @@ const EmailPasswordForm = ({
           type="button"
           onClick={() => setShowPassword((prev) => !prev)}
           className={styles.passwordButton}
+          aria-label={showPassword ? "Hide password" : "Show password"}
         >
-          {showPassword ? <ClosedIcon /> : <EyeClosedIcon />}
+          {showPassword ? (
+            <EyeOpenIcon testId="eye-open-icon" />
+          ) : (
+            <EyeClosedIcon testId="eye-closed-icon" />
+          )}
         </button>
       </div>
       <button
@@ -65,7 +72,7 @@ const EmailPasswordForm = ({
       >
         {submitText}
       </button>
-      {message && <div>{message}</div>}
+      {message && <div data-testid="form-message">{message}</div>}
     </form>
   );
 };

@@ -23,9 +23,6 @@ const Header = () => {
                 <li>
                   <Link href="/brands">BRANDS</Link>
                 </li>
-                {/* <li>
-                  <Link href="/events">EVENTS</Link>
-                </li> */}
                 <li className={styles.supportBtn}>
                   <Link href="/support">SUPPORT</Link>
                 </li>
@@ -36,7 +33,7 @@ const Header = () => {
             <Link href="/account">MY ACCOUNT</Link>
           </div>
         </div>
-        <div className={styles.nav_mobile}>
+        <div className={styles.nav_mobile} data-testid="header-mobile">
           <HeaderMobile />
         </div>
       </div>

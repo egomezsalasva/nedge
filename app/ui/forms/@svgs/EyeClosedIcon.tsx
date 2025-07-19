@@ -1,4 +1,10 @@
-const EyeClosedIcon = ({ className }: { className?: string }) => {
+const EyeClosedIcon = ({
+  className,
+  testId,
+}: {
+  className?: string;
+  testId?: string;
+}) => {
   return (
     <svg
       width="20"
@@ -7,6 +13,7 @@ const EyeClosedIcon = ({ className }: { className?: string }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      data-testid={testId}
     >
       <rect width="20" height="20" fill="white" />
       <rect

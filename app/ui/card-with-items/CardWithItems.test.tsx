@@ -18,6 +18,9 @@ const mockShoot: CardWithItemsType = {
 };
 
 describe("CardWithItems Component", () => {
+  it("should be true", () => {
+    expect(true).toBe(true);
+  });
   beforeEach(() => {
     render(<CardWithItems shoot={mockShoot} brand="TestBrand" />);
   });

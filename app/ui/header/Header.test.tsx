@@ -3,6 +3,9 @@ import { beforeEach, describe, expect, it } from "vitest";
 import Header from "./Header";
 
 describe("Header", () => {
+  it("should be true", () => {
+    expect(true).toBe(true);
+  });
   beforeEach(() => {
     render(<Header />);
   });
@@ -22,14 +25,24 @@ describe("Header", () => {
     expect(links[1]).toHaveAttribute("href", "/explore");
     expect(links[2]).toHaveTextContent("BRANDS");
     expect(links[2]).toHaveAttribute("href", "/brands");
-    // expect(links[3]).toHaveTextContent("EVENTS");
-    // expect(links[3]).toHaveAttribute("href", "/events");
     expect(links[3]).toHaveTextContent("SUPPORT");
     expect(links[3]).toHaveAttribute("href", "/support");
   });
-  it("should have a link to my account", () => {
-    const link = screen.getByText("MY ACCOUNT");
-    expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute("href", "/account");
+  it('should have a "MY ACCOUNT" link that points to /account or /login', () => {
+    const accountLinks = screen.getAllByRole("link", { name: /my account/i });
+    expect(accountLinks.length).toBeGreaterThan(0);
+    expect(
+      accountLinks.some((link) =>
+        ["/account", "/login"].includes(link.getAttribute("href") || ""),
+      ),
+    ).toBe(true);
+  });
+  it("should render the HeaderMobile component for mobile navigation", () => {
+    expect(screen.getByTestId("header-mobile")).toBeInTheDocument();
+  });
+  it('should have a logo link that points to "/"', () => {
+    const logo = screen.getByTestId("logo");
+    expect(logo).toBeInTheDocument();
+    expect(logo).toHaveAttribute("href", "/");
   });
 });

@@ -1,4 +1,10 @@
-const ClosedIcon = ({ className }: { className?: string }) => {
+const EyeOpenIcon = ({
+  className,
+  testId,
+}: {
+  className?: string;
+  testId?: string;
+}) => {
   return (
     <svg
       width="20"
@@ -7,6 +13,7 @@ const ClosedIcon = ({ className }: { className?: string }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      data-testid={testId}
     >
       <rect width="20" height="20" fill="white" />
       <path
@@ -24,4 +31,4 @@ const ClosedIcon = ({ className }: { className?: string }) => {
   );
 };
 
-export default ClosedIcon;
+export default EyeOpenIcon;
