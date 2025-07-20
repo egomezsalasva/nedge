@@ -1,29 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useState, useTransition } from "react";
+import { forgotPasswordAction } from "./actions";
 import styles from "@/app/ui/forms/EmailPasswordForm.module.css";
-import { createClient } from "@/utils/supabase/client";
 
 const ForgotPasswordForm = () => {
-  const supabase = createClient();
-  const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
+  const [email, setEmail] = useState("");
 
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const submitPasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
-    if (error) {
-      setMessage(error.message);
-    } else {
-      setMessage("A password reset link has been sent to your email.");
-    }
-    setIsSubmitting(true);
+  const handleSubmit = async (formData: FormData) => {
+    setMessage("");
+    startTransition(async () => {
+      const result = await forgotPasswordAction(formData);
+      if (result?.error) {
+        setMessage(result.error);
+      } else {
+        setMessage("A password reset link has been sent to your email.");
+        setEmail("");
+      }
+    });
   };
 
   return (
-    <form className={styles.form} onSubmit={submitPasswordReset}>
+    <form className={styles.form} action={handleSubmit}>
       <div className={styles.inputContainer}>
         <input
           id="email"
@@ -39,10 +40,10 @@ const ForgotPasswordForm = () => {
       </div>
       <button
         type="submit"
-        disabled={!isEmailValid || isSubmitting}
+        disabled={!isEmailValid || isPending}
         className={styles.submitButton}
       >
-        Send reset link
+        {isPending ? "Sending..." : "Send reset link"}
       </button>
       {message && <div>{message}</div>}
     </form>

@@ -1,16 +1,9 @@
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
 import ForgotPasswordForm from "./ForgotPasswordForm";
+import { checkAuthAction } from "./actions";
 import styles from "./page.module.css";
 
 const ResetPasswordPage = async () => {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (user) {
-    redirect("/account/my-account");
-  }
+  await checkAuthAction();
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
