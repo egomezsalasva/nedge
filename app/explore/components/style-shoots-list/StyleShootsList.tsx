@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Card, CardType } from "@/app/ui";
+import { getStyleShootsList } from "./@utils/getStyleShootsList";
 import styles from "./StyleShootsList.module.css";
 
 const StyleShootsList = ({ subStyle }: { subStyle: string }) => {
@@ -9,20 +10,19 @@ const StyleShootsList = ({ subStyle }: { subStyle: string }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-    fetch(
-      `/api/explore/shoots-by-style?subStyle=${encodeURIComponent(subStyle)}`,
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setShoots(Array.isArray(data.shoots) ? data.shoots : []);
-        setLoading(false);
-      })
-      .catch(() => {
+    const fetchShoots = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await getStyleShootsList(subStyle);
+        setShoots(data.shoots);
+      } catch {
         setError("Failed to load shoots.");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetchShoots();
   }, [subStyle]);
 
   return (

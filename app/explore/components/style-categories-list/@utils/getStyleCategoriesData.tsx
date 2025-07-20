@@ -1,7 +1,11 @@
-import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/client";
 
-export async function GET() {
+export type StyleCategoryType = {
+  name: string;
+  subStyles: { name: string; slug: string }[];
+};
+
+export async function getStyleCategoriesData(): Promise<StyleCategoryType[]> {
   const supabase = createClient();
   const { data, error } = await supabase.from("style_categories").select(`
     name,
@@ -13,7 +17,7 @@ export async function GET() {
   `);
 
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    throw new Error(error.message);
   }
 
   const formatted = (data || [])
@@ -48,5 +52,5 @@ export async function GET() {
       a.name.localeCompare(b.name),
     );
 
-  return NextResponse.json(formatted);
+  return formatted;
 }

@@ -1,8 +1,9 @@
 "use client";
 import { FC, useEffect, useState } from "react";
-import styles from "./StyleCategoriesList.module.css";
-import { Arrow } from "@/app/svgs";
 import Link from "next/link";
+import { Arrow } from "@/app/svgs";
+import { getStyleCategoriesData } from "./@utils/getStyleCategoriesData";
+import styles from "./StyleCategoriesList.module.css";
 
 export type StyleCategoryType = {
   name: string;
@@ -29,9 +30,7 @@ const StyleCategoriesList: FC = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("/api/explore/style-categories");
-        if (!res.ok) throw new Error("Failed to fetch categories");
-        const data = await res.json();
+        const data = await getStyleCategoriesData();
         setCategories(data);
       } catch (error) {
         console.error("Error fetching style tags:", error);

@@ -1,5 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
+import { CardType } from "@/app/ui";
+import { createClient } from "@/utils/supabase/client";
+
+export type StyleShootsResponse = {
+  shoots: CardType[];
+};
 
 type Shoot = {
   name: string;
@@ -12,11 +16,12 @@ type Shoot = {
   shoot_images: { image_url: string }[];
 };
 
-export async function GET(req: NextRequest) {
-  const subStyle = req.nextUrl.searchParams.get("subStyle");
-  if (!subStyle) return NextResponse.json({ shoots: [] });
+export const getStyleShootsList = async (
+  subStyle: string,
+): Promise<StyleShootsResponse> => {
+  if (!subStyle) return { shoots: [] };
 
-  const supabase = await createClient();
+  const supabase = createClient();
 
   const { data: tag } = await supabase
     .from("style_tags")
@@ -24,14 +29,14 @@ export async function GET(req: NextRequest) {
     .eq("slug", subStyle)
     .single();
 
-  if (!tag) return NextResponse.json({ shoots: [] });
+  if (!tag) return { shoots: [] };
 
   const { data: shootIdRows } = await supabase
     .from("shoot_style_tags")
     .select("shoot_id")
     .eq("style_tag_id", tag.id);
 
-  if (!shootIdRows?.length) return NextResponse.json({ shoots: [] });
+  if (!shootIdRows?.length) return { shoots: [] };
 
   const shootIds = shootIdRows.map((row: { shoot_id: number }) => row.shoot_id);
 
@@ -65,9 +70,9 @@ export async function GET(req: NextRequest) {
           name: tag.style_tags.name,
           slug: tag.style_tags.slug,
         })) ?? null,
-      first_image: shoot_images?.[0]?.image_url || null,
+      first_image: shoot_images?.[0]?.image_url || "",
     };
   });
 
-  return NextResponse.json({ shoots: transformedShoots });
-}
+  return { shoots: transformedShoots };
+};
