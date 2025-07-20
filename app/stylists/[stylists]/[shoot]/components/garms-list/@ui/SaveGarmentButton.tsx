@@ -1,106 +1,79 @@
-import { createClient } from "@/utils/supabase/client";
-import { usePathname } from "next/navigation";
-import styles from "../GarmsList.module.css";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import LoginModal from "@/app/ui/modals/LoginModal";
+import styles from "../GarmsList.module.css";
 
 const SaveGarmentButton = ({ garmId }: { garmId: number }) => {
   const pathname = usePathname();
-  const supabase = createClient();
   const [isSaved, setIsSaved] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
     const checkAuthAndSaved = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setIsLoggedIn(!!user);
+      try {
+        const response = await fetch(
+          `/api/account/my-wardrobe?garment_id=${garmId}`,
+        );
 
-      if (user) {
-        const { data } = await supabase
-          .from("profile_garments")
-          .select("*")
-          .eq("garment_id", garmId);
-        setIsSaved(!!(data && data.length > 0));
-      } else {
+        if (response.status === 401) {
+          setIsLoggedIn(false);
+          setIsSaved(false);
+        } else if (response.ok) {
+          setIsLoggedIn(true);
+          const data = await response.json();
+          setIsSaved(data.isSaved);
+        }
+      } catch (error) {
+        console.error("Error checking wardrobe status:", error);
+        setIsLoggedIn(false);
         setIsSaved(false);
       }
     };
     checkAuthAndSaved();
-  }, [garmId, supabase]);
+  }, [garmId]);
 
-  const getProfileId = async () => {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
-    const { data: profile, error: profileError } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("email", user.email)
-      .single();
-    if (profileError || !profile) return;
-    return profile.id;
+  const toggleWardrobeItem = async () => {
+    try {
+      const response = await fetch("/api/account/my-wardrobe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          garment_id: garmId,
+          source_pathname: pathname,
+        }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setIsSaved(data.action === "inserted");
+      }
+    } catch (error) {
+      console.error("Error toggling wardrobe item:", error);
+    }
   };
 
-  const addWardrobeItem = async () => {
-    const profileId = await getProfileId();
-    if (!profileId) return;
-
-    const { error } = await supabase.from("profile_garments").insert([
-      {
-        profile_id: profileId,
-        garment_id: garmId,
-        source_pathname: pathname,
-      },
-    ]);
-    if (!error) setIsSaved(true);
-    if (error) console.error(error);
+  const handleClick = () => {
+    if (!isLoggedIn) {
+      setModalActive(true);
+    } else {
+      toggleWardrobeItem();
+    }
   };
-
-  const removeWardrobeItem = async () => {
-    const { error } = await supabase
-      .from("profile_garments")
-      .delete()
-      .eq("garment_id", garmId);
-    if (!error) setIsSaved(false);
-  };
-
-  if (!isLoggedIn) {
-    return (
-      <>
-        <button
-          className={styles.garmSaveBtn}
-          onClick={() => setModalActive(true)}
-          disabled={isLoggedIn === null}
-        >
-          Save
-        </button>
-        {modalActive && (
-          <LoginModal
-            title="You Need To Login To Save"
-            setIsActive={setModalActive}
-          />
-        )}
-      </>
-    );
-  }
 
   return (
     <>
-      {isSaved ? (
-        <button
-          className={styles.garmSaveBtn_active}
-          onClick={removeWardrobeItem}
-        >
-          Saved
-        </button>
-      ) : (
-        <button className={styles.garmSaveBtn} onClick={addWardrobeItem}>
-          Save
-        </button>
+      <button
+        className={isSaved ? styles.garmSaveBtn_active : styles.garmSaveBtn}
+        onClick={handleClick}
+        disabled={isLoggedIn === null}
+      >
+        {isSaved ? "Saved" : "Save"}
+      </button>
+      {modalActive && (
+        <LoginModal
+          title="You Need To Login To Save"
+          setIsActive={setModalActive}
+        />
       )}
     </>
   );
