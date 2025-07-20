@@ -34,7 +34,7 @@ export async function forgotPasswordAction(formData: FormData) {
     }
 
     return { success: true };
-  } catch (error) {
+  } catch {
     return { error: "An unexpected error occurred" };
   }
 }

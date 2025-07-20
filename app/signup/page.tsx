@@ -1,18 +1,10 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { createClient } from "@/utils/supabase/server";
 import SignupForm from "./SignupForm";
+import { checkAuthAction } from "./actions";
 import styles from "./page.module.css";
 
 export default async function SignupPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (user) {
-    redirect("/account/my-account");
-  }
-
+  await checkAuthAction();
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>

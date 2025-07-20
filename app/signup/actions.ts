@@ -1,5 +1,17 @@
 "use server";
 import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+
+export async function checkAuthAction() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
+    redirect("/account/my-account");
+  }
+  return { isAuthenticated: false };
+}
 
 export async function signup(formData: FormData) {
   const supabase = await createClient();
