@@ -1,20 +1,18 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 import { CardType } from "@/app/ui";
 
 type RawSupabaseShoot = {
   name: string;
   slug: string;
   publication_date: string;
-  description: string;
   stylist: { name: string; slug: string };
   city: { name: string };
   shoot_style_tags: { style_tags: { name: string; slug: string } }[];
   shoot_images: { image_url: string }[];
 };
 
-export async function GET() {
-  const supabase = await createClient();
+export async function getLatestShootsListData(): Promise<CardType[]> {
+  const supabase = createClient();
 
   const { data: shootsList } = (await supabase
     .from("shoots")
@@ -33,20 +31,24 @@ export async function GET() {
     data: RawSupabaseShoot[] | null;
   };
 
-  if (!shootsList) return NextResponse.json(null);
+  if (!shootsList) {
+    return [];
+  }
 
-  const transformedShoots: CardType[] = shootsList.map((shoot) => {
-    const { shoot_images, ...shootWithoutImages } = shoot;
-    return {
-      ...shootWithoutImages,
-      city: { name: shoot.city?.name },
-      shoot_style_tags: shoot.shoot_style_tags?.map((tag) => ({
-        name: tag.style_tags.name,
-        slug: tag.style_tags.slug,
-      })),
-      first_image: shoot_images?.[0]?.image_url || "",
-    };
-  });
+  const transformedShoots: CardType[] = shootsList.map(
+    (shoot: RawSupabaseShoot) => {
+      const { shoot_images, ...shootWithoutImages } = shoot;
+      return {
+        ...shootWithoutImages,
+        city: { name: shoot.city?.name },
+        shoot_style_tags: shoot.shoot_style_tags?.map((tag) => ({
+          name: tag.style_tags.name,
+          slug: tag.style_tags.slug,
+        })),
+        first_image: shoot_images?.[0]?.image_url || "",
+      };
+    },
+  );
 
-  return NextResponse.json(transformedShoots);
+  return transformedShoots;
 }

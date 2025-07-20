@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Card, CardType } from "../../ui";
+import { getLatestShootsListData } from "./@utils/getLatestShootsListData";
 import styles from "./LatestList.module.css";
 
 const LatestList = () => {
@@ -9,15 +10,11 @@ const LatestList = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchLatestShoots = async () => {
+    const getLatestShootsList = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const response = await fetch("/api/latest/list");
-        if (!response.ok) {
-          throw new Error(`Failed to fetch shoots: ${response.status}`);
-        }
-        const data = await response.json();
+        const data = await getLatestShootsListData();
         setLatestShoots(data);
       } catch (err) {
         setError(
@@ -28,7 +25,7 @@ const LatestList = () => {
         setIsLoading(false);
       }
     };
-    fetchLatestShoots();
+    getLatestShootsList();
   }, []);
 
   if (error) {
