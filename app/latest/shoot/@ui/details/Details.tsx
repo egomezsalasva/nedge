@@ -1,22 +1,27 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
 import { SlideshowIndicators } from "../";
 import { formatDate } from "@/app/utils";
 import styles from "./Details.module.css";
-import { TransformedShootType } from "@/app/api/latest/shoot/route";
+
+type TransformedShootType = {
+  name: string;
+  slug: string;
+  publication_date: string;
+  description: string;
+  stylist: { name: string; slug: string } | null;
+  city: { name: string | undefined };
+  shoot_style_tags: { name: string; slug: string }[];
+  shoot_images: { image_url: string }[] | null;
+};
 
 export type DetailsProps = {
   shootData: TransformedShootType;
-  activeImgIndex: number;
-  setActiveImgIndex: (index: number) => void;
 };
 
-const Details: FC<DetailsProps> = ({
-  shootData,
-  activeImgIndex,
-  setActiveImgIndex,
-}) => {
+const Details: FC<DetailsProps> = ({ shootData }) => {
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
   const {
     publication_date,
     city,
