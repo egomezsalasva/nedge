@@ -1,42 +1,9 @@
-"use client";
-import { useEffect, useState } from "react";
+import { getBrandListData } from "./@utils/getBrandListData";
 import Link from "next/link";
 import styles from "./BrandList.module.css";
 
-type Brand = {
-  id: number;
-  name: string;
-  slug: string;
-  itemCount: number;
-  shootCount: number;
-};
-
-const BrandList = () => {
-  const [brands, setBrands] = useState<Brand[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await fetch("/api/brands/brands-with-counts");
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data = await res.json();
-        setBrands(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "Error fetching data");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+export default async function BrandList() {
+  const brands = await getBrandListData();
 
   return (
     <div className={styles.brandList} data-testid="brand-list">
@@ -65,6 +32,4 @@ const BrandList = () => {
         ))}
     </div>
   );
-};
-
-export default BrandList;
+}

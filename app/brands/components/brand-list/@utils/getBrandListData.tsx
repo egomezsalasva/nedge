@@ -1,7 +1,14 @@
-import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
-export async function GET() {
+export type Brand = {
+  id: number;
+  name: string;
+  slug: string;
+  itemCount: number;
+  shootCount: number;
+};
+
+export async function getBrandListData(): Promise<Brand[]> {
   const supabase = await createClient();
 
   const { data: brands, error: brandsError } = await supabase
@@ -15,18 +22,15 @@ export async function GET() {
     .select("id, garment_id, shoot_id");
 
   if (brandsError || garmentsError || shootGarmentsError) {
-    return NextResponse.json(
-      {
-        error:
-          brandsError?.message ||
-          garmentsError?.message ||
-          shootGarmentsError?.message,
-      },
-      { status: 500 },
+    throw new Error(
+      brandsError?.message ||
+        garmentsError?.message ||
+        shootGarmentsError?.message ||
+        "Unknown error",
     );
   }
 
-  const result = brands.map((brand) => {
+  return brands.map((brand) => {
     const brandGarments = garments.filter((g) => g.brand_id === brand.id);
     const itemCount = brandGarments.length;
     const garmentIds = brandGarments.map((g) => g.id);
@@ -41,6 +45,4 @@ export async function GET() {
       shootCount,
     };
   });
-
-  return NextResponse.json(result);
 }
