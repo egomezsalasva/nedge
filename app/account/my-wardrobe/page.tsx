@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./page.module.css";
-import { createClient } from "@/utils/supabase/client";
 import RemoveGarmentButton from "./@ui/RemoveGarmentButton";
 
 type GarmentItem = {
@@ -16,52 +15,24 @@ type GarmentItem = {
 };
 
 export default function AccountMyWardrobe() {
-  const supabase = createClient();
   const [wardrobe, setWardrobe] = useState<GarmentItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchWardrobe = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
+      const res = await fetch("/api/account/my-wardrobe");
+      if (!res.ok) {
+        setWardrobe([]);
         setLoading(false);
         return;
       }
-      const { data: profile, error: profileError } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("email", user.email)
-        .single();
-      if (profileError || !profile) {
-        setLoading(false);
-        return;
-      }
-      const { data: wardrobeData, error: wardrobeError } = await supabase
-        .from("profile_garments")
-        .select(
-          `
-        garment_id,
-        source_pathname,
-        garments (
-          name,
-          brands:brand_id (name),
-          garment_type:garment_type_id (name)
-        )
-      `,
-        )
-        .eq("profile_id", profile.id);
-      if (wardrobeError) {
-        setLoading(false);
-        return;
-      }
-      setWardrobe((wardrobeData as unknown as GarmentItem[]) || []);
+      const { wardrobe } = await res.json();
+      setWardrobe(wardrobe || []);
       setLoading(false);
     };
 
     fetchWardrobe();
-  }, [supabase]);
+  }, []);
 
   const makeGroupedWardrobe = (wardrobe: GarmentItem[]) =>
     wardrobe.reduce(

@@ -1,20 +1,23 @@
 "use client";
 import { Bin } from "@/app/svgs";
 import styles from "../page.module.css";
-import { createClient } from "@/utils/supabase/client";
 
 const RemoveGarmentButton = ({ garmentId }: { garmentId: number }) => {
-  const supabase = createClient();
-
   const removeWardrobeItem = async (id: number) => {
-    const { error } = await supabase
-      .from("profile_garments")
-      .delete()
-      .eq("garment_id", id);
-    if (error) {
-      console.error(error);
+    try {
+      const res = await fetch(`/api/account/my-wardrobe`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ garmentId: id }),
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        console.error(error);
+      }
+      window.location.reload();
+    } catch (err) {
+      console.error(err);
     }
-    window.location.reload();
   };
 
   return (
