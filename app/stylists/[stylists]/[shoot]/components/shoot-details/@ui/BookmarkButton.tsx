@@ -13,7 +13,9 @@ const BookmarkButton = ({ shootId }: { shootId: number }) => {
     const checkAuthAndBookmark = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/account/bookmarks?shoot_id=${shootId}`);
+        const res = await fetch(
+          `/api/account/bookmarks?shoot_id=${shootId}&source_pathname=${encodeURIComponent(window.location.pathname)}`,
+        );
         if (res.ok) {
           const result = await res.json();
           setIsBookmarked(result.isBookmarked);
@@ -36,7 +38,10 @@ const BookmarkButton = ({ shootId }: { shootId: number }) => {
       const res = await fetch("/api/account/bookmarks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ shoot_id: shootId }),
+        body: JSON.stringify({
+          shoot_id: shootId,
+          source_pathname: window.location.pathname,
+        }),
       });
 
       if (res.ok) {

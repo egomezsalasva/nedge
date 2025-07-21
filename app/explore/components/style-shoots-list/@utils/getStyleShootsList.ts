@@ -5,9 +5,10 @@ export type StyleShootsResponse = {
   shoots: CardType[];
 };
 
-type Shoot = {
+type ShootType = {
   name: string;
   slug: string;
+  preview_slug: string | null;
   publication_date: string;
   description: string;
   stylist: { name: string; slug: string }[];
@@ -42,10 +43,11 @@ export const getStyleShootsList = async (
 
   const { data: shootsData } = await supabase
     .from("shoots")
-    .select<string, Shoot>(
+    .select<string, ShootType>(
       `
         name, 
         slug, 
+        preview_slug,
         publication_date,
         description,
         stylist:stylists!stylist_id (name, slug),
@@ -57,22 +59,29 @@ export const getStyleShootsList = async (
     .in("id", shootIds)
     .order("publication_date", { ascending: false });
 
-  const transformedShoots = (shootsData ?? []).map((shoot: Shoot) => {
-    const { shoot_images, stylist, city, ...shootWithoutImages } = shoot;
-    return {
-      ...shootWithoutImages,
-      stylist: Array.isArray(stylist)
-        ? (stylist[0] ?? null)
-        : (stylist ?? null),
-      city: Array.isArray(city) ? (city[0] ?? null) : (city ?? null),
-      shoot_style_tags:
-        shoot.shoot_style_tags?.map((tag) => ({
-          name: tag.style_tags.name,
-          slug: tag.style_tags.slug,
-        })) ?? null,
-      first_image: shoot_images?.[0]?.image_url || "",
-    };
-  });
+  const transformedShoots = (shootsData ?? [])
+    .filter(
+      (shoot: ShootType) =>
+        !shoot.preview_slug ||
+        (typeof shoot.preview_slug === "string" &&
+          shoot.preview_slug.trim() === ""),
+    )
+    .map((shoot: ShootType) => {
+      const { shoot_images, stylist, city, ...shootWithoutImages } = shoot;
+      return {
+        ...shootWithoutImages,
+        stylist: Array.isArray(stylist)
+          ? (stylist[0] ?? null)
+          : (stylist ?? null),
+        city: Array.isArray(city) ? (city[0] ?? null) : (city ?? null),
+        shoot_style_tags:
+          shoot.shoot_style_tags?.map((tag) => ({
+            name: tag.style_tags.name,
+            slug: tag.style_tags.slug,
+          })) ?? null,
+        first_image: shoot_images?.[0]?.image_url || "",
+      };
+    });
 
-  return { shoots: transformedShoots };
+  return { shoots: transformedShoots as CardType[] };
 };

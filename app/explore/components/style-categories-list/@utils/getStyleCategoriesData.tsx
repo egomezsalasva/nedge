@@ -7,6 +7,19 @@ export type StyleCategoryType = {
 
 export async function getStyleCategoriesData(): Promise<StyleCategoryType[]> {
   const supabase = createClient();
+
+  const { data: publicShoots, error: shootsError } = await supabase
+    .from("shoots")
+    .select("id, preview_slug")
+    .is("preview_slug", null);
+
+  if (shootsError) {
+    throw new Error(shootsError.message);
+  }
+  const publicShootIds = new Set(
+    (publicShoots || []).map((s: { id: number }) => s.id),
+  );
+
   const { data, error } = await supabase.from("style_categories").select(`
     name,
     style_tags(
@@ -34,7 +47,10 @@ export async function getStyleCategoriesData(): Promise<StyleCategoryType[]> {
         subStyles: (cat.style_tags || [])
           .filter(
             (tag: { shoot_style_tags: { shoot_id: string }[] }) =>
-              tag.shoot_style_tags && tag.shoot_style_tags.length > 0,
+              tag.shoot_style_tags &&
+              tag.shoot_style_tags.some((sst: { shoot_id: string }) =>
+                publicShootIds.has(Number(sst.shoot_id)),
+              ),
           )
           .map((tag: { name: string; slug: string }) => ({
             name: tag.name,

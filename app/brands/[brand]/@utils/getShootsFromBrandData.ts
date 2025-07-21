@@ -1,5 +1,29 @@
 import { createClient } from "@/utils/supabase/server";
 
+type RawShootType = {
+  id: number;
+  name: string;
+  slug: string;
+  publication_date: string;
+  preview_slug: string | null;
+  stylist:
+    | { name: string; slug: string }
+    | { name: string; slug: string }[]
+    | null;
+  city: { name: string } | null;
+  shoot_style_tags: Array<{
+    style_tags: { name: string; slug: string };
+  }> | null;
+  shoot_images: Array<{ image_url: string }> | null;
+  shoot_garments: Array<{
+    garment_id: number;
+    garments: {
+      brand_id: { slug: string } | null;
+      garment_types: { name: string } | null;
+    } | null;
+  }> | null;
+};
+
 export async function getShootsFromBrandData(brandParam: string) {
   const supabase = await createClient();
 
@@ -30,6 +54,7 @@ export async function getShootsFromBrandData(brandParam: string) {
         name, 
         slug, 
         publication_date,
+        preview_slug,
         stylist:stylists!stylist_id (
           name, 
           slug
@@ -59,12 +84,19 @@ export async function getShootsFromBrandData(brandParam: string) {
     )
     .in("id", shootIds || []);
 
-  const transformedShoots = (brandShootsData ?? []).map((shoot: any) => {
+  const filteredShoots = (
+    (brandShootsData as unknown as RawShootType[]) ?? []
+  ).filter(
+    (shoot: { preview_slug: string | null }) =>
+      shoot.preview_slug === null || shoot.preview_slug === "",
+  );
+
+  const transformedShoots = filteredShoots.map((shoot: RawShootType) => {
     const { shoot_images, shoot_garments, ...shootWithoutImages } = shoot;
 
     const garmentTypes = (shoot_garments ?? [])
-      .filter((sg: any) => sg.garments?.brand_id?.slug === brandParam)
-      .map((sg: any) => sg.garments?.garment_types?.name)
+      .filter((sg) => sg.garments?.brand_id?.slug === brandParam)
+      .map((sg) => sg.garments?.garment_types?.name)
       .filter(Boolean);
 
     const uniqueGarmentTypes = [...new Set(garmentTypes)];
@@ -72,7 +104,7 @@ export async function getShootsFromBrandData(brandParam: string) {
     return {
       ...shootWithoutImages,
       city: { name: shoot.city?.name },
-      shoot_style_tags: shoot.shoot_style_tags?.map((tag: any) => ({
+      shoot_style_tags: shoot.shoot_style_tags?.map((tag) => ({
         name: tag.style_tags.name,
         slug: tag.style_tags.slug,
       })),

@@ -6,6 +6,7 @@ import styles from "./Card.module.css";
 export type CardType = {
   name: string;
   slug: string;
+  preview_slug?: string;
   publication_date: string;
   city: { name: string };
   stylist: { name: string; slug: string };

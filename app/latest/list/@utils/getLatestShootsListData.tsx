@@ -27,6 +27,7 @@ export async function getLatestShootsListData(): Promise<CardType[]> {
         shoot_images (image_url)
       `,
     )
+    .is("preview_slug", null)
     .order("publication_date", { ascending: false })) as {
     data: RawSupabaseShoot[] | null;
   };

@@ -5,6 +5,17 @@ export async function GET(request: Request) {
   const supabase = await createClient();
   const { searchParams } = new URL(request.url);
   const shoot_id = searchParams.get("shoot_id");
+  const source_pathname = searchParams.get("source_pathname");
+
+  if (
+    typeof source_pathname === "string" &&
+    source_pathname.includes("/shoot-preview/")
+  ) {
+    return NextResponse.json(
+      { error: "Cannot access bookmarks for preview shoots." },
+      { status: 403 },
+    );
+  }
 
   if (!shoot_id) {
     return NextResponse.json({ error: "Missing shoot_id" }, { status: 400 });
@@ -44,10 +55,20 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const supabase = await createClient();
-  const { shoot_id } = await request.json();
+  const { shoot_id, source_pathname } = await request.json();
 
   if (!shoot_id) {
     return NextResponse.json({ error: "Missing shoot_id" }, { status: 400 });
+  }
+
+  if (
+    typeof source_pathname === "string" &&
+    source_pathname.includes("/shoot-preview/")
+  ) {
+    return NextResponse.json(
+      { error: "Cannot bookmark preview shoots." },
+      { status: 403 },
+    );
   }
 
   // Find the profile for this user (no error handling)

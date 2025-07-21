@@ -1,7 +1,8 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import CardWithItems, {
   CardWithItemsType,
 } from "@/app/ui/card-with-items/CardWithItems";
-import Link from "next/link";
 import { Insta } from "@/app/svgs";
 import { getShootsFromBrandData } from "./@utils/getShootsFromBrandData";
 import styles from "./page.module.css";
@@ -14,6 +15,10 @@ export default async function BrandPage({
   const { brand: brandParam } = await params;
   const { brandData, garmentsData, transformedShoots } =
     await getShootsFromBrandData(brandParam);
+
+  if (!transformedShoots || transformedShoots.length === 0) {
+    notFound(); // or return <div>No public shoots for this brand.</div>
+  }
 
   return (
     <div>

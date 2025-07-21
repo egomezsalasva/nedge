@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
-import { GarmsList, ShootDetails, SlideshowHero } from "./components";
-import { getShootData } from "./@utils/getShootData";
-import styles from "./page.module.css";
+import {
+  GarmsList,
+  ShootDetails,
+  SlideshowHero,
+} from "@/app/stylists/[stylists]/[shoot]/components";
+import { getShootData } from "@/app/stylists/[stylists]/[shoot]/@utils/getShootData";
+import styles from "@/app/stylists/[stylists]/[shoot]/page.module.css";
 
 export default async function Shoot({
   params,
@@ -10,10 +14,8 @@ export default async function Shoot({
 }) {
   const { stylists, shoot } = await params;
   const shootData = await getShootData(stylists, shoot);
-  if (
-    !shootData ||
-    (shootData.preview_slug && shootData.preview_slug.trim() !== "")
-  ) {
+
+  if (!shootData || !shootData.preview_slug?.trim()) {
     notFound();
   }
 

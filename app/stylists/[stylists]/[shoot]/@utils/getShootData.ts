@@ -6,6 +6,7 @@ type RawSupabaseShoot = {
   id: number;
   name: string;
   slug: string;
+  preview_slug: string;
   publication_date: string;
   description: string;
   city: { name: string; country: string };
@@ -35,6 +36,7 @@ const transformShootData = (rawShootData: RawSupabaseShoot): ShootType => {
     name: rawShootData.name,
     description: rawShootData.description,
     slug: rawShootData.slug,
+    preview_slug: rawShootData.preview_slug,
     publication_date: rawShootData.publication_date,
     city: rawShootData.city,
     stylist: rawShootData.stylist,
@@ -77,6 +79,7 @@ export async function getShootData(
         id,
         name, 
         slug, 
+        preview_slug,
         publication_date, 
         description,
         stylist:stylists!stylist_id (name, slug, description, instagram_url),

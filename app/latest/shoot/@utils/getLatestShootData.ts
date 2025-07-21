@@ -25,6 +25,7 @@ export async function getLatestShootData() {
       shoot_images (image_url)
     `,
     )
+    .is("preview_slug", null)
     .order("publication_date", { ascending: false })
     .limit(1)
     .single()) as { data: RawShoot | null };

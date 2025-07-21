@@ -13,7 +13,7 @@ const SaveGarmentButton = ({ garmId }: { garmId: number }) => {
     const checkAuthAndSaved = async () => {
       try {
         const response = await fetch(
-          `/api/account/my-wardrobe?garment_id=${garmId}`,
+          `/api/account/my-wardrobe?garment_id=${garmId}&source_pathname=${encodeURIComponent(window.location.pathname)}`,
         );
 
         if (response.status === 401) {

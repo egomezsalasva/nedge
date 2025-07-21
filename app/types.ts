@@ -14,6 +14,7 @@ export type ShootType = {
   name: string;
   description: string;
   slug: string;
+  preview_slug: string;
   publication_date: string;
   city: {
     name: string;
