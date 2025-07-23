@@ -58,6 +58,20 @@ export default function FeaturesForm({
       return;
     }
 
+    const MAX_UPLOAD_SIZE = 4 * 1024 * 1024; // 4MB per file
+    const tooLargeFiles = Array.from(files || []).filter(
+      (file) => file.size > MAX_UPLOAD_SIZE,
+    );
+    if (tooLargeFiles.length > 0) {
+      setFormError(
+        `The following files are too large (max 4MB):\n` +
+          tooLargeFiles
+            .map((f) => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`)
+            .join("\n"),
+      );
+      return;
+    }
+
     setStatus("loading");
     const formData = new FormData();
     formData.append("details", JSON.stringify(details));
