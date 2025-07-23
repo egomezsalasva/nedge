@@ -65,6 +65,54 @@
   margin-right: 0.5rem;
 }
 
+.brandListHeader {
+  display: flex;
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+.searchContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 12px 0 4px;
+  margin-left: 3rem;
+  border-bottom: solid 1px #4c4c4c;
+  border-bottom-color: #ccc;
+}
+
+.searchInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  line-height: 21px;
+  padding: 0 0 6px;
+  resize: none;
+  outline: none;
+  margin-bottom: 0;
+}
+
+.searchInput:-webkit-autofill {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
+}
+
+.searchContainer:has(.searchInput:focus),
+.searchContainer:has(.searchInput:active),
+.searchContainer:has(.searchInput:hover),
+.searchContainer:has(.searchInput:not(:placeholder-shown)) {
+  border-bottom-color: white;
+}
+
+.searchInput::placeholder {
+  text-transform: uppercase;
+}
+
 @media screen and (max-width: 640px) {
   .brandList {
     padding: 0 1.5rem;
@@ -96,5 +144,11 @@
   }
   .brandRow:hover .brandRowInfo > div:last-child {
     border-left: 1px solid #fff;
+  }
+  .brandListHeader {
+    padding: 1.5rem;
+  }
+  .searchContainer {
+    margin-left: 1.75rem;
   }
 }

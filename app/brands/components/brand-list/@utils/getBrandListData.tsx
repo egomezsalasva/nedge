@@ -1,6 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 
-export type Brand = {
+export type BrandType = {
   id: number;
   name: string;
   slug: string;
@@ -8,7 +8,7 @@ export type Brand = {
   shootCount: number;
 };
 
-export async function getBrandListData(): Promise<Brand[]> {
+export async function getBrandListData(): Promise<BrandType[]> {
   const supabase = await createClient();
 
   const { data: brands, error: brandsError } = await supabase
