@@ -1,0 +1,233 @@
+.container {
+  width: 100%;
+}
+
+.sectionContainer {
+  margin: 2rem 0;
+}
+
+.sectionContainer:first-of-type {
+  margin-top: 0;
+}
+
+.sectionContainer h2 {
+  margin-bottom: 0.75rem;
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+  border-bottom: solid 1px #4c4c4c;
+  border-bottom-color: #ccc;
+  margin-bottom: 16px;
+}
+
+.formInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  line-height: 21px;
+  padding: 0 0 6px;
+  resize: none;
+  outline: none;
+  margin-bottom: 0;
+}
+
+.formInput:-webkit-autofill {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
+}
+
+.inputContainer:has(.formInput:focus),
+.inputContainer:has(.formInput:active),
+.inputContainer:has(.formInput:hover),
+.inputContainer:has(.formInput:not(:placeholder-shown)) {
+  border-bottom-color: white;
+}
+
+.formInput::placeholder {
+  text-transform: uppercase;
+}
+
+.tagsContainer {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.tagsList,
+.selectedTagsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.selectedTagsList {
+  border: 1.5px solid #9d9d9d;
+  border-radius: 0.125rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.selectedTagsList span,
+.adNewTagItemContainer span {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.adNewTagItemContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.tagItem,
+.addTagItem,
+.selectedTagItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  border: 1.5px solid #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.125rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tagItem,
+.addTagItem {
+  opacity: 0.6;
+  /* margin-bottom: 0.25rem; */
+}
+
+.selectedTagItem {
+  opacity: 1;
+}
+
+.addTagItem {
+  background: transparent;
+}
+
+.garmentCard {
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 0.125rem;
+  padding-bottom: 0.5rem;
+}
+
+.garmentCard .removeGarment {
+  --size: 1.75rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: transparent;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 0.125rem;
+  border-left: 1.5px solid #fff;
+  border-bottom: 1.5px solid #fff;
+  opacity: 0.6;
+  font-size: 1rem;
+}
+
+.submitBtnContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.submitBtn {
+  border: 2px solid #fff;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 0.125rem;
+  width: fit-content;
+  background-color: transparent;
+  cursor: pointer;
+  font-weight: 700;
+  min-width: 8rem;
+  font-size: 1rem;
+}
+
+.addGarmentBtnContainer {
+  text-align: center;
+}
+
+.addGarmentBtn {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  min-width: 73px;
+  background: transparent;
+  color: #fff;
+}
+
+.customFileLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  border: 1.5px dashed #9d9d9d;
+  border-radius: 0.125rem;
+}
+
+.imagePreviewList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.imagePreviewItem {
+  width: calc(200px - 1rem);
+}
+
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0.125rem;
+  display: block;
+}
+
+.visible_mobile {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .visible_mobile {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .visible_desktop {
+    display: none;
+  }
+  .imagePreviewItem {
+    width: 150px;
+  }
+  .imagePreview {
+    height: 150px;
+  }
+}

@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px;
+  min-height: calc(100vh - 10rem);
+  margin: 5rem auto;
+}
+
+.container h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  margin-bottom: 1rem;
+}
+
+.benefitsSection {
+  margin-top: 4rem;
+}
+.benefitsSection h2 {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}

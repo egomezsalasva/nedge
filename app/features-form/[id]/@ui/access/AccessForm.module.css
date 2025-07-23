@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 384px;
+  padding: 3rem;
+  background-color: white;
+  border-radius: 0.125rem;
+  color: black;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+}
+
+.innerContainer h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.inputContainer {
+  position: relative;
+  width: 100%;
+  border-bottom: solid 1px #4c4c4c;
+  border-bottom-color: #ccc;
+  margin-bottom: 16px;
+}
+
+.formInput {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: black;
+  font-size: 16px;
+  line-height: 21px;
+  padding: 0 0 6px;
+  resize: none;
+  outline: none;
+  margin-bottom: 0;
+}
+
+.formInput:-webkit-autofill {
+  transition:
+    background-color 0s 600000s,
+    color 0s 600000s !important;
+}
+
+.inputContainer:has(.formInput:focus),
+.inputContainer:has(.formInput:active),
+.inputContainer:has(.formInput:hover),
+.inputContainer:has(.formInput:not(:placeholder-shown)) {
+  border-bottom-color: black;
+}
+
+.formInput::placeholder {
+  text-transform: uppercase;
+}
+
+.submitButton {
+  width: 100%;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-top: 10px;
+  font-weight: 700;
+  padding: 13px 24px;
+  font-size: 16px;
+  line-height: 18px;
+  border-radius: 0.125rem;
+}
+
+.submitButton:disabled {
+  background: #ccc;
+  color: #999;
+  cursor: auto;
+}
+
+@media (max-width: 640px) {
+  .innerContainer {
+    padding: 2rem;
+  }
+}
