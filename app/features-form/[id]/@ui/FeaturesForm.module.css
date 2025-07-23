@@ -105,6 +105,7 @@
 
 .tagItem,
 .addTagItem {
+  color: #fff;
   opacity: 0.6;
   /* margin-bottom: 0.25rem; */
 }

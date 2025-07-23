@@ -67,15 +67,41 @@ export default function FeaturesForm({
       formData.append("files", file);
     });
 
-    const res = await fetch("/api/features-form", {
-      method: "POST",
-      body: formData,
-    });
-    if (res.ok) {
-      setStatus("success");
-      router.push(`/features-form/${submission.slug}`);
-    } else {
+    try {
+      const res = await fetch("/api/features-form", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        router.push(`/features-form/${submission.slug}`);
+      } else {
+        setStatus("error");
+        let errorMsg = "Failed to send.";
+        try {
+          const data = await res.json();
+          if (data?.error) {
+            errorMsg = data.error;
+          } else if (typeof data === "string") {
+            errorMsg = data;
+          }
+          setFormError(errorMsg);
+          console.error("API error response:", data);
+        } catch (jsonErr) {
+          try {
+            const text = await res.text();
+            errorMsg = `Failed to parse JSON error: ${jsonErr}. Response text: ${text}`;
+            setFormError(errorMsg);
+          } catch {
+            setFormError(`Failed to parse JSON error: ${jsonErr}`);
+          }
+        }
+      }
+    } catch (err) {
       setStatus("error");
+      setFormError("A network error occurred. Please try again.");
+      console.error("Network error:", err);
     }
   }
 
@@ -94,8 +120,14 @@ export default function FeaturesForm({
           {status === "loading" ? "SENDING..." : "SEND"}
         </button>
       </div>
-      {formError && <div style={{ color: "red" }}>{formError}</div>}
-      {status === "error" && <div>Failed to send.</div>}
+      {formError && (
+        <div style={{ color: "red", marginTop: 16, fontWeight: "bold" }}>
+          {formError}
+        </div>
+      )}
+      {status === "error" && !formError && (
+        <div style={{ color: "red", marginTop: 16 }}>Failed to send.</div>
+      )}
     </form>
   );
 }
