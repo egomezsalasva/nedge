@@ -3,70 +3,62 @@ import nodemailer from "nodemailer";
 import { createClient } from "@/utils/supabase/server";
 export const runtime = "nodejs";
 
-const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB, adjust as needed
-const ALLOWED_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/x-png",
-  "image/heic",
-  "image/heif",
-  "application/octet-stream",
-];
+type GarmentType = {
+  type: string;
+  name: string;
+  brand: string;
+};
 
 export async function POST(request: Request) {
-  const formData = await request.formData();
-
-  const detailsRaw = formData.get("details") as string;
-  const tagsRaw = formData.get("tags") as string;
-  const garmentsRaw = formData.get("garments") as string;
-  const details = detailsRaw ? JSON.parse(detailsRaw) : {};
-  const tags: string[] = tagsRaw ? JSON.parse(tagsRaw) : [];
-  const garments: { type: string; name: string; brand: string }[] = garmentsRaw
-    ? JSON.parse(garmentsRaw)
-    : [];
-
-  const files = formData.getAll("files") as File[];
-  for (const file of files) {
-    const isAllowedType = ALLOWED_TYPES.includes(file.type);
-    const isPngByExtension = file.name.toLowerCase().endsWith(".png");
-    if (!isAllowedType && !isPngByExtension) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `File type not allowed: ${file.name} (type: ${file.type})`,
-        },
-        { status: 400 },
-      );
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json(
-        { success: false, error: `File too large: ${file.name}` },
-        { status: 400 },
-      );
-    }
+  let body;
+  try {
+    body = await request.json();
+  } catch (err) {
+    console.error("Failed to parse JSON body:", err);
+    return NextResponse.json(
+      { success: false, error: "Invalid JSON body" },
+      { status: 400 },
+    );
   }
-  const attachments = [];
-  for (const file of files) {
-    try {
-      attachments.push({
-        filename: file.name,
-        content: Buffer.from(await file.arrayBuffer()),
-        contentType: file.name.toLowerCase().endsWith(".png")
-          ? "image/png"
-          : file.type,
-      });
-    } catch {
-      return NextResponse.json(
-        { success: false, error: `Failed to process file: ${file.name}` },
-        { status: 400 },
-      );
-    }
+
+  const { details, tags, garments, imagePaths } = body;
+
+  if (
+    !details ||
+    !tags ||
+    !garments ||
+    !imagePaths ||
+    !Array.isArray(imagePaths)
+  ) {
+    console.error("Missing or invalid fields", {
+      details,
+      tags,
+      garments,
+      imagePaths,
+    });
+    return NextResponse.json(
+      { success: false, error: "Missing or invalid required fields" },
+      { status: 400 },
+    );
+  }
+
+  // --- Generate signed URLs for images ---
+  let imagesText = "No images uploaded.";
+  if (imagePaths && imagePaths.length > 0) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const bucket = "featuresform";
+    imagesText = imagePaths
+      .map(
+        (path) => `${supabaseUrl}/storage/v1/object/public/${bucket}/${path}`,
+      )
+      .join("\n");
   }
 
   const garmentsText = garments.length
     ? garments
         .map(
-          (g) => `Type: ${g.type}\nName: ${g.name}\nBrand: ${g.brand}\n-----`,
+          (garment: GarmentType) =>
+            `Type: ${garment.type}\n Name: ${garment.name}\n Brand: ${garment.brand}\n ------------------------------`,
         )
         .join("\n")
     : "None";
@@ -83,6 +75,8 @@ export async function POST(request: Request) {
       Garments:
       ${garmentsText}
 
+      Images:
+      ${imagesText}
     `;
 
   const transporter = nodemailer.createTransport({
@@ -101,7 +95,6 @@ export async function POST(request: Request) {
       to: "nedgestyle@gmail.com",
       subject: `New Feature Submission: ${details.stylistName || "No Stylist Name"}`,
       text,
-      attachments,
     });
 
     const supabase = await createClient();

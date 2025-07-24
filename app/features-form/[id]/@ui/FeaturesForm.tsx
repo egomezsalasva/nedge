@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 import ShootDetailsForm from "./ShootDetailsForm";
 import TagsForm from "./TagsForm";
 import GarmentsForm from "./GarmentsForm";
@@ -9,6 +10,21 @@ import { SubmissionType } from "../AccessCodePage";
 import styles from "./FeaturesForm.module.css";
 
 type StatusType = "idle" | "loading" | "success" | "error";
+
+function formatFileName(
+  stylistName: string,
+  shootName: string,
+  originalName: string,
+) {
+  const clean = (str: string) =>
+    str
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9\-]/g, "");
+  const ext = originalName.split(".").pop();
+  return `${clean(stylistName)}-${clean(shootName)}-${Date.now()}.${ext}`;
+}
 
 export default function FeaturesForm({
   submission,
@@ -26,6 +42,34 @@ export default function FeaturesForm({
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [status, setStatus] = useState<StatusType>("idle");
   const [formError, setFormError] = useState<string | null>(null);
+
+  async function uploadFiles(
+    files: FileList,
+    stylistName: string,
+    shootName: string,
+  ) {
+    const supabase = createClient();
+    const uploadedPaths: string[] = [];
+    for (const file of Array.from(files)) {
+      const fileName = formatFileName(stylistName, shootName, file.name);
+      const filePath = `features-form/${fileName}`;
+      console.log("Uploading:", {
+        filePath,
+        file,
+        size: file.size,
+        type: file.type,
+      });
+      const { error } = await supabase.storage
+        .from("featuresform")
+        .upload(filePath, file, { upsert: true });
+      if (error) {
+        console.error("Supabase upload error:", error);
+        throw error;
+      }
+      uploadedPaths.push(filePath);
+    }
+    return uploadedPaths;
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -58,13 +102,13 @@ export default function FeaturesForm({
       return;
     }
 
-    const MAX_UPLOAD_SIZE = 4 * 1024 * 1024; // 4MB per file
+    const MAX_UPLOAD_SIZE = 50 * 1024 * 1024; // 50MB per file
     const tooLargeFiles = Array.from(files || []).filter(
       (file) => file.size > MAX_UPLOAD_SIZE,
     );
     if (tooLargeFiles.length > 0) {
       setFormError(
-        `The following files are too large (max 4MB):\n` +
+        `The following files are too large (max 50MB):\n` +
           tooLargeFiles
             .map((f) => `${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`)
             .join("\n"),
@@ -73,18 +117,29 @@ export default function FeaturesForm({
     }
 
     setStatus("loading");
-    const formData = new FormData();
-    formData.append("details", JSON.stringify(details));
-    formData.append("tags", JSON.stringify(selectedTags));
-    formData.append("garments", JSON.stringify(garments));
-    Array.from(files).forEach((file) => {
-      formData.append("files", file);
-    });
+    let imagePaths: string[] = [];
+    try {
+      imagePaths = await uploadFiles(
+        files,
+        details.stylistName,
+        details.shootName,
+      );
+    } catch {
+      setStatus("error");
+      setFormError("Failed to upload images.");
+      return;
+    }
 
     try {
       const res = await fetch("/api/features-form", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          details,
+          tags: selectedTags,
+          garments,
+          imagePaths,
+        }),
       });
 
       if (res.ok) {
