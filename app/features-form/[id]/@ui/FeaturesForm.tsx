@@ -38,7 +38,10 @@ export default function FeaturesForm({
     shootName: "",
     city: "",
   });
-  const [garments, setGarments] = useState([{ type: "", name: "", brand: "" }]);
+  const [garments, setGarments] = useState([
+    { type: "", name: "", brand: "" },
+    { type: "", name: "", brand: "" },
+  ]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [status, setStatus] = useState<StatusType>("idle");
   const [formError, setFormError] = useState<string | null>(null);

@@ -10,6 +10,7 @@ type Props = {
 
 export default function TagsForm({ selectedTags, setSelectedTags }: Props) {
   const [input, setInput] = useState("");
+  const [showAllTags, setShowAllTags] = useState(false);
 
   // Filter tags for autocomplete, excluding already selected
   const filtered =
@@ -43,9 +44,14 @@ export default function TagsForm({ selectedTags, setSelectedTags }: Props) {
     }
   }
 
+  const availableTags = stylesData.filter((tag) => !selectedTags.includes(tag));
+
   return (
     <div className={styles.sectionContainer}>
       <h2>Tags</h2>
+      <p>
+        You can either add a custom tag or select from the list of tags below.
+      </p>
       {selectedTags.length > 0 && (
         <div className={styles.selectedTagsList}>
           <span>SELECTED:</span>
@@ -99,6 +105,36 @@ export default function TagsForm({ selectedTags, setSelectedTags }: Props) {
             </button>
           </div>
         )}
+
+      {!input && (
+        <div className={styles.addGarmentBtnContainer}>
+          <button
+            type="button"
+            onClick={() => setShowAllTags(!showAllTags)}
+            className={styles.addGarmentBtn}
+            style={{ marginBottom: "1rem" }}
+          >
+            {showAllTags ? "Hide All Tags" : "View All Tags"}
+          </button>
+        </div>
+      )}
+      {showAllTags && availableTags.length > 0 && (
+        <ul className={styles.tagsList}>
+          {availableTags.map((tag) => (
+            <li
+              key={tag}
+              className={styles.tagItem}
+              onClick={() => {
+                addTag(tag);
+                setShowAllTags(false);
+              }}
+            >
+              {tag}
+              <span>+</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
