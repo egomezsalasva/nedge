@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import styles from "./ImgList.module.css";
 import Image from "next/image";
 import { formatDate } from "@/app/utils";
@@ -24,22 +24,31 @@ const ImgList: FC<ImgListProps> = ({
     }
   };
 
+  const handleImgClick = useCallback(
+    (imgUrl: string) => {
+      if (imgUrl !== currentImg) {
+        setCurrentImg(imgUrl);
+      }
+    },
+    [currentImg, setCurrentImg],
+  );
+
   return (
     <div className={styles.container} data-testid="details">
       <div className={styles.box} data-testid="details-box">
         <div className={styles.boxHeader}>
           <span>{formatDate(publication_date)}</span>
-          <span>{city.name}</span>
+          <span>{city?.name || "Unknown City"}</span>
         </div>
         <h1 className={styles.boxTitle}>
           <div>{name}:</div>
-          <div>{stylist.name}</div>
+          <div>{stylist?.name || "Unknown Stylist"}</div>
         </h1>
         <button className={styles.scrollToDetailsBtn} onClick={scrollToDetails}>
           Scroll To Details
         </button>
       </div>
-      {shoot_images.map((img: { image_url: string }) => (
+      {shoot_images?.map((img: { image_url: string }) => (
         <div
           key={img.image_url}
           className={
@@ -48,7 +57,7 @@ const ImgList: FC<ImgListProps> = ({
               : styles.imgContainer
           }
           data-testid="img"
-          onClick={() => setCurrentImg(img.image_url)}
+          onClick={() => handleImgClick(img.image_url)}
         >
           <Image src={img.image_url} alt="img" fill />
         </div>

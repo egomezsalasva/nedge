@@ -17,14 +17,14 @@ export type ShootType = {
   preview_slug: string;
   publication_date: string;
   city: {
-    name: string;
+    name: string | null;
     country: string;
   };
   stylist: {
     name: string;
     slug: string;
     description: string;
-    instagram_url: string;
+    instagram_url: string | null;
   };
   shoot_style_tags: {
     name: string;
