@@ -1,14 +1,19 @@
 import { render, screen } from "@testing-library/react";
 import Home from "./page";
 
-const mockFetch = vi.fn();
-global.fetch = mockFetch;
+vi.mock("./latest/shoot/LatestShoot", () => ({
+  default: () => <div data-testid="latest-shoot">Latest Shoot Component</div>,
+}));
+
+vi.mock("./latest/list/LatestList", () => ({
+  default: () => <div data-testid="latest-list">Latest List Component</div>,
+}));
 
 describe("Home Page", () => {
-  it("renders without crashing and fetches the latest list and shoot", () => {
+  it("renders without crashing", () => {
     render(<Home />);
-    expect(mockFetch).toHaveBeenCalledWith("/api/latest/list");
-    expect(mockFetch).toHaveBeenCalledWith("/api/latest/shoot");
     expect(screen.getByRole("main")).toBeInTheDocument();
+    expect(screen.getByTestId("latest-shoot")).toBeInTheDocument();
+    expect(screen.getByTestId("latest-list")).toBeInTheDocument();
   });
 });

@@ -6,8 +6,13 @@ export default function RemoveBookmarkButton({ id }: { id: number }) {
   const [isPending, startTransition] = useTransition();
 
   const handleRemove = async () => {
-    await fetch(`/api/account/bookmarks/${id}`, { method: "DELETE" });
-    window.location.reload();
+    try {
+      await fetch(`/api/account/bookmarks/${id}`, { method: "DELETE" });
+    } catch (error) {
+      console.error("Failed to remove bookmark:", error);
+    } finally {
+      window.location.reload();
+    }
   };
 
   return (

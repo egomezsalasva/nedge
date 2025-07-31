@@ -13,12 +13,20 @@ const ForgotPasswordForm = () => {
   const handleSubmit = async (formData: FormData) => {
     setMessage("");
     startTransition(async () => {
-      const result = await forgotPasswordAction(formData);
-      if (result?.error) {
-        setMessage(result.error);
-      } else {
-        setMessage("A password reset link has been sent to your email.");
-        setEmail("");
+      try {
+        const result = await forgotPasswordAction(formData);
+        if (result?.error) {
+          setMessage(result.error);
+        } else {
+          setMessage("A password reset link has been sent to your email.");
+          setEmail("");
+        }
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred";
+        setMessage(errorMessage);
       }
     });
   };

@@ -20,15 +20,20 @@ export default function AccountMyWardrobe() {
 
   useEffect(() => {
     const fetchWardrobe = async () => {
-      const res = await fetch("/api/account/my-wardrobe");
-      if (!res.ok) {
+      try {
+        const res = await fetch("/api/account/my-wardrobe");
+        if (!res.ok) {
+          setWardrobe([]);
+          setLoading(false);
+          return;
+        }
+        const { wardrobe } = await res.json();
+        setWardrobe(wardrobe || []);
+        setLoading(false);
+      } catch {
         setWardrobe([]);
         setLoading(false);
-        return;
       }
-      const { wardrobe } = await res.json();
-      setWardrobe(wardrobe || []);
-      setLoading(false);
     };
 
     fetchWardrobe();

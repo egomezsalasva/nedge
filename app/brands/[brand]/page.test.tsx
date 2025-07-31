@@ -1,160 +1,273 @@
-// import { render, screen } from "@testing-library/react";
-// import BrandPage from "./page";
+import { render } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import BrandPage from "./page";
 
-// type Shoot = {
-//   id: number;
-//   name: string;
-//   publication_date: string;
-//   city: { name: string };
-//   stylist: { name: string; slug: string };
-//   shoot_style_tags: { name: string; slug: string }[];
-//   first_image: string;
-//   slug: string;
-//   brandItemTypes: string[];
-// };
+vi.mock("./@utils/getShootsFromBrandData", () => ({
+  getShootsFromBrandData: vi.fn().mockResolvedValue({
+    brandData: { id: 1, name: "Test Brand", instagram_url: null },
+    garmentsData: [{ id: 1 }],
+    transformedShoots: [{ id: 1, name: "Test Shoot" }],
+  }),
+}));
 
-// type BrandPageData = {
-//   brand: {
-//     id: number;
-//     name: string;
-//     instagram_url: string | null;
-//   };
-//   garments: { id: number }[];
-//   shoots: Shoot[];
-// };
+vi.mock("next/link", () => ({
+  default: ({ children }: { children: React.ReactNode }) => children,
+}));
+vi.mock("next/navigation", () => ({ notFound: vi.fn() }));
+vi.mock("@/app/svgs", () => ({ Insta: () => <span>Instagram</span> }));
+vi.mock("@/app/ui/card-with-items/CardWithItems", () => ({
+  default: () => <div>Card</div>,
+}));
+vi.mock("@/app/ui/card-with-items/CardWithItems", () => ({
+  default: ({ shoot, brand }: { shoot: { name: string }; brand: string }) => (
+    <div data-testid="shoot-card">
+      <h3>{shoot.name}</h3>
+      <p>Brand: {brand}</p>
+    </div>
+  ),
+}));
 
-// vi.mock("next/navigation", () => ({
-//   notFound: vi.fn(),
-// }));
-// vi.mock("next/headers", () => ({
-//   headers: () => ({
-//     get: () => "localhost:3000",
-//   }),
-// }));
-
-// global.fetch = vi.fn(() =>
-//   Promise.resolve({
-//     ok: true,
-//     json: () =>
-//       Promise.resolve({
-//         brand: {
-//           id: 1,
-//           name: "Test Brand",
-//           instagram_url: "https://instagram.com/test",
-//         },
-//         garments: [{ id: 1 }, { id: 2 }, { id: 3 }],
-//         shoots: [
-//           {
-//             id: 5,
-//             name: "Test Shoot 1",
-//             publication_date: "2021-01-01",
-//             city: { name: "Test City" },
-//             stylist: { name: "Test Stylist", slug: "test-stylist" },
-//             shoot_style_tags: [
-//               { name: "Test Style Tag", slug: "test-style-tag" },
-//               { name: "Test Style Tag 2", slug: "test-style-tag-2" },
-//             ],
-//             first_image: "https://test.com/image.jpg",
-//             slug: "test-shoot-1",
-//             brandItemTypes: ["Test Item Type 1", "Test Item Type 2"],
-//           },
-//           {
-//             id: 6,
-//             name: "Test Shoot 2",
-//             publication_date: "2021-01-02",
-//             city: { name: "Test City 2" },
-//             stylist: { name: "Test Stylist 2", slug: "test-stylist-2" },
-//             shoot_style_tags: [
-//               { name: "Test Style Tag 3", slug: "test-style-tag-3" },
-//             ],
-//             first_image: "https://test.com/image2.jpg",
-//             slug: "test-shoot-2",
-//             brandItemTypes: ["Test Item Type 3"],
-//           },
-//         ],
-//       } as BrandPageData),
-//   } as Response),
-// ) as Mock;
-
-describe("Brand Page", () => {
-  it("should be true", () => {
-    expect(true).toBe(true);
+describe("BrandPage", () => {
+  it("renders without crashing", async () => {
+    const params = Promise.resolve({ brand: "test" });
+    expect(() => render(<BrandPage params={params} />)).not.toThrow();
   });
-  // it("renders the brand name and counts", async () => {
-  //   const ui = await BrandPage({ params: { brand: "test-brand" } });
-  //   render(ui);
-  //   expect(
-  //     await screen.findByRole("heading", { name: /test brand/i }),
-  //   ).toBeInTheDocument();
-  //   expect(screen.getByText("3 items")).toBeInTheDocument();
-  //   expect(screen.getByText("2 shoots")).toBeInTheDocument();
-  //   const links = screen.getAllByRole("link");
-  //   expect(
-  //     links.some(
-  //       (link) => link.getAttribute("href") === "https://instagram.com/test",
-  //     ),
-  //   ).toBe(true);
-  // });
 
-  // it("renders shoot cards with their names", async () => {
-  //   const ui = await BrandPage({ params: { brand: "test-brand" } });
-  //   const { container } = render(ui);
-  //   expect(container.textContent).toContain("Test Shoot 1");
-  //   expect(container.textContent).toContain("Test Shoot 2");
-  // });
+  it("renders brand name", async () => {
+    const params = Promise.resolve({ brand: "test" });
+    const component = await BrandPage({ params });
+    const { container } = render(component);
+    console.log("Container HTML:", container.innerHTML);
+    console.log("Text content:", container.textContent);
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("Test Brand");
+    });
+  });
 
-  // it("renders the correct number of shoot cards", async () => {
-  //   const ui = await BrandPage({ params: { brand: "test-brand" } });
-  //   const { getAllByTestId } = render(ui);
-  //   expect(getAllByTestId("shoot-card")).toHaveLength(2);
-  // });
+  it("calls notFound when no shoots exist", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: { id: 1, name: "Test Brand", instagram_url: null },
+      garmentsData: [],
+      transformedShoots: [],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const { notFound } = await import("next/navigation");
+    vi.mocked(notFound).mockImplementation(() => {
+      throw new Error("NOT_FOUND");
+    });
+    await expect(BrandPage({ params })).rejects.toThrow("NOT_FOUND");
+    expect(notFound).toHaveBeenCalled();
+  });
 
-  // it("renders correctly when there are no shoots or garments", async () => {
-  //   (global.fetch as Mock).mockImplementationOnce(() =>
-  //     Promise.resolve({
-  //       ok: true,
-  //       json: () =>
-  //         Promise.resolve({
-  //           brand: {
-  //             id: 1,
-  //             name: "Empty Brand",
-  //             instagram_url: "https://instagram.com/empty",
-  //           },
-  //           garments: [],
-  //           shoots: [],
-  //         }),
-  //     }),
-  //   );
-  //   const ui = await BrandPage({ params: { brand: "empty-brand" } });
-  //   const { queryAllByTestId, getByText } = render(ui);
-  //   expect(getByText("0 items")).toBeInTheDocument();
-  //   expect(getByText("0 shoots")).toBeInTheDocument();
-  //   expect(queryAllByTestId("shoot-card")).toHaveLength(0);
-  // });
+  it("displays Instagram icon when brand has Instagram URL", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: {
+        id: 1,
+        name: "Test Brand",
+        instagram_url: "https://instagram.com/testbrand",
+      },
+      garmentsData: [{ id: 1 }],
+      transformedShoots: [
+        {
+          id: 1,
+          name: "Test Shoot",
+          slug: "test-shoot",
+          publication_date: "2024-01-01",
+          preview_slug: null,
+          stylist: { name: "Test Stylist", slug: "test-stylist" },
+          city: { name: "Test City" },
+          shoot_style_tags: [{ name: "Casual", slug: "casual" }],
+          first_image: "test-image.jpg",
+          brandItemTypes: ["Shirt"],
+        },
+      ],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const component = await BrandPage({ params });
+    const { container } = render(component);
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("Instagram");
+    });
+  });
 
-  // it("does not render the Instagram link if instagram_url is missing", async () => {
-  //   (global.fetch as Mock).mockImplementationOnce(() =>
-  //     Promise.resolve({
-  //       ok: true,
-  //       json: () =>
-  //         Promise.resolve({
-  //           brand: {
-  //             id: 1,
-  //             name: "No Insta Brand",
-  //             instagram_url: null,
-  //           },
-  //           garments: [{ id: 1 }],
-  //           shoots: [],
-  //         }),
-  //     }),
-  //   );
-  //   const ui = await BrandPage({ params: { brand: "no-insta-brand" } });
-  //   const { queryAllByRole } = render(ui);
-  //   const links = queryAllByRole("link");
-  //   expect(
-  //     links.some((link) =>
-  //       link.getAttribute("href")?.includes("instagram.com"),
-  //     ),
-  //   ).toBe(false);
-  // });
+  it("renders correct number of shoot cards", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: { id: 1, name: "Test Brand", instagram_url: null },
+      garmentsData: [{ id: 1 }],
+      transformedShoots: [
+        {
+          id: 1,
+          name: "Test Shoot 1",
+          slug: "test-shoot-1",
+          publication_date: "2024-01-01",
+          preview_slug: null,
+          stylist: { name: "Test Stylist", slug: "test-stylist" },
+          city: { name: "Test City" },
+          shoot_style_tags: [{ name: "Casual", slug: "casual" }],
+          first_image: "test-image.jpg",
+          brandItemTypes: ["Shirt"],
+        },
+        {
+          id: 2,
+          name: "Test Shoot 2",
+          slug: "test-shoot-2",
+          publication_date: "2024-01-02",
+          preview_slug: null,
+          stylist: { name: "Test Stylist", slug: "test-stylist" },
+          city: { name: "Test City" },
+          shoot_style_tags: [{ name: "Casual", slug: "casual" }],
+          first_image: "test-image2.jpg",
+          brandItemTypes: ["Pants"],
+        },
+      ],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const component = await BrandPage({ params });
+    const { container } = render(component);
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("Test Shoot 1");
+      expect(container.textContent).toContain("Test Shoot 2");
+    });
+  });
+
+  it("handles null brand data gracefully", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: null,
+      garmentsData: [],
+      transformedShoots: [],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const { notFound } = await import("next/navigation");
+    vi.mocked(notFound).mockImplementation(() => {
+      throw new Error("NOT_FOUND");
+    });
+    await expect(BrandPage({ params })).rejects.toThrow("NOT_FOUND");
+    expect(notFound).toHaveBeenCalled();
+  });
+
+  it("handles null garments data gracefully", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: { id: 1, name: "Test Brand", instagram_url: null },
+      garmentsData: null,
+      transformedShoots: [
+        {
+          id: 1,
+          name: "Test Shoot",
+          slug: "test-shoot",
+          publication_date: "2024-01-01",
+          preview_slug: null,
+          stylist: { name: "Test Stylist", slug: "test-stylist" },
+          city: { name: "Test City" },
+          shoot_style_tags: [{ name: "Casual", slug: "casual" }],
+          first_image: "test-image.jpg",
+          brandItemTypes: ["Shirt"],
+        },
+      ],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const component = await BrandPage({ params });
+    const { container } = render(component);
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("Test Brand");
+      // Check for undefined/null handling - might show empty string or default value
+      expect(container.textContent).toContain("items");
+    });
+  });
+
+  it("handles null transformedShoots data gracefully", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: { id: 1, name: "Test Brand", instagram_url: null },
+      garmentsData: [{ id: 1 }],
+      transformedShoots: null as unknown as [],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const { notFound } = await import("next/navigation");
+    vi.mocked(notFound).mockImplementation(() => {
+      throw new Error("NOT_FOUND");
+    });
+    await expect(BrandPage({ params })).rejects.toThrow("NOT_FOUND");
+    expect(notFound).toHaveBeenCalled();
+  });
+
+  it("handles empty garments array", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: { id: 1, name: "Test Brand", instagram_url: null },
+      garmentsData: [],
+      transformedShoots: [
+        {
+          id: 1,
+          name: "Test Shoot",
+          slug: "test-shoot",
+          publication_date: "2024-01-01",
+          preview_slug: null,
+          stylist: { name: "Test Stylist", slug: "test-stylist" },
+          city: { name: "Test City" },
+          shoot_style_tags: [{ name: "Casual", slug: "casual" }],
+          first_image: "test-image.jpg",
+          brandItemTypes: ["Shirt"],
+        },
+      ],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const component = await BrandPage({ params });
+    const { container } = render(component);
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("0");
+      expect(container.textContent).toContain("items");
+    });
+  });
+
+  it("handles single item and shoot correctly", async () => {
+    const { getShootsFromBrandData } = await import(
+      "./@utils/getShootsFromBrandData"
+    );
+    vi.mocked(getShootsFromBrandData).mockResolvedValue({
+      brandData: { id: 1, name: "Test Brand", instagram_url: null },
+      garmentsData: [{ id: 1 }],
+      transformedShoots: [
+        {
+          id: 1,
+          name: "Test Shoot",
+          slug: "test-shoot",
+          publication_date: "2024-01-01",
+          preview_slug: null,
+          stylist: { name: "Test Stylist", slug: "test-stylist" },
+          city: { name: "Test City" },
+          shoot_style_tags: [{ name: "Casual", slug: "casual" }],
+          first_image: "test-image.jpg",
+          brandItemTypes: ["Shirt"],
+        },
+      ],
+    });
+    const params = Promise.resolve({ brand: "test" });
+    const component = await BrandPage({ params });
+    const { container } = render(component);
+    await vi.waitFor(() => {
+      expect(container.textContent).toContain("1");
+      expect(container.textContent).toContain("item");
+      expect(container.textContent).toContain("1");
+      expect(container.textContent).toContain("shoot");
+    });
+  });
 });

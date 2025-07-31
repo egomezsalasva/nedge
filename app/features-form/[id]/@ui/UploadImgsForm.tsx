@@ -38,6 +38,13 @@ export default function UploadImgsForm({
     inputRef.current?.click();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      inputRef.current?.click();
+    }
+  };
+
   return (
     <div className={styles.sectionContainer}>
       <h2>Upload images</h2>
@@ -54,7 +61,11 @@ export default function UploadImgsForm({
         </div>
         <div className={styles.visible_mobile}>UPLOAD 3 TO 5 IMAGES</div>
         <div className={styles.visible_desktop}>or</div>
-        <button onClick={handleButtonClick} className={styles.addGarmentBtn}>
+        <button
+          onClick={handleButtonClick}
+          onKeyDown={handleKeyDown}
+          className={styles.addGarmentBtn}
+        >
           Click to Browse
         </button>
         <input

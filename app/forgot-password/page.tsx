@@ -3,7 +3,12 @@ import { checkAuthAction } from "./actions";
 import styles from "./page.module.css";
 
 const ResetPasswordPage = async () => {
-  await checkAuthAction();
+  try {
+    await checkAuthAction();
+  } catch (error) {
+    console.error("Auth check failed:", error);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
