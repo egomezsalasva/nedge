@@ -1,11 +1,11 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useEffect } from "react";
 import Link from "next/link";
 import { SlideshowIndicators } from "../";
 import { formatDate } from "@/app/utils";
 import styles from "./Details.module.css";
 
-type TransformedShootType = {
+export type TransformedShootType = {
   name: string;
   slug: string;
   publication_date: string;
@@ -18,10 +18,15 @@ type TransformedShootType = {
 
 export type DetailsProps = {
   shootData: TransformedShootType;
+  activeImgIndex: number;
+  setActiveImgIndex: (index: number) => void;
 };
 
-const Details: FC<DetailsProps> = ({ shootData }) => {
-  const [activeImgIndex, setActiveImgIndex] = useState(0);
+const Details: FC<DetailsProps> = ({
+  shootData,
+  activeImgIndex,
+  setActiveImgIndex,
+}) => {
   const {
     publication_date,
     city,
@@ -32,6 +37,13 @@ const Details: FC<DetailsProps> = ({ shootData }) => {
     description,
     shoot_images,
   } = shootData;
+
+  useEffect(() => {
+    console.log(
+      "shoot_images",
+      shoot_images?.map((img) => img.image_url),
+    );
+  }, [shoot_images]);
 
   return (
     <div className={styles.container} data-testid="details">
