@@ -33,13 +33,15 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
       <div className={styles.stylistContainer}>
         <div className={styles.stylistHeader}>
           <h2>{stylist.name}</h2>
-          <Link
-            href={stylist.instagram_url}
-            target="_blank"
-            className={styles.instaLink}
-          >
-            <Insta />
-          </Link>
+          {stylist.instagram_url && (
+            <Link
+              href={stylist.instagram_url}
+              target="_blank"
+              className={styles.instaLink}
+            >
+              <Insta />
+            </Link>
+          )}
         </div>
         {stylist.description && (
           <div className={styles.stylistDescriptionContainer}>
@@ -51,13 +53,14 @@ const ShootDetails: FC<ShootDetailsProps> = ({ shootData }) => {
         <h2>{name}</h2>
         <ul>
           {shoot_style_tags.map((tag: { name: string; slug: string }) => (
-            <Link
-              href={{ pathname: "/explore", query: { substyle: tag.slug } }}
-              key={tag.slug}
-              className={`tag`}
-            >
-              {tag.name}
-            </Link>
+            <li key={tag.slug}>
+              <Link
+                href={{ pathname: "/explore", query: { substyle: tag.slug } }}
+                className={`tag`}
+              >
+                {tag.name}
+              </Link>
+            </li>
           ))}
         </ul>
         <p>{description}</p>

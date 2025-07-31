@@ -32,7 +32,7 @@ export async function getLatestShootsListData(): Promise<CardType[]> {
     data: RawSupabaseShoot[] | null;
   };
 
-  if (!shootsList) {
+  if (!shootsList || !Array.isArray(shootsList)) {
     return [];
   }
 
@@ -43,8 +43,8 @@ export async function getLatestShootsListData(): Promise<CardType[]> {
         ...shootWithoutImages,
         city: { name: shoot.city?.name },
         shoot_style_tags: shoot.shoot_style_tags?.map((tag) => ({
-          name: tag.style_tags.name,
-          slug: tag.style_tags.slug,
+          name: tag.style_tags?.name,
+          slug: tag.style_tags?.slug,
         })),
         first_image: shoot_images?.[0]?.image_url || "",
       };
