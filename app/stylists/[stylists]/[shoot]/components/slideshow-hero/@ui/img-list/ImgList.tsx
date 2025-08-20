@@ -1,8 +1,10 @@
+"use client";
 import { FC, useCallback } from "react";
 import styles from "./ImgList.module.css";
 import Image from "next/image";
 import { formatDate } from "@/app/utils";
 import { ShootType } from "@/app/types";
+import posthog from "posthog-js";
 
 type ImgListProps = {
   shootData: ShootType;
@@ -18,6 +20,7 @@ const ImgList: FC<ImgListProps> = ({
   const { shoot_images, publication_date, city, stylist, name } = shootData;
 
   const scrollToDetails = () => {
+    posthog.capture("my event", { property: "value" });
     const detailsElement = document.getElementById("info");
     if (detailsElement) {
       detailsElement.scrollIntoView({ behavior: "smooth" });
