@@ -125,7 +125,10 @@ describe("UploadImgsForm", () => {
     });
     const fileInput = browseButton.nextElementSibling as HTMLInputElement;
     expect(fileInput).toHaveAttribute("type", "file");
-    expect(fileInput).toHaveAttribute("accept", "image/*");
+    expect(fileInput).toHaveAttribute(
+      "accept",
+      ".png,.jpg,.jpeg,image/png,image/jpeg",
+    );
     expect(fileInput).toHaveAttribute("multiple");
     expect(fileInput).toHaveStyle("display: none");
   });
@@ -297,7 +300,10 @@ describe("UploadImgsForm", () => {
       name: /click to browse/i,
     });
     const fileInput = browseButton.nextElementSibling as HTMLInputElement;
-    expect(fileInput).toHaveAttribute("accept", "image/*");
+    expect(fileInput).toHaveAttribute(
+      "accept",
+      ".png,.jpg,.jpeg,image/png,image/jpeg",
+    );
   });
 
   it("handles invalid file types gracefully", () => {

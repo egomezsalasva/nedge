@@ -49,6 +49,14 @@ export default function UploadImgsForm({
     <div className={styles.sectionContainer}>
       <h2>Upload images</h2>
       <p>Upload between 3 and 5 images wearing the same outfit.</p>
+      <p>
+        Please AVOID outfits where you do not have referance to the garments
+        since we require this information for the garments. Garmets which we
+        tend to get no referance for are thrift items, local store items, mass
+        produced items with inaccurate garment names (e.g. SHEIN, Amazon, etc.).
+        If you do want to include these items please make sure you have the
+        correct garment name, link online and brand name.
+      </p>
       <div
         className={`${styles.customFileLabel} ${dragActive ? styles.dragActive : ""}`}
         onDragEnter={handleDrag}
@@ -71,9 +79,20 @@ export default function UploadImgsForm({
         <input
           ref={inputRef}
           type="file"
-          accept="image/*"
+          accept=".png,.jpg,.jpeg,image/png,image/jpeg"
           multiple
-          onChange={(e) => setFiles(e.target.files)}
+          onChange={(e) => {
+            if (e.target.files) {
+              if (e.target.files.length > 5) {
+                alert("Please select maximum 5 files");
+                e.target.value = "";
+                return;
+              }
+              setFiles(e.target.files);
+            } else {
+              setFiles(null);
+            }
+          }}
           className={styles.fileInput}
           style={{ display: "none" }}
         />
