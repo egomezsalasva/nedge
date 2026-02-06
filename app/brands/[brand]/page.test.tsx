@@ -45,9 +45,8 @@ describe("BrandPage", () => {
   });
 
   it("calls notFound when no shoots exist", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: { id: 1, name: "Test Brand", instagram_url: null },
       garmentsData: [],
@@ -63,9 +62,8 @@ describe("BrandPage", () => {
   });
 
   it("displays Instagram icon when brand has Instagram URL", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: {
         id: 1,
@@ -97,9 +95,8 @@ describe("BrandPage", () => {
   });
 
   it("renders correct number of shoot cards", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: { id: 1, name: "Test Brand", instagram_url: null },
       garmentsData: [{ id: 1 }],
@@ -140,9 +137,8 @@ describe("BrandPage", () => {
   });
 
   it("handles null brand data gracefully", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: null,
       garmentsData: [],
@@ -158,9 +154,8 @@ describe("BrandPage", () => {
   });
 
   it("handles null garments data gracefully", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: { id: 1, name: "Test Brand", instagram_url: null },
       garmentsData: null,
@@ -190,9 +185,8 @@ describe("BrandPage", () => {
   });
 
   it("handles null transformedShoots data gracefully", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: { id: 1, name: "Test Brand", instagram_url: null },
       garmentsData: [{ id: 1 }],
@@ -208,9 +202,8 @@ describe("BrandPage", () => {
   });
 
   it("handles empty garments array", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: { id: 1, name: "Test Brand", instagram_url: null },
       garmentsData: [],
@@ -239,9 +232,8 @@ describe("BrandPage", () => {
   });
 
   it("handles single item and shoot correctly", async () => {
-    const { getShootsFromBrandData } = await import(
-      "./@utils/getShootsFromBrandData"
-    );
+    const { getShootsFromBrandData } =
+      await import("./@utils/getShootsFromBrandData");
     vi.mocked(getShootsFromBrandData).mockResolvedValue({
       brandData: { id: 1, name: "Test Brand", instagram_url: null },
       garmentsData: [{ id: 1 }],

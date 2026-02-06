@@ -52,7 +52,9 @@ const StyleShootsList = ({ subStyle }: { subStyle: string }) => {
         <div data-testid="no-shoots">No shoots found.</div>
       )}
       <div className={styles.cardsContainer} data-testid="shoot-cards-list">
-        {shoots?.map((shoot) => <Card key={shoot.slug} shoot={shoot} />)}
+        {shoots?.map((shoot) => (
+          <Card key={shoot.slug} shoot={shoot} />
+        ))}
       </div>
     </div>
   );

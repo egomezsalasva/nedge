@@ -70,9 +70,8 @@ const mockApiResponse = [
 describe("Latest List Component", () => {
   beforeEach(async () => {
     vi.clearAllMocks();
-    const { getLatestShootsListData } = await import(
-      "./@utils/getLatestShootsListData"
-    );
+    const { getLatestShootsListData } =
+      await import("./@utils/getLatestShootsListData");
     vi.mocked(getLatestShootsListData).mockResolvedValue(mockApiResponse);
   });
 
@@ -102,17 +101,15 @@ describe("Latest List Component", () => {
     it("calls getLatestShootsListData function", async () => {
       render(<LatestList />);
       await waitFor(async () => {
-        const { getLatestShootsListData } = await import(
-          "./@utils/getLatestShootsListData"
-        );
+        const { getLatestShootsListData } =
+          await import("./@utils/getLatestShootsListData");
         expect(getLatestShootsListData).toHaveBeenCalled();
       });
     });
 
     it("shows loading state during data fetch", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       let resolvePromise: (value: CardType[]) => void;
       const promise = new Promise<CardType[]>((resolve) => {
         resolvePromise = resolve;
@@ -129,9 +126,8 @@ describe("Latest List Component", () => {
     });
 
     it("maintains loading state until data resolves", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       let resolvePromise: (value: CardType[]) => void;
       const promise = new Promise<CardType[]>((resolve) => {
         resolvePromise = resolve;
@@ -202,9 +198,8 @@ describe("Latest List Component", () => {
 
   describe("Empty States", () => {
     it("handles empty API response", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       vi.mocked(getLatestShootsListData).mockResolvedValue([]);
       render(<LatestList />);
       await waitFor(() => {
@@ -215,9 +210,8 @@ describe("Latest List Component", () => {
     });
 
     it("handles single shoot in response", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       vi.mocked(getLatestShootsListData).mockResolvedValue([
         mockApiResponse[0],
       ]);
@@ -230,9 +224,8 @@ describe("Latest List Component", () => {
 
   describe("Error Handling", () => {
     it("handles error state when API call fails", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       vi.mocked(getLatestShootsListData).mockRejectedValue(
         new Error("Network error"),
       );
@@ -247,9 +240,8 @@ describe("Latest List Component", () => {
     });
 
     it("handles retry button click", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       vi.mocked(getLatestShootsListData).mockRejectedValue(
         new Error("Network error"),
       );
@@ -267,9 +259,8 @@ describe("Latest List Component", () => {
     });
 
     it("handles undefined error gracefully", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       vi.mocked(getLatestShootsListData).mockRejectedValue(undefined);
       render(<LatestList />);
       await waitFor(() => {
@@ -283,9 +274,8 @@ describe("Latest List Component", () => {
 
   describe("Edge Cases", () => {
     it("handles shoots with missing optional fields", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       const incompleteShoot = {
         ...mockApiResponse[0],
         shoot_style_tags: [],
@@ -330,9 +320,8 @@ describe("Latest List Component", () => {
 
   describe("Performance", () => {
     it("does not re-fetch data on re-render", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       const { rerender } = render(<LatestList />);
       await waitFor(() => {
         expect(getLatestShootsListData).toHaveBeenCalledTimes(1);
@@ -346,9 +335,8 @@ describe("Latest List Component", () => {
 
   describe("Data Validation", () => {
     it("handles malformed date strings", async () => {
-      const { getLatestShootsListData } = await import(
-        "./@utils/getLatestShootsListData"
-      );
+      const { getLatestShootsListData } =
+        await import("./@utils/getLatestShootsListData");
       const malformedData = [
         {
           ...mockApiResponse[0],
