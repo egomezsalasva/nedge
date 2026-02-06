@@ -2,6 +2,8 @@ import ForgotPasswordForm from "./ForgotPasswordForm";
 import { checkAuthAction } from "./actions";
 import styles from "./page.module.css";
 
+export const dynamic = "force-dynamic";
+
 const ResetPasswordPage = async () => {
   try {
     await checkAuthAction();
