@@ -39,7 +39,7 @@ describe("FormPage Component", () => {
   it("renders explanation about filling out the form", () => {
     render(<FormPage submission={mockSubmission} />);
     expect(
-      screen.getByText(/Please fill out the form below/),
+      screen.getByText(/Please complete the form below/),
     ).toBeInTheDocument();
     expect(screen.getByText(/We will review the form/)).toBeInTheDocument();
   });
@@ -146,7 +146,7 @@ describe("FormPage Component", () => {
   it("renders FeaturesForm with correct submission prop", () => {
     render(<FormPage submission={mockSubmission} />);
     expect(
-      screen.getByText(/Please fill out the form below/),
+      screen.getByText(/Please complete the form below/),
     ).toBeInTheDocument();
     expect(screen.getByText(/Hey there John Doe/)).toBeInTheDocument();
   });

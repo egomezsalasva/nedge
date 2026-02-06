@@ -33,7 +33,7 @@ describe("AccessCodePage Component", () => {
     expect(screen.getByText("Hi John Doe")).toBeInTheDocument();
     expect(
       screen.getByText(
-        /You have recieved this form because a member of Nedge has contacted you to be featured on Nedge./,
+        /You have received this form because a member of Nedge has contacted you to feature on Nedge./,
       ),
     ).toBeInTheDocument();
     expect(
@@ -70,7 +70,7 @@ describe("AccessCodePage Component", () => {
     });
     expect(screen.getByText(/Hey there John Doe/)).toBeInTheDocument();
     expect(
-      screen.getByText(/Please fill out the form below/),
+      screen.getByText(/Please complete the form below/),
     ).toBeInTheDocument();
     expect(screen.queryByText("Enter Access Code")).not.toBeInTheDocument();
   });

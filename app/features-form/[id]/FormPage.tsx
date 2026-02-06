@@ -11,13 +11,13 @@ const FormPage = ({ submission }: { submission: SubmissionType }) => {
       <h1>Get Featured on Nedge</h1>
       <p>
         Hey there {submission.name}, you have recieved this form because a
-        memeber of Nedge has contacted you to be featured on Nedge.
+        member of the team has contacted you to feature on Nedge.
       </p>
       <p>
-        Please fill out the form below which has the required information Nedge
-        needs to be able to feature you on the website. We will review the form
-        and upload it as soon as possible if everything is in order. We always
-        try to send a preview to you before we upload it.
+        Please complete the form below which contains all the information Nedge
+        requires in order to feature you on the website. We will review the form
+        and upload it as soon as possible. We will try to send you a preview
+        before uploading.
       </p>
       <p>
         Read more about the benefits of joining Nedge{" "}

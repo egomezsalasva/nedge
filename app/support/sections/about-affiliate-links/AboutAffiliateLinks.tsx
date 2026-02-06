@@ -7,7 +7,7 @@ const AboutAffiliateLinks = () => {
       <h2>About Affiliate Links</h2>
       <p>
         When you navigate to a shoot done by a stylist, you will see a list of
-        the garments they carefuly picked out for the shoot. Each garment will
+        the garments they carefully picked out for the shoot. Each garment will
         have an affiliate link to purchase that garment. If you purchase through
         this link you help both the stylist of that shoot as well as Nedge.
         <br />

@@ -24,8 +24,8 @@ const AccessCodePage = ({ submission }: { submission: SubmissionType }) => {
       <div className={styles.container}>
         <h1>Hi {submission.name}</h1>
         <p>
-          You have recieved this form because a member of Nedge has contacted
-          you to be featured on Nedge.
+          You have received this form because a member of Nedge has contacted
+          you to feature on Nedge.
         </p>
         <p>Please enter the access code provided to you to continue.</p>
         <AccessForm
