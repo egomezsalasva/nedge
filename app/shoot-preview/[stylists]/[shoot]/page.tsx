@@ -4,7 +4,7 @@ import {
   ShootDetails,
   SlideshowHero,
 } from "@/app/stylists/[stylists]/[shoot]/components";
-import { getShootData } from "@/app/stylists/[stylists]/[shoot]/@utils/getShootData";
+import { getShootData } from "@/app/stylists/[stylists]/[shoot]/(utils)/getShootData";
 import styles from "@/app/stylists/[stylists]/[shoot]/page.module.css";
 
 export default async function Shoot({

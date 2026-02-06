@@ -3,7 +3,7 @@ import Shoot from "./page";
 import { ShootGarmentType, ShootType } from "@/app/types";
 
 // Mock the getShootData function
-vi.mock("@/app/stylists/[stylists]/[shoot]/@utils/getShootData", () => ({
+vi.mock("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData", () => ({
   getShootData: vi.fn(),
 }));
 
@@ -52,7 +52,7 @@ const mockShootData = {
 describe("Shoot", () => {
   it("renders shoot preview page with correct content", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockResolvedValue(mockShootData as ShootType);
     const params = Promise.resolve({
@@ -71,7 +71,7 @@ describe("Shoot", () => {
 
   it("handles notFound when shoot data is null", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockResolvedValue(null);
     const params = Promise.resolve({
@@ -85,7 +85,7 @@ describe("Shoot", () => {
 
   it("handles notFound when preview_slug is missing", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockResolvedValue({
       ...mockShootData,
@@ -102,7 +102,7 @@ describe("Shoot", () => {
 
   it("handles notFound when preview_slug is empty string", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockResolvedValue({
       ...mockShootData,
@@ -119,7 +119,7 @@ describe("Shoot", () => {
 
   it("handles empty garments array", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockResolvedValue({
       ...mockShootData,
@@ -138,7 +138,7 @@ describe("Shoot", () => {
 
   it("handles getShootData errors gracefully", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockRejectedValue(new Error("Database error"));
     const params = Promise.resolve({
@@ -150,7 +150,7 @@ describe("Shoot", () => {
 
   it("handles different parameter combinations", async () => {
     const mockGetShootData = vi.mocked(
-      await import("@/app/stylists/[stylists]/[shoot]/@utils/getShootData"),
+      await import("@/app/stylists/[stylists]/[shoot]/(utils)/getShootData"),
     ).getShootData;
     mockGetShootData.mockResolvedValue(mockShootData as ShootType);
     const params = Promise.resolve({

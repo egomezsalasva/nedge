@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { GarmsList, ShootDetails, SlideshowHero } from "./components";
-import { getShootData } from "./@utils/getShootData";
+import { getShootData } from "./(utils)/getShootData";
 import styles from "./page.module.css";
 
 export default async function Shoot({

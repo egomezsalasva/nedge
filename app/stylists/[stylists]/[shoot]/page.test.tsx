@@ -31,7 +31,7 @@ vi.mock("./components", () => ({
   ),
 }));
 
-vi.mock("./@utils/getShootData", () => ({
+vi.mock("./(utils)/getShootData", () => ({
   getShootData: vi.fn(),
 }));
 
@@ -78,7 +78,7 @@ describe("Shoot Page Component", () => {
     shootData = mockShootData,
     params = { stylists: "test-stylist", shoot: "test-shoot" },
   ) => {
-    const { getShootData } = await import("./@utils/getShootData");
+    const { getShootData } = await import("./(utils)/getShootData");
     vi.mocked(getShootData).mockResolvedValue(shootData);
 
     const paramsPromise = Promise.resolve(params);
@@ -95,7 +95,7 @@ describe("Shoot Page Component", () => {
       throw new Error("NEXT_NOT_FOUND");
     });
 
-    const { getShootData } = await import("./@utils/getShootData");
+    const { getShootData } = await import("./(utils)/getShootData");
     vi.mocked(getShootData).mockResolvedValue(null);
 
     const params = Promise.resolve({

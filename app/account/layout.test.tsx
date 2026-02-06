@@ -6,13 +6,14 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 vi.mock("next/navigation", () => ({
   redirect: vi.fn(),
+  usePathname: vi.fn(() => "/account/my-account"),
 }));
 
 vi.mock("@/utils/supabase/server", () => ({
   createClient: vi.fn(),
 }));
 
-vi.mock("./@ui/Header", () => ({
+vi.mock("./(ui)/Header", () => ({
   default: () => <div data-testid="account-header">Account Header</div>,
 }));
 
