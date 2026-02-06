@@ -8,6 +8,8 @@ const mockGarments = [
     type: "Boots",
     name: "Tabi Ankle Boots",
     brand: "Maison Margiela",
+    refLink:
+      "https://www.maisonmargiela.com/wx/tabi-ankle-boots-S57WU0153PR058T8013.html",
   },
 ];
 
@@ -45,6 +47,11 @@ describe("GarmentsForm", () => {
     expect(
       screen.getByPlaceholderText("Garment Brand (e.g. Maison Margiela)"),
     ).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText(
+        "Garment Ref Link (e.g. https://www.maisonmargiela.com/wx/tabi-ankle-boots-S57WU0153PR058T8013.html)",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("displays the correct values in input fields", () => {
@@ -54,6 +61,11 @@ describe("GarmentsForm", () => {
     expect(screen.getByDisplayValue("Boots")).toBeInTheDocument();
     expect(screen.getByDisplayValue("Tabi Ankle Boots")).toBeInTheDocument();
     expect(screen.getByDisplayValue("Maison Margiela")).toBeInTheDocument();
+    expect(
+      screen.getByDisplayValue(
+        "https://www.maisonmargiela.com/wx/tabi-ankle-boots-S57WU0153PR058T8013.html",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("renders the Add Another Garment button", () => {
@@ -117,7 +129,12 @@ describe("GarmentsForm", () => {
   it("shows remove button when there are multiple garments", () => {
     const multipleGarments = [
       ...mockGarments,
-      { type: "Hat", name: "Beret", brand: "Minga London" },
+      {
+        type: "Hat",
+        name: "Beret",
+        brand: "Minga London",
+        refLink: "https://www.mingalondon.com/products/black-grandpa-beret",
+      },
     ];
     render(
       <GarmentsForm
@@ -132,7 +149,12 @@ describe("GarmentsForm", () => {
     const user = userEvent.setup();
     const multipleGarments = [
       ...mockGarments,
-      { type: "Hat", name: "Beret", brand: "Minga London" },
+      {
+        type: "Hat",
+        name: "Beret",
+        brand: "Minga London",
+        refLink: "https://www.mingalondon.com/products/black-grandpa-beret",
+      },
     ];
     render(<TestWrapper initialGarments={multipleGarments} />);
     expect(screen.getAllByPlaceholderText(/Garment Type/).length).toBe(2);
@@ -143,9 +165,11 @@ describe("GarmentsForm", () => {
 
   it("renders different placeholders for different garment indices", () => {
     const multipleGarments = [
-      { type: "", name: "", brand: "" },
-      { type: "", name: "", brand: "" },
-      { type: "", name: "", brand: "" },
+      { type: "", name: "", brand: "", refLink: "" },
+      { type: "", name: "", brand: "", refLink: "" },
+      { type: "", name: "", brand: "", refLink: "" },
+      { type: "", name: "", brand: "", refLink: "" },
+      { type: "", name: "", brand: "", refLink: "" },
     ];
     render(
       <GarmentsForm
@@ -171,7 +195,9 @@ describe("GarmentsForm", () => {
     expect(
       screen.getByText(/Add all the garments worn in the shoot/),
     ).toBeInTheDocument();
-    expect(screen.getByText(/Click/)).toBeInTheDocument();
+    const clickElements = screen.getAllByText(/^Click/);
+    expect(clickElements).toHaveLength(2);
+
     expect(screen.getByText('"Add Another Garment"')).toBeInTheDocument();
     expect(
       screen.getByText(/for each garment you want to add/),
@@ -210,7 +236,12 @@ describe("GarmentsForm", () => {
     const user = userEvent.setup();
     const multipleGarments = [
       ...mockGarments,
-      { type: "Hat", name: "Beret", brand: "Minga London" },
+      {
+        type: "Hat",
+        name: "Beret",
+        brand: "Minga London",
+        refLink: "https://www.mingalondon.com/products/black-grandpa-beret",
+      },
     ];
     render(<TestWrapper initialGarments={multipleGarments} />);
     const removeButtons = screen.getAllByText("X");

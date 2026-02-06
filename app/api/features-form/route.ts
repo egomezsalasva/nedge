@@ -7,6 +7,7 @@ type GarmentType = {
   type: string;
   name: string;
   brand: string;
+  refLink: string;
 };
 
 export async function POST(request: Request) {
@@ -58,7 +59,7 @@ export async function POST(request: Request) {
     ? garments
         .map(
           (garment: GarmentType) =>
-            `Type: ${garment.type}\n Name: ${garment.name}\n Brand: ${garment.brand}\n ------------------------------`,
+            `Type: ${garment.type}\n Name: ${garment.name}\n Brand: ${garment.brand}\n Ref Link: ${garment.refLink}\n ------------------------------`,
         )
         .join("\n")
     : "None";

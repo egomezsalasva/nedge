@@ -39,8 +39,11 @@ export default function FeaturesForm({
     city: "",
   });
   const [garments, setGarments] = useState([
-    { type: "", name: "", brand: "" },
-    { type: "", name: "", brand: "" },
+    { type: "", name: "", brand: "", refLink: "" },
+    { type: "", name: "", brand: "", refLink: "" },
+    { type: "", name: "", brand: "", refLink: "" },
+    { type: "", name: "", brand: "", refLink: "" },
+    { type: "", name: "", brand: "", refLink: "" },
   ]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [status, setStatus] = useState<StatusType>("idle");
@@ -98,7 +101,11 @@ export default function FeaturesForm({
       return;
     }
     const incompleteGarment = garments.find(
-      (g) => !g.type.trim() || !g.name.trim() || !g.brand.trim(),
+      (g) =>
+        !g.type.trim() ||
+        !g.name.trim() ||
+        !g.brand.trim() ||
+        !g.refLink.trim(),
     );
     if (incompleteGarment) {
       setFormError("Please fill in all fields for each garment.");
