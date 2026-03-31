@@ -17,7 +17,7 @@ type RawSupabaseShoot = {
     instagram_url: string;
   };
   shoot_style_tags: { style_tags: { name: string; slug: string } }[];
-  shoot_images: { image_url: string }[];
+  shoot_images: { image_url: string; image_order: number }[];
   shoot_garments: {
     garment_id: number;
     garments: {
@@ -43,7 +43,9 @@ const transformShootData = (rawShootData: RawSupabaseShoot): ShootType => {
     shoot_style_tags: rawShootData.shoot_style_tags.map(
       (tag: { style_tags: { name: string; slug: string } }) => tag.style_tags,
     ),
-    shoot_images: rawShootData.shoot_images,
+    shoot_images: rawShootData.shoot_images.sort(
+      (a, b) => a.image_order - b.image_order,
+    ),
     shoot_garments: rawShootData.shoot_garments.map(
       (garment: {
         garments: {
@@ -85,7 +87,7 @@ export async function getShootData(
         stylist:stylists!stylist_id (name, slug, description, instagram_url),
         city:cities!city_id (name),
         shoot_style_tags (style_tags (name, slug)),
-        shoot_images (image_url),
+        shoot_images (image_url, image_order),
         shoot_garments (
           garments!garment_id (
             id,

@@ -32,6 +32,7 @@ export type ShootType = {
   }[];
   shoot_images: {
     image_url: string;
+    image_order: number;
   }[];
   shoot_garments: ShootGarmentType[];
 };
